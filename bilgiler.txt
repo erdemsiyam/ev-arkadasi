@@ -1,0 +1,47 @@
+
+// Yapılacaklar
+UI
+Servis
+bildirim ile haber ver
+
+
+// Özellikler
+Filtre özellikleri
+fiyat
+ilan veren cinsiyet
+aradığı cinsiyet
+kalan kişi sayısı
+yaş ortalaması
+bina yaşı
+bulunduğu kat
+konut türü : daire rezi müstak
+m2
+3+1
+Kalacak kişi için mobilyalı mı
+sigara
+çocuk
+evcil hayvan
+deposito
+aidat
+
+ayrıntı özellikler
+internet
+buzdolabı
+çamaşır mak
+bulaşık mak
+tv
+kalorifer
+soba
+durak
+metro
+kapalı otoparkaçık otopark
+güvenlik
+site
+spor salonu
+asansör
+yüzme havuzu
+
+
+
+
+
