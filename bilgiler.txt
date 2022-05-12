@@ -1,6 +1,10 @@
 
 // Yapılacaklar
 UI
+    Main
+        Map
+            Oluşturulması
+            pinler
 Servis
 bildirim ile haber ver
 
@@ -16,12 +20,13 @@ Filtre özellikleri
 +konut türü : daire rezi müstak
 +m2
 +oda sayısı 3+1
-Kalacak kişi için mobilyalı mı
-sigara
-çocuk
-evcil hayvan
-deposito
-aidat
++mobilyalı
++Kalacak kişi için mobilyalı mı
++sigara
++çocuk
++evcil hayvan
++deposito
++aidat
 
 ayrıntı özellikler
 bulunduğu kat

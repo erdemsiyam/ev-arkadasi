@@ -8,7 +8,7 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
-  RangeValues priceRangeValues = RangeValues(1000, 10000);
+  RangeValues priceValues = RangeValues(1000, 10000);
   RangeValues ownerAgeValues = RangeValues(20, 80);
   int ownerGender = 0; // 1: Male, 2: Famale
   int lookingGender = 0; // 1: Male, 2: Famale, 3: Everyone
@@ -21,6 +21,13 @@ class _FilterPageState extends State<FilterPage> {
   RangeValues roomCountValues = RangeValues(0, 6);
   RangeValues hallCountValues = RangeValues(0, 3);
   RangeValues bathroomCountValues = RangeValues(0, 3);
+  int isFurnished = 0; // 1: Yes, 2: No
+  int isFurnishedToNewPerson = 0; // 1: Yes, 2: No
+  int isSmoke = 0; // 1: Yes, 2: No, 3: Everyone
+  int hasChild = 0; // 1: Yes, 2: No, 3: Everyone
+  int hasPet = 0; // 1: Yes, 2: No, 3: Everyone
+  RangeValues depositValues = RangeValues(0, 10000);
+  RangeValues duesValues = RangeValues(0, 2000);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +41,8 @@ class _FilterPageState extends State<FilterPage> {
             Expanded(
               child: ListView(
                 children: [
+                  _backButton(),
+                  const Divider(),
                   _price(),
                   const Divider(),
                   _ownerGender(),
@@ -52,7 +61,21 @@ class _FilterPageState extends State<FilterPage> {
                   const Divider(),
                   _roomsCount(),
                   const Divider(),
-                  const SizedBox(height: 100),
+                  _isFurnished(),
+                  const Divider(),
+                  _isFurnishedToNewPerson(),
+                  const Divider(),
+                  _smoke(),
+                  const Divider(),
+                  _child(),
+                  const Divider(),
+                  _pet(),
+                  const Divider(),
+                  _deposit(),
+                  const Divider(),
+                  _dues(),
+                  const Divider(),
+                  const SizedBox(height: 150),
                 ],
               ),
             ),
@@ -70,21 +93,33 @@ class _FilterPageState extends State<FilterPage> {
     );
   }
 
+  Widget _backButton() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(Icons.arrow_back_ios_new),
+      ),
+    );
+  }
+
   Widget _price() {
     return ListTile(
       title: const Text("Fiyat"),
       subtitle: RangeSlider(
-        values: priceRangeValues,
+        values: priceValues,
         min: 1000,
         max: 10000,
         divisions: 18,
         labels: RangeLabels(
-          priceRangeValues.start.round().toString(),
-          priceRangeValues.end.round().toString(),
+          priceValues.start.round().toString(),
+          priceValues.end.round().toString(),
         ),
         onChanged: (values) {
           setState(() {
-            priceRangeValues = values;
+            priceValues = values;
           });
         },
       ),
@@ -135,6 +170,10 @@ class _FilterPageState extends State<FilterPage> {
             ),
             onTap: () {
               setState(() {
+                if (ownerGender == 1) {
+                  ownerGender = 0;
+                  return;
+                }
                 ownerGender = 1;
               });
             },
@@ -156,6 +195,10 @@ class _FilterPageState extends State<FilterPage> {
             ),
             onTap: () {
               setState(() {
+                if (ownerGender == 2) {
+                  ownerGender = 0;
+                  return;
+                }
                 ownerGender = 2;
               });
             },
@@ -184,10 +227,14 @@ class _FilterPageState extends State<FilterPage> {
                   (lookingGender == 1) ? Colors.green : Colors.blueAccent,
               elevation: 6.0,
               shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
             ),
             onTap: () {
               setState(() {
+                if (lookingGender == 1) {
+                  lookingGender = 0;
+                  return;
+                }
                 lookingGender = 1;
               });
             },
@@ -205,10 +252,14 @@ class _FilterPageState extends State<FilterPage> {
                   (lookingGender == 2) ? Colors.green : Colors.blueAccent,
               elevation: 6.0,
               shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
             ),
             onTap: () {
               setState(() {
+                if (lookingGender == 2) {
+                  lookingGender = 0;
+                  return;
+                }
                 lookingGender = 2;
               });
             },
@@ -226,10 +277,14 @@ class _FilterPageState extends State<FilterPage> {
                   (lookingGender == 3) ? Colors.green : Colors.blueAccent,
               elevation: 6.0,
               shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
             ),
             onTap: () {
               setState(() {
+                if (lookingGender == 3) {
+                  lookingGender = 0;
+                  return;
+                }
                 lookingGender = 3;
               });
             },
@@ -430,6 +485,427 @@ class _FilterPageState extends State<FilterPage> {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _isFurnished() {
+    return ListTile(
+      title: const Text("Mobilyalı"),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Evet",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor:
+                  (isFurnished == 1) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+            ),
+            onTap: () {
+              setState(() {
+                if (isFurnished == 1) {
+                  isFurnished = 0;
+                  return;
+                }
+                isFurnished = 1;
+              });
+            },
+          ),
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Hayır",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor:
+                  (isFurnished == 2) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+            ),
+            onTap: () {
+              setState(() {
+                if (isFurnished == 2) {
+                  isFurnished = 0;
+                  return;
+                }
+                isFurnished = 2;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _isFurnishedToNewPerson() {
+    return ListTile(
+      title: const Text("Kalacak Kişiye Mobilyalı"),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Evet",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: (isFurnishedToNewPerson == 1)
+                  ? Colors.green
+                  : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+            ),
+            onTap: () {
+              setState(() {
+                if (isFurnishedToNewPerson == 1) {
+                  isFurnishedToNewPerson = 0;
+                  return;
+                }
+                isFurnishedToNewPerson = 1;
+              });
+            },
+          ),
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Hayır",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: (isFurnishedToNewPerson == 2)
+                  ? Colors.green
+                  : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+            ),
+            onTap: () {
+              setState(() {
+                if (isFurnishedToNewPerson == 2) {
+                  isFurnishedToNewPerson = 0;
+                  return;
+                }
+                isFurnishedToNewPerson = 2;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _smoke() {
+    return ListTile(
+      title: const Text("Sigara İçilmesi"),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Evet",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor:
+                  (isSmoke == 1) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            ),
+            onTap: () {
+              setState(() {
+                if (isSmoke == 1) {
+                  isSmoke = 0;
+                  return;
+                }
+                isSmoke = 1;
+              });
+            },
+          ),
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Hayır",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor:
+                  (isSmoke == 2) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            ),
+            onTap: () {
+              setState(() {
+                if (isSmoke == 2) {
+                  isSmoke = 0;
+                  return;
+                }
+                isSmoke = 2;
+              });
+            },
+          ),
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Farketmez",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor:
+                  (isSmoke == 3) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            ),
+            onTap: () {
+              setState(() {
+                if (isSmoke == 3) {
+                  isSmoke = 0;
+                  return;
+                }
+                isSmoke = 3;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _child() {
+    return ListTile(
+      title: const Text("Çocuklu Olması"),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Evet",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor:
+                  (hasChild == 1) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            ),
+            onTap: () {
+              setState(() {
+                if (hasChild == 1) {
+                  hasChild = 0;
+                  return;
+                }
+                hasChild = 1;
+              });
+            },
+          ),
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Hayır",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor:
+                  (hasChild == 2) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            ),
+            onTap: () {
+              setState(() {
+                if (hasChild == 2) {
+                  hasChild = 0;
+                  return;
+                }
+                hasChild = 2;
+              });
+            },
+          ),
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Farketmez",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor:
+                  (hasChild == 3) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            ),
+            onTap: () {
+              setState(() {
+                if (hasChild == 3) {
+                  hasChild = 0;
+                  return;
+                }
+                hasChild = 3;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _pet() {
+    return ListTile(
+      title: const Text("Evcil Hayvan Olması"),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Evet",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: (hasPet == 1) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            ),
+            onTap: () {
+              setState(() {
+                if (hasPet == 1) {
+                  hasPet = 0;
+                  return;
+                }
+                hasPet = 1;
+              });
+            },
+          ),
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Hayır",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: (hasPet == 2) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            ),
+            onTap: () {
+              setState(() {
+                if (hasPet == 2) {
+                  hasPet = 0;
+                  return;
+                }
+                hasPet = 2;
+              });
+            },
+          ),
+          InkWell(
+            child: Chip(
+              label: const Text(
+                "Farketmez",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: (hasPet == 3) ? Colors.green : Colors.blueAccent,
+              elevation: 6.0,
+              shadowColor: Colors.grey[60],
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            ),
+            onTap: () {
+              setState(() {
+                if (hasPet == 3) {
+                  hasPet = 0;
+                  return;
+                }
+                hasPet = 3;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _deposit() {
+    return ListTile(
+      title: const Text("Depozito"),
+      subtitle: RangeSlider(
+        values: depositValues,
+        min: 0,
+        max: 10000,
+        divisions: 20,
+        labels: RangeLabels(
+          depositValues.start.round().toString(),
+          depositValues.end.round().toString(),
+        ),
+        onChanged: (values) {
+          setState(() {
+            depositValues = values;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _dues() {
+    return ListTile(
+      title: const Text("Aidat"),
+      subtitle: RangeSlider(
+        values: duesValues,
+        min: 0,
+        max: 2000,
+        divisions: 20,
+        labels: RangeLabels(
+          duesValues.start.round().toString(),
+          duesValues.end.round().toString(),
+        ),
+        onChanged: (values) {
+          setState(() {
+            duesValues = values;
+          });
+        },
       ),
     );
   }

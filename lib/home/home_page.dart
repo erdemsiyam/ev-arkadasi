@@ -1,3 +1,4 @@
+import 'package:ev_arkadasi/filter/filter_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,7 +21,14 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FilterPage(),
+                ),
+              );
+            },
             tooltip: 'Increment',
             child: const Icon(Icons.sort),
           ),
