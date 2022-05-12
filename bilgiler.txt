@@ -7,16 +7,15 @@ bildirim ile haber ver
 
 // Özellikler
 Filtre özellikleri
-fiyat
-ilan veren cinsiyet
-aradığı cinsiyet
-kalan kişi sayısı
-yaş ortalaması
-bina yaşı
-bulunduğu kat
-konut türü : daire rezi müstak
-m2
-3+1
++fiyat
++ilan veren yaş
++ilan veren cinsiyet
++aradığı cinsiyet
++kalan kişi sayısı
++bina yaşı
++konut türü : daire rezi müstak
++m2
++oda sayısı 3+1
 Kalacak kişi için mobilyalı mı
 sigara
 çocuk
@@ -25,6 +24,7 @@ deposito
 aidat
 
 ayrıntı özellikler
+bulunduğu kat
 internet
 buzdolabı
 çamaşır mak
