@@ -60,12 +60,15 @@ Standart ilan oluşturma bedava olabilir, boostlar falan paralı ?
 
 
 // Sayfa
-Ana Sayfa (Direkt)
++Slash Sayfa
++Login Sayfa (Login değilse, İlan Oluştur Tıklarsa Gider Ancak)
++Register Sayfa (Loginde kullanıcı oluştur derse gider ancak)
+Ana Sayfa (Direkt Bu açılır)
 	Drawer
 	Toggle : Günlük / Kalıcı
 	Map
 	Filter + toggle : Açık / Kapalı
-Login (İlan Oluştur Tıklarsa Gider)
+
 İlan Oluştur
 	(Sırasıyla)
 	Kriterler
