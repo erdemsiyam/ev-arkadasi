@@ -48,5 +48,40 @@ yüzme havuzu
 
 
 
+// Uygulama özelliği
+SMS tel onay
+	kişinin sadece tel ad bilgisini tut, kullanıcı adı yok, sms şifresiyle uygulama girsin
+	log olsun aylarca
+map  sayfasında soru : günlük oda kira / kalıcı oda kirala
+ilan oluşturuken yarıda kalan varsa, o bir yerde taslak olarak kalsın airbnb  gibi
+Standart ilan oluşturma bedava olabilir, boostlar falan paralı ?
+	O bölgede ev arayanlara bildirim gönder + 1 USD gibi
+	Öne çıksın, farklı renkli olsun büyük yazılı olsun + 1 USD gibi
+
+
+// Sayfa
+Ana Sayfa (Direkt)
+	Drawer
+	Toggle : Günlük / Kalıcı
+	Map
+	Filter + toggle : Açık / Kapalı
+Login (İlan Oluştur Tıklarsa Gider)
+İlan Oluştur
+	(Sırasıyla)
+	Kriterler
+	Açıklama
+	Foto
+	Ücret Kesim / hediye kodu
+	
+İlan Düzenle
+	İlan Oluştur ile aynı
+Hesap
+	İlanlarım -> İlan Detay
+	İlan Aktif Etmek
+İlan Detay
+
+
+
+
 
 
