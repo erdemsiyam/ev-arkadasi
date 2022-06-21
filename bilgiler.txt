@@ -1,3 +1,21 @@
+// Neden HomeMate
+Emlak piyasaların pandemi süreci etkisiyle daha önce görülmemiş değerlere çıkmakta, çoğalan insan nüfusunun oluşturduğu talep,
+inşaat firmaların gerek iş gücü gerek hammade(emtia: emtia piyasasının aşırı derecede yükseleceği ön görülmektedir) imkanlarının azalması fiyatta ciddi artışlara sebep olmaktadır,
+bunun yanında uygun arazinin olmaması ya da pahalı olması veya merkezi yerleşkelerden uzak olması, merkezi yerlerdeki gereken iş gücü ihtiyacını karşılayamayacaktır,
+bu sebeple özellikle metropoller başta olmak üzere çoğu merkezi şehirlerde gerekli iş gücünün tedarik edilemesi öncelikle mikro ekonomik ardından makro ekonomik problemlere yol açacaktır.
+iş gücünün gerekli yerlerde konuşlanması için alternatif çözümlere başvurulması, başta merkezi siyasal kurumlar olmak üzere kâr amacı güden tüm kuruluşların bu konuda farkındalık kazanması nihai gerekliliktir.
+Yalnız yaşamanın açtığı ekonomik ve psikolojik problemleri ve sosyallik...
+
+
+
+// Pazar Stratejisi
+Çeşitli sosyal medya platformlarında  ev paylaşım gruplarında ücretsiz kodların dağıtılması (Dünya Genelinde)
+
+// Diğerlerinden Farkı - İleri Hedefler
+İşaretlenen konumlar için, yeni ilanın bildirim ile haber verilmesi
+Work&Travel ve Dil okulu öğrencilerine yönelik özel gruplamalar ve raporlama
+Dil öğrencileri için hızlı değişim programı (her hafta farklı bir yerde zincir şekilde konaklama) (Travel uygulamamızla birleştirilebilir?)
+Ev sahiplerinin belirleyeceği (boş günler için) konaklama seçeneği sunulması - Satılana/Kiralanana kadar seçenekler
 
 // Yapılacaklar
 UI
@@ -6,7 +24,7 @@ UI
             Oluşturulması
             pinler
 Servis
-bildirim ile haber ver
+
 
 
 // Özellikler
@@ -65,26 +83,32 @@ Standart ilan oluşturma bedava olabilir, boostlar falan paralı ?
 +Register Sayfa (Loginde kullanıcı oluştur derse gider ancak)
 Ana Sayfa (Direkt Bu açılır)
 	Drawer
+		Kullanıcı Resmi Adı Tel
+		İlanlarım
+		Mesajlarım - Kapalı
 	Toggle : Günlük / Kalıcı
 	Map
-	Filter + toggle : Açık / Kapalı
+		3 Tip Node : Normal,  Favori, Öne Çıkan
+	Filter + filter toggle : Açık / Kapalı
+		Çeşitli seçenekler
 
 İlan Oluştur
 	(Sırasıyla)
 	Kriterler
 	Açıklama
 	Foto
-	Ücret Kesim / hediye kodu
+	 => Ücret Kesim Gidilecek / hediye kodu
+	Başarılıysa ilan eklenir, yoksa db kaydet
 	
 İlan Düzenle
 	İlan Oluştur ile aynı
 Hesap
 	İlanlarım -> İlan Detay
-	İlan Aktif Etmek
+	İlan Aktif Etmek  => (Ücret Kesim Gidilecek)
 İlan Detay
 
-
-
+Ücret Kesim Ekranı
+	Hediye kodu giriş, yoksa ödeme kes, sonucu bir önceki ekrana döndür
 
 
 
