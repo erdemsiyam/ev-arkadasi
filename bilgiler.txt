@@ -15,7 +15,10 @@ Yalnız yaşamanın açtığı ekonomik ve psikolojik problemleri ve sosyallik..
 İşaretlenen konumlar için, yeni ilanın bildirim ile haber verilmesi
 Work&Travel ve Dil okulu öğrencilerine yönelik özel gruplamalar ve raporlama
 Dil öğrencileri için hızlı değişim programı (her hafta farklı bir yerde zincir şekilde konaklama) (Travel uygulamamızla birleştirilebilir?)
+Dil Öğrenci ve Backpackerler için Abonelik sistemi uygulanabilir (Ev bakan ve ev sağlayan kişiler) seri bir şekilde konaklama ve tatil vs, bu sayede kazanç ve giderler sabite bağlanır, hiçbir ev de boş durmaz, hatta çekiliş bile yapılabilir, hangi ülkeye gideceğin rastgele olur :)
 Ev sahiplerinin belirleyeceği (boş günler için) konaklama seçeneği sunulması - Satılana/Kiralanana kadar seçenekler
+Uzlaşma Bakış Açısı - Arz-Talep Bakış açısı : kiraya verenlerin olduğu gibi kira arayanlar da ilan oluşturur, bir raporlamayla çıkarılarak orta değer bulunabilir, kira verenler kira arayanlarla bu şekilde daha kolay uzlaşabilir
+
 
 // Yapılacaklar
 UI
@@ -26,8 +29,20 @@ UI
 Servis
 
 
+// Kişisel Kriterler (Kendisinin ve Karşı Taraftan istenen)
+Meslek: öğrenci, işçi, serbest, memur, öğretmen, özel sektör, polis/asker
+Sigara : Var, yok, nadir
+Alkol: Var, yok, nadir
+Evcil Hayvan: kedi, köpek, kuş, yok
+Vegan: hayır, evet
+çocuk: evet, hayır
+banyo ortak: evet, hayır
+kendi odam: evet, hayır
+kalacağım süre : gün
+dil: ing tur rus
+AÇIKLAMA
 
-// Özellikler
+// Ev Kriterleri
 Filtre özellikleri
 +fiyat
 +ilan veren yaş
@@ -45,7 +60,6 @@ Filtre özellikleri
 +evcil hayvan
 +deposito
 +aidat
-
 ayrıntı özellikler
 bulunduğu kat
 internet
@@ -66,49 +80,86 @@ yüzme havuzu
 
 
 
-// Uygulama özelliği
-SMS tel onay
-	kişinin sadece tel ad bilgisini tut, kullanıcı adı yok, sms şifresiyle uygulama girsin
-	log olsun aylarca
-map  sayfasında soru : günlük oda kira / kalıcı oda kirala
+// Eklenecek mi?
+Alıcı ve Satıcıların Profilleri - fotoları, hobileri, fobileri, sigara alkol, hayvan, çocuk
+Mesajlaşma özelliği
 ilan oluşturuken yarıda kalan varsa, o bir yerde taslak olarak kalsın airbnb  gibi
 Standart ilan oluşturma bedava olabilir, boostlar falan paralı ?
 	O bölgede ev arayanlara bildirim gönder + 1 USD gibi
 	Öne çıksın, farklı renkli olsun büyük yazılı olsun + 1 USD gibi
 
-
-// Sayfa
-+Slash Sayfa
-+Login Sayfa (Login değilse, İlan Oluştur Tıklarsa Gider Ancak)
-+Register Sayfa (Loginde kullanıcı oluştur derse gider ancak)
-Ana Sayfa (Direkt Bu açılır)
+// Sayfalar ve Özellikleri
++SlashPage
+	Direkt => HomePage
++LoginPage (Login değilse, İlan Oluştur Tıklarsa Gider Ancak)
+	tel + sms kod ile giriş yap
+	kayıt ol => Register
+-Register Sayfa
+	Kişilik bilgileri (+ Opsiyonel Seçebilsin)
+	Talep ettiği kişilik bilgileri (+ Opsiyonel Seçebilsin)
+	Profil Fotolar Ekle
+	ad+soyad+tel+sms kod girere kayıt olur ardından => HomePage yönlendirilir (kişinin sadece tel ad bilgisini tut, kullanıcı adı yok, sms şifresiyle uygulama girsin, login olsun aylarca)
+HomePage (Direkt Bu açılır)
 	Drawer
-		Kullanıcı Resmi Adı Tel
-		İlanlarım
-		Mesajlarım - Kapalı
+		Kullanıcı Resmi Adı Tel => ProfilePage(ben)
+		İlanlarım => MyRentsPage
+		Favorilerim => MyFavoriesPage
+		Mesajlarım => MessagesPage
 	Toggle : Günlük / Kalıcı
 	Map
-		3 Tip Node : Normal,  Favori, Öne Çıkan
+		3 Tip Node : Normal, bakılmış, Favori, (Öne Çıkan ?)
 	Filter + filter toggle : Açık / Kapalı
-		Çeşitli seçenekler
-
-İlan Oluştur
+		Ev kriterleri
+		Kişilik kriterleri
+MyRentsPage
+	İlan Listesi : içeriği : küçük foto, başlık, 2+1, fiyat, sil, düzenle,
+	+ İlan Aktif Et => PaymentPage
+MyFavoriesPage
+	İlan Listesi : içeriği : küçük foto, başlık, 2+1, fiyat, sil
+CreateRentPage
 	(Sırasıyla)
-	Kriterler
-	Açıklama
-	Foto
-	 => Ücret Kesim Gidilecek / hediye kodu
-	Başarılıysa ilan eklenir, yoksa db kaydet
-	
-İlan Düzenle
+	Konum Seç
+	Günlük / Kalıcı seçim
+	Ev Kriterleri
+	Talep ettiği Kişilik kriterleri (profilden oto kopyalanabilir yap)
+	Açıklama yaz
+	Foto : min 3 foto ve başlık foto seç
+	Ücret Ödeme (ücret ödeme veya hediye kuponu) => PaymentPage
+	Başarılıysa ilan eklenir
+EditRentPage
 	İlan Oluştur ile aynı
-Hesap
-	İlanlarım -> İlan Detay
-	İlan Aktif Etmek  => (Ücret Kesim Gidilecek)
-İlan Detay
+ProfilePage (Hem Kendi Profilimiz, hem karşının profili burada açılır)
+	Profil Fotolar + Değiştir
+	Ad Değiştir
+	Tel Değiştir + Sms Onay
+	kişilik bilgileri + Değiştir
+	talep ettiği kişilik bilgileri + Değiştir
+	Kişinin açıklaması + Değiştir
+	Şikayet et
+RentDetail
+	Fotolar
+	Başlık
+	2+1
+	Geçici kiralama için, boş günlerin gösterildiği takvim?
+	Satıcının kişilik bilgileri
+	Satıcının talep ettiği kişilik bilgileri
+	Ev Kriterleri
+	Mesaj Gönder => MessagesPage(Yeni oluştur/varsa gir) => MessagePage
+	Şikayet et
+	[Başkalarından Yorumlar + Puanlama ? (Airbnb gibi)]
+MessagesPage
+	Mesaj lisesi => MessagePage
+PaymentPage
+	Kalem açıklaması
+	Ücreti + Vergisi
+	İndirim Kuponu / Hediye Kuponu Girişi
+	Sonuç bir önceki ekrana döner ve işlem devam eder
 
-Ücret Kesim Ekranı
-	Hediye kodu giriş, yoksa ödeme kes, sonucu bir önceki ekrana döndür
 
+// Optimizasyon
+Açılan ilanlar ve fotoları localDB kaydedilir yeniden bu ilan açılırsa,
+ilan içeri tarihi ve foto değiştirilme tarihleri kontrol edilir, farklılık varsa günceli dbden çekilir yine localDB kaydedilir
+kayıtlı bu ilanlar min 1 ay localDB'de saklanır
+Aynı şekilde profil için de
 
-
+// Backend Models
