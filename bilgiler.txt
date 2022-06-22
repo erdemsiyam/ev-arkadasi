@@ -87,6 +87,7 @@ ilan oluşturuken yarıda kalan varsa, o bir yerde taslak olarak kalsın airbnb 
 Standart ilan oluşturma bedava olabilir, boostlar falan paralı ?
 	O bölgede ev arayanlara bildirim gönder + 1 USD gibi
 	Öne çıksın, farklı renkli olsun büyük yazılı olsun + 1 USD gibi
+Süresi Biten ilan için bilgilendirme notification
 
 // Sayfalar ve Özellikleri
 +SlashPage
@@ -96,12 +97,12 @@ Standart ilan oluşturma bedava olabilir, boostlar falan paralı ?
 	kayıt ol => Register
 -Register Sayfa
 	Kişilik bilgileri (+ Opsiyonel Seçebilsin)
-	Talep ettiği kişilik bilgileri (+ Opsiyonel Seçebilsin)
 	Profil Fotolar Ekle
 	ad+soyad+tel+sms kod girere kayıt olur ardından => HomePage yönlendirilir (kişinin sadece tel ad bilgisini tut, kullanıcı adı yok, sms şifresiyle uygulama girsin, login olsun aylarca)
 HomePage (Direkt Bu açılır)
 	Drawer
 		Kullanıcı Resmi Adı Tel => ProfilePage(ben)
+		İlan Oluştur => CreateRentPage
 		İlanlarım => MyRentsPage
 		Favorilerim => MyFavoriesPage
 		Mesajlarım => MessagesPage
@@ -112,8 +113,9 @@ HomePage (Direkt Bu açılır)
 		Ev kriterleri
 		Kişilik kriterleri
 MyRentsPage
-	İlan Listesi : içeriği : küçük foto, başlık, 2+1, fiyat, sil, düzenle,
-	+ İlan Aktif Et => PaymentPage
+	İlan Listesi : içeriği : küçük foto, başlık, 2+1, fiyat, sil, düzenle ( => EditRentPage)
+		[ ilanı birkaç günlüğüne pasif yap (günlük kira verenler için) ]
+	+ İlan Aktif Et(Süresi Biten) => PaymentPage
 MyFavoriesPage
 	İlan Listesi : içeriği : küçük foto, başlık, 2+1, fiyat, sil
 CreateRentPage
@@ -121,7 +123,7 @@ CreateRentPage
 	Konum Seç
 	Günlük / Kalıcı seçim
 	Ev Kriterleri
-	Talep ettiği Kişilik kriterleri (profilden oto kopyalanabilir yap)
+	Talep ettiği Kişilik kriterleri
 	Açıklama yaz
 	Foto : min 3 foto ve başlık foto seç
 	Ücret Ödeme (ücret ödeme veya hediye kuponu) => PaymentPage
