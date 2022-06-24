@@ -95,7 +95,7 @@ Süresi Biten ilan için bilgilendirme notification
 +LoginPage (Login değilse, İlan Oluştur Tıklarsa Gider Ancak)
 	tel + sms kod ile giriş yap
 	kayıt ol => Register
--Register Sayfa
++Register Sayfa
 	Kişilik bilgileri (+ Opsiyonel Seçebilsin)
 	Profil Fotolar Ekle
 	ad+soyad+tel+sms kod girere kayıt olur ardından => HomePage yönlendirilir (kişinin sadece tel ad bilgisini tut, kullanıcı adı yok, sms şifresiyle uygulama girsin, login olsun aylarca)
