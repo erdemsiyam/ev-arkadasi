@@ -22,14 +22,57 @@ class _HomePageState extends State<HomePage> {
       target: LatLng(37.43296265331129, -122.08832357078792),
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
-
+  List<bool> dailyOrConstant = List.generate(2, (index) => false);
+  List<Marker> _markers = <Marker>[];
+  bool isFilterOn = false;
   @override
   Widget build(BuildContext context) {
+    // Haritaya Pin ekleme
+    _markers.add(
+      Marker(
+        markerId: MarkerId('SomeId'),
+        position: LatLng(37.43238, -122.08790),
+        infoWindow: InfoWindow(title: 'The title of the marker'),
+      ),
+    );
+    _markers.add(
+      Marker(
+        markerId: MarkerId('SomeId'),
+        position: LatLng(37.43538, -122.08790),
+        infoWindow: InfoWindow(title: 'The title of the marker'),
+      ),
+    );
+    _markers.add(
+      Marker(
+        markerId: MarkerId('SomeId'),
+        position: LatLng(37.43738, -122.08790),
+        infoWindow: InfoWindow(title: 'The title of the marker'),
+      ),
+    );
+
     return Scaffold(
+      appBar: AppBar(
+        title: ToggleButtons(
+          isSelected: dailyOrConstant,
+          children: [
+            // TODO: Bunu Yap : https://stackoverflow.com/questions/65879501/how-to-create-a-toggle-switch-button-in-flutter
+            Text("Günlük"),
+            Text("Kalıcı"),
+          ],
+          onPressed: (index) {
+            dailyOrConstant = List.generate(2, (index) => false);
+            setState(() {
+              dailyOrConstant[index] = true;
+            });
+          },
+        ),
+      ),
+      drawer: myDrawer(),
       body: SafeArea(
         child: GoogleMap(
           mapType: MapType.normal,
           initialCameraPosition: _kGooglePlex,
+          markers: Set<Marker>.of(_markers),
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
@@ -46,18 +89,32 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FloatingActionButton(
-            heroTag: "1",
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const FilterPage(),
-                ),
-              );
-            },
-            tooltip: 'Increment',
-            child: const Icon(Icons.sort),
+          Row(
+            children: [
+              Switch(
+                value: isFilterOn,
+                onChanged: (value) {
+                  setState(() {
+                    isFilterOn = !isFilterOn;
+                  });
+                },
+                activeTrackColor: Colors.lightGreenAccent,
+                activeColor: Colors.green,
+              ),
+              FloatingActionButton(
+                heroTag: "1",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FilterPage(),
+                    ),
+                  );
+                },
+                tooltip: 'Increment',
+                child: const Icon(Icons.sort),
+              ),
+            ],
           ),
           FloatingActionButton(
             heroTag: "2",
@@ -70,6 +127,60 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Drawer myDrawer() {
+    return Drawer(
+      child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Column(
+              children: [
+                Placeholder(
+                  fallbackWidth: 50,
+                  fallbackHeight: 50,
+                ),
+                Text('Ad Soyad'),
+                Text('Tel: 555 111 22 33'),
+              ],
+            ),
+          ),
+          ListTile(
+            title: const Text('İlan oluştur'),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          ListTile(
+            title: const Text('İlanlarım'),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          ListTile(
+            title: const Text('Favorilerim'),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          ListTile(
+            title: const Text('Mesajlarım'),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+        ],
+      ),
     );
   }
 }

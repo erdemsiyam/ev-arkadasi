@@ -100,16 +100,16 @@ Süresi Biten ilan için bilgilendirme notification
 	Profil Fotolar Ekle
 	ad+soyad+tel+sms kod girere kayıt olur ardından => HomePage yönlendirilir (kişinin sadece tel ad bilgisini tut, kullanıcı adı yok, sms şifresiyle uygulama girsin, login olsun aylarca)
 HomePage (Direkt Bu açılır)
-	Drawer
+	+Drawer
 		Kullanıcı Resmi Adı Tel => ProfilePage(ben)
 		İlan Oluştur => CreateRentPage
 		İlanlarım => MyRentsPage
 		Favorilerim => MyFavoriesPage
 		Mesajlarım => MessagesPage
-	Toggle : Günlük / Kalıcı
-	Map
-		3 Tip Node : Normal, bakılmış, Favori, (Öne Çıkan ?)
-	Filter + filter toggle : Açık / Kapalı
+	+Toggle : Günlük / Kalıcı
+	-Map
+		3 Tip Node : Normal-mavi, bakılmış-gri, Favori-turuncu yıldız, (Öne Çıkan ?)
+	-Filter + filter toggle : Açık / Kapalı
 		Ev kriterleri
 		Kişilik kriterleri
 MyRentsPage
