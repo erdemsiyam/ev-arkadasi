@@ -8,27 +8,134 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
+  // Fiyat
   RangeValues priceValues = RangeValues(1000, 10000);
-  RangeValues ownerAgeValues = RangeValues(20, 80);
-  int ownerGender = 0; // 1: Male, 2: Famale
-  int lookingGender = 0; // 1: Male, 2: Famale, 3: Everyone
+  // Kalan Kişi sayııs
   RangeValues personCountValues = RangeValues(1, 3);
+  // Bina yaşı
   RangeValues buildingAgeValues = RangeValues(0, 100);
+  // Konut Tipi
   bool buildingTypeFlat = true;
   bool buildingTypeRezi = true;
   bool buildingTypeHome = true;
+  // M2
   RangeValues meterSquareValues = RangeValues(60, 300);
+  // Oda Sayısı
   RangeValues roomCountValues = RangeValues(0, 6);
   RangeValues hallCountValues = RangeValues(0, 3);
   RangeValues bathroomCountValues = RangeValues(0, 3);
-  int isFurnished = 0; // 1: Yes, 2: No
-  int isFurnishedToNewPerson = 0; // 1: Yes, 2: No
-  int isSmoke = 0; // 1: Yes, 2: No, 3: Everyone
-  int hasChild = 0; // 1: Yes, 2: No, 3: Everyone
-  int hasPet = 0; // 1: Yes, 2: No, 3: Everyone
+  // Bulunduğu Kat
+  bool floorEntery = true; // giriş kat
+  bool floorGarden = true; // bahçe kay
+  bool floorRoof = true; // çatı kat
+  bool floorDublex = true; // dublex
+  bool floor1to3 = true; // 1-3
+  bool floor4to10 = true; // 4-10
+  bool floor11toUp = true; // 10 ve fazlası
+  // depozito
   RangeValues depositValues = RangeValues(0, 10000);
+  // aidat
   RangeValues duesValues = RangeValues(0, 2000);
+  // mobilyalı
+  int isFurnished = 0; // 1: Yes, 2: No
+  // Kalacak kişi için mobilyalı mı
+  int isFurnishedToNewPerson = 0; // 1: Yes, 2: No
+  // Banyolar Ayrı mı
+  int isBathSeperated = 0; // 1: olmalı, 2: farketmez
+  // Odam Ayrı mı
+  int isRoomsSeperated = 0; // 1: olmalı, 2: farketmez
+  // Ayrıntılar
+  List<String> details = [
+    'internet',
+    'tv',
+    'buzdolabı',
+    'çamaşır mak',
+    'bulaşık mak',
+    'kalorifer',
+    'soba',
+    'durak',
+    'metro',
+    'kapalı otopark',
+    'açık otopark',
+    'güvenlik',
+    'site',
+    'spor salonu',
+    'asansör',
+    'yüzme havuzu'
+  ];
+  List<String> selectedDetails = [];
+  // Sahip Yaşı
+  RangeValues ownerAgeValues = RangeValues(18, 80);
+  // Cinsiyet
+  int gender = 3; // 1: erkek, 2: kadın, 3: farketmez
+  // Meslek
+  bool jobStudent = true;
+  bool jobSelfEmployment = true;
+  bool jobOfficer = true;
+  bool jobTeacher = true;
+  bool jobPrivateSectore = true;
+  bool jobPoliceSoldier = true;
+  // Sigara
+  int isSmoke = 2; // 1: Yes, 2: No, 3: Everyone
+  // Alkol
+  int isAlcohol = 2; // 1: Yes, 2: No, 3: Everyone
+  // Evcil Hayvan
+  bool petCat = true;
+  bool petDog = true;
+  bool petBird = true;
+  bool petOthers = true;
+  // Vegan
+  int isVegan = 2; // Olmalı, Farketmez
+  // Çocuk
+  int hasChild = 2; // Olmamalı, Farketmez
 
+/*
+TODO: Böyle düzelt
+// Ev Kriterleri
++fiyat
++kalan kişi sayısı
++bina yaşı
++konut türü : daire rezi müstak
++m2
++oda sayısı 3+1
++bulunduğu kat
++deposito
++aidat
++mobilyalı
++Kalacak kişi için mobilyalı mı
++banyo farklı: Olmalı, farketmez
++kendi odam: olmalı, farketmez
+
++ayrıntı özellikler
+  'internet',
+  'tv',
+  'buzdolabı',
+  'çamaşır mak',
+  'bulaşık mak',
+  'kalorifer',
+  'soba',
+  'durak',
+  'metro',
+  'kapalı otopark',
+  'açık otopark',
+  'güvenlik',
+  'site',
+  'spor salonu',
+  'asansör',
+  'yüzme havuzu'
+
+Kişilikler
+Yaş
+cins
+Meslek: öğrenci, işçi, serbest, memur, öğretmen, özel sektör, polis/asker
+Sigara : Olmamalı, Farketmez
+Alkol: Olmamalı, Farketmez
+Evcil Hayvan: kedi, köpek, kuş, Diğer, (multi seç)
+Vegan: Olmalı, Farketmez
+çocuk: Olmamalı, Farketmez
+
+
+ */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,14 +144,11 @@ class _FilterPageState extends State<FilterPage> {
           child: Column(
             children: [
               _backButton(),
+
+              // Ev Kriterleri
               const Divider(),
+              const Text('Ev Kriterleri'),
               _price(),
-              const Divider(),
-              _ownerGender(),
-              const Divider(),
-              _ownerAge(),
-              const Divider(),
-              _lookingGender(),
               const Divider(),
               _personCount(),
               const Divider(),
@@ -56,20 +160,40 @@ class _FilterPageState extends State<FilterPage> {
               const Divider(),
               _roomsCount(),
               const Divider(),
-              _isFurnished(),
-              const Divider(),
-              _isFurnishedToNewPerson(),
-              const Divider(),
-              _smoke(),
-              const Divider(),
-              _child(),
-              const Divider(),
-              _pet(),
+              _flootOfFlat(),
               const Divider(),
               _deposit(),
               const Divider(),
               _dues(),
               const Divider(),
+              _isFurnished(),
+              const Divider(),
+              _isFurnishedToNewPerson(),
+              const Divider(),
+              _bathSeperated(),
+              const Divider(),
+              _roomsSeperated(),
+              const Divider(),
+              _details(),
+
+              // Kişilik Kriteri
+              const Divider(),
+              const Text('Kişilik Kriterleri'),
+              _ownerAge(),
+              const Divider(),
+              _gender(),
+              const Divider(),
+              _job(),
+              const Divider(),
+              _smoke(),
+              const Divider(),
+              _alcohol(),
+              const Divider(),
+              _pet(),
+              const Divider(),
+              _vegan(),
+              const Divider(),
+              _child(),
               const SizedBox(height: 150),
             ],
           ),
@@ -82,6 +206,37 @@ class _FilterPageState extends State<FilterPage> {
           Icons.search,
           size: 32,
         ),
+      ),
+    );
+  }
+
+  Widget myChip({
+    required String caption,
+    required bool isActive,
+    required VoidCallback onSelected,
+    EdgeInsets? padding,
+  }) {
+    return Padding(
+      padding: padding ?? const EdgeInsets.all(8.0),
+      child: InkWell(
+        child: Chip(
+          label: Text(
+            caption,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          backgroundColor: (isActive) ? Colors.green : Colors.blueAccent,
+          elevation: 6.0,
+          shadowColor: Colors.grey[60],
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+        ),
+        onTap: () {
+          setState(() {
+            onSelected.call();
+          });
+        },
       ),
     );
   }
@@ -124,9 +279,9 @@ class _FilterPageState extends State<FilterPage> {
       title: const Text("Sahip Yaşı"),
       subtitle: RangeSlider(
         values: ownerAgeValues,
-        min: 20,
+        min: 18,
         max: 80,
-        divisions: 12,
+        divisions: 31,
         labels: RangeLabels(
           ownerAgeValues.start.round().toString(),
           ownerAgeValues.end.round().toString(),
@@ -140,59 +295,36 @@ class _FilterPageState extends State<FilterPage> {
     );
   }
 
-  Widget _ownerGender() {
+  Widget _gender() {
     return ListTile(
-      title: const Text("Sahip Cinsiyet"),
+      title: const Text("Cinsiyet"),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Erkek",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (ownerGender == 1) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Erkek",
+            isActive: gender == 1,
+            onSelected: () {
               setState(() {
-                if (ownerGender == 1) {
-                  ownerGender = 0;
-                  return;
-                }
-                ownerGender = 1;
+                gender = 1;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Kadın",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (ownerGender == 2) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Kadın",
+            isActive: gender == 2,
+            onSelected: () {
               setState(() {
-                if (ownerGender == 2) {
-                  ownerGender = 0;
-                  return;
-                }
-                ownerGender = 2;
+                gender = 2;
+              });
+            },
+          ),
+          myChip(
+            caption: "Farketmez",
+            isActive: gender == 3,
+            onSelected: () {
+              setState(() {
+                gender = 3;
               });
             },
           ),
@@ -201,84 +333,56 @@ class _FilterPageState extends State<FilterPage> {
     );
   }
 
-  Widget _lookingGender() {
+  Widget _bathSeperated() {
     return ListTile(
-      title: const Text("Aranan Cinsiyet"),
+      title: const Text("Banyolar Ayrı mı"),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Erkek",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (lookingGender == 1) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Olmalı",
+            isActive: isBathSeperated == 1,
+            onSelected: () {
               setState(() {
-                if (lookingGender == 1) {
-                  lookingGender = 0;
-                  return;
-                }
-                lookingGender = 1;
+                isBathSeperated = 1;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Kadın",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (lookingGender == 2) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Farketmez",
+            isActive: isBathSeperated == 2,
+            onSelected: () {
               setState(() {
-                if (lookingGender == 2) {
-                  lookingGender = 0;
-                  return;
-                }
-                lookingGender = 2;
+                isBathSeperated = 2;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Farketmez",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (lookingGender == 3) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            ),
-            onTap: () {
+        ],
+      ),
+    );
+  }
+
+  Widget _roomsSeperated() {
+    return ListTile(
+      title: const Text("Odam Ayrı mı"),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          myChip(
+            caption: "Olmalı",
+            isActive: isRoomsSeperated == 1,
+            onSelected: () {
               setState(() {
-                if (lookingGender == 3) {
-                  lookingGender = 0;
-                  return;
-                }
-                lookingGender = 3;
+                isRoomsSeperated = 1;
+              });
+            },
+          ),
+          myChip(
+            caption: "Farketmez",
+            isActive: isRoomsSeperated == 2,
+            onSelected: () {
+              setState(() {
+                isRoomsSeperated = 2;
               });
             },
           ),
@@ -335,66 +439,127 @@ class _FilterPageState extends State<FilterPage> {
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Daire",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (buildingTypeFlat) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Daire",
+            isActive: buildingTypeFlat,
+            onSelected: () {
               setState(() {
                 buildingTypeFlat = !buildingTypeFlat;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Rezidans",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (buildingTypeRezi) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Rezidans",
+            isActive: buildingTypeRezi,
+            onSelected: () {
               setState(() {
                 buildingTypeRezi = !buildingTypeRezi;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Müstakil",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (buildingTypeHome) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Müstakil",
+            isActive: buildingTypeHome,
+            onSelected: () {
               setState(() {
                 buildingTypeHome = !buildingTypeHome;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _details() {
+    return ListTile(
+      title: const Text("Ayrıntılar (Şart Olanları Seçiniz)"),
+      subtitle: Wrap(
+        children: [
+          for (String detail in details)
+            myChip(
+              caption: detail,
+              isActive: selectedDetails.contains(detail),
+              onSelected: () {
+                setState(() {
+                  if (selectedDetails.contains(detail)) {
+                    selectedDetails.remove(detail);
+                  } else {
+                    selectedDetails.add(detail);
+                  }
+                });
+              },
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _flootOfFlat() {
+    return ListTile(
+      title: const Text("Bulunduğu Kat"),
+      subtitle: Wrap(
+        children: [
+          myChip(
+            caption: "Giriş Kat",
+            isActive: floorEntery,
+            onSelected: () {
+              setState(() {
+                floorEntery = !floorEntery;
+              });
+            },
+          ),
+          myChip(
+            caption: "Bahçe Kat",
+            isActive: floorGarden,
+            onSelected: () {
+              setState(() {
+                floorGarden = !floorGarden;
+              });
+            },
+          ),
+          myChip(
+            caption: "Çatı Kat",
+            isActive: floorRoof,
+            onSelected: () {
+              setState(() {
+                floorRoof = !floorRoof;
+              });
+            },
+          ),
+          myChip(
+            caption: "Dublex",
+            isActive: floorDublex,
+            onSelected: () {
+              setState(() {
+                floorDublex = !floorDublex;
+              });
+            },
+          ),
+          myChip(
+            caption: "1 - 3",
+            isActive: floor1to3,
+            onSelected: () {
+              setState(() {
+                floor1to3 = !floor1to3;
+              });
+            },
+          ),
+          myChip(
+            caption: "4 - 10",
+            isActive: floor4to10,
+            onSelected: () {
+              setState(() {
+                floor4to10 = !floor4to10;
+              });
+            },
+          ),
+          myChip(
+            caption: "11 ve fazlası",
+            isActive: floor11toUp,
+            onSelected: () {
+              setState(() {
+                floor11toUp = !floor11toUp;
               });
             },
           ),
@@ -612,78 +777,21 @@ class _FilterPageState extends State<FilterPage> {
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Evet",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (isSmoke == 1) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Olamaz",
+            isActive: isSmoke == 1,
+            onSelected: () {
               setState(() {
-                if (isSmoke == 1) {
-                  isSmoke = 0;
-                  return;
-                }
                 isSmoke = 1;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Hayır",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (isSmoke == 2) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Farketmez",
+            isActive: isSmoke == 2,
+            onSelected: () {
               setState(() {
-                if (isSmoke == 2) {
-                  isSmoke = 0;
-                  return;
-                }
                 isSmoke = 2;
-              });
-            },
-          ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Farketmez",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (isSmoke == 3) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
-              setState(() {
-                if (isSmoke == 3) {
-                  isSmoke = 0;
-                  return;
-                }
-                isSmoke = 3;
               });
             },
           ),
@@ -692,84 +800,27 @@ class _FilterPageState extends State<FilterPage> {
     );
   }
 
-  Widget _child() {
+  Widget _alcohol() {
     return ListTile(
-      title: const Text("Çocuklu Olması"),
+      title: const Text("Alkol İçilmesi"),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Evet",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (hasChild == 1) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Olamaz",
+            isActive: isAlcohol == 1,
+            onSelected: () {
               setState(() {
-                if (hasChild == 1) {
-                  hasChild = 0;
-                  return;
-                }
-                hasChild = 1;
+                isAlcohol = 1;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Hayır",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (hasChild == 2) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Farketmez",
+            isActive: isAlcohol == 2,
+            onSelected: () {
               setState(() {
-                if (hasChild == 2) {
-                  hasChild = 0;
-                  return;
-                }
-                hasChild = 2;
-              });
-            },
-          ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Farketmez",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (hasChild == 3) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
-              setState(() {
-                if (hasChild == 3) {
-                  hasChild = 0;
-                  return;
-                }
-                hasChild = 3;
+                isAlcohol = 2;
               });
             },
           ),
@@ -780,79 +831,43 @@ class _FilterPageState extends State<FilterPage> {
 
   Widget _pet() {
     return ListTile(
-      title: const Text("Evcil Hayvan Olması"),
+      title: const Text("Evcil Hayvan (İstenilmeyeni Çıkarınız)"),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Evet",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor: (hasPet == 1) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Kedi",
+            isActive: petCat,
+            onSelected: () {
               setState(() {
-                if (hasPet == 1) {
-                  hasPet = 0;
-                  return;
-                }
-                hasPet = 1;
+                petCat = !petCat;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Hayır",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor: (hasPet == 2) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Köpek",
+            isActive: petDog,
+            onSelected: () {
               setState(() {
-                if (hasPet == 2) {
-                  hasPet = 0;
-                  return;
-                }
-                hasPet = 2;
+                petDog = !petDog;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Farketmez",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor: (hasPet == 3) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Kuş",
+            isActive: petBird,
+            onSelected: () {
               setState(() {
-                if (hasPet == 3) {
-                  hasPet = 0;
-                  return;
-                }
-                hasPet = 3;
+                petBird = !petBird;
+              });
+            },
+          ),
+          myChip(
+            caption: "Diğerleri",
+            isActive: petOthers,
+            onSelected: () {
+              setState(() {
+                petOthers = !petOthers;
               });
             },
           ),
@@ -899,6 +914,128 @@ class _FilterPageState extends State<FilterPage> {
             duesValues = values;
           });
         },
+      ),
+    );
+  }
+
+  Widget _job() {
+    return ListTile(
+      title: const Text("Sahip İş"),
+      subtitle: Wrap(
+        children: [
+          myChip(
+            caption: "Öğrenci",
+            isActive: jobStudent,
+            onSelected: () {
+              setState(() {
+                jobStudent = !jobStudent;
+              });
+            },
+          ),
+          myChip(
+            caption: "Serbest Meslek",
+            isActive: jobSelfEmployment,
+            onSelected: () {
+              setState(() {
+                jobSelfEmployment = !jobSelfEmployment;
+              });
+            },
+          ),
+          myChip(
+            caption: "Memur",
+            isActive: jobOfficer,
+            onSelected: () {
+              setState(() {
+                jobOfficer = !jobOfficer;
+              });
+            },
+          ),
+          myChip(
+            caption: "Öğretmen",
+            isActive: jobTeacher,
+            onSelected: () {
+              setState(() {
+                jobTeacher = !jobTeacher;
+              });
+            },
+          ),
+          myChip(
+            caption: "Özel Sektör",
+            isActive: jobPrivateSectore,
+            onSelected: () {
+              setState(() {
+                jobPrivateSectore = !jobPrivateSectore;
+              });
+            },
+          ),
+          myChip(
+            caption: "Polis / Asker",
+            isActive: jobPoliceSoldier,
+            onSelected: () {
+              setState(() {
+                jobPoliceSoldier = !jobPoliceSoldier;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _vegan() {
+    return ListTile(
+      title: const Text("Vegan"),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          myChip(
+            caption: "Olmalı",
+            isActive: isVegan == 1,
+            onSelected: () {
+              setState(() {
+                isVegan = 1;
+              });
+            },
+          ),
+          myChip(
+            caption: "Farketmez",
+            isActive: isVegan == 2,
+            onSelected: () {
+              setState(() {
+                isVegan = 2;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _child() {
+    return ListTile(
+      title: const Text("Çocuklu"),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          myChip(
+            caption: "Olmamalı",
+            isActive: isVegan == 1,
+            onSelected: () {
+              setState(() {
+                isVegan = 1;
+              });
+            },
+          ),
+          myChip(
+            caption: "Farketmez",
+            isActive: isVegan == 2,
+            onSelected: () {
+              setState(() {
+                isVegan = 2;
+              });
+            },
+          ),
+        ],
       ),
     );
   }

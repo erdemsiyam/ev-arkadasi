@@ -30,6 +30,8 @@ Servis
 
 
 // Kişisel Kriterler (Kendisinin ve Karşı Taraftan istenen)
++ Cinsiyet
++ Yaş
 Meslek: öğrenci, işçi, serbest, memur, öğretmen, özel sektör, polis/asker
 Sigara : Var, yok, nadir
 Alkol: Var, yok, nadir
@@ -38,8 +40,8 @@ Vegan: hayır, evet
 çocuk: evet, hayır
 banyo ortak: evet, hayır
 kendi odam: evet, hayır
-kalacağım süre : gün
-dil: ing tur rus
+-kalacağım süre : gün
+-dil: ing tur rus
 AÇIKLAMA
 
 // Ev Kriterleri
@@ -88,6 +90,9 @@ Standart ilan oluşturma bedava olabilir, boostlar falan paralı ?
 	O bölgede ev arayanlara bildirim gönder + 1 USD gibi
 	Öne çıksın, farklı renkli olsun büyük yazılı olsun + 1 USD gibi
 Süresi Biten ilan için bilgilendirme notification
+
+// Unutulanlar
+Kayıt olurken Yaş ve cinsiyet al
 
 // Sayfalar ve Özellikleri
 +SlashPage
