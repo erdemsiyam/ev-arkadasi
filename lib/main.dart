@@ -1,6 +1,8 @@
 import 'package:ev_arkadasi/filter/filter_page.dart';
 import 'package:ev_arkadasi/home/home_page.dart';
 import 'package:ev_arkadasi/login/login_page.dart';
+import 'package:ev_arkadasi/my_favories/my_favories_page.dart';
+import 'package:ev_arkadasi/my_rents/my_rents_page.dart';
 import 'package:ev_arkadasi/register/register_page.dart';
 import 'package:ev_arkadasi/splash/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: FilterPage(),
+      home: MyFavoriesPage(),
     );
   }
 }

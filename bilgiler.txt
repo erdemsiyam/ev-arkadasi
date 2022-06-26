@@ -104,7 +104,7 @@ Kayıt olurken Yaş ve cinsiyet al
 	Kişilik bilgileri (+ Opsiyonel Seçebilsin)
 	Profil Fotolar Ekle
 	ad+soyad+tel+sms kod girere kayıt olur ardından => HomePage yönlendirilir (kişinin sadece tel ad bilgisini tut, kullanıcı adı yok, sms şifresiyle uygulama girsin, login olsun aylarca)
-HomePage (Direkt Bu açılır)
++HomePage (Direkt Bu açılır)
 	+Drawer
 		Kullanıcı Resmi Adı Tel => ProfilePage(ben)
 		İlan Oluştur => CreateRentPage
@@ -112,17 +112,20 @@ HomePage (Direkt Bu açılır)
 		Favorilerim => MyFavoriesPage
 		Mesajlarım => MessagesPage
 	+Toggle : Günlük / Kalıcı
-	-Map
-		3 Tip Node : Normal-mavi, bakılmış-gri, Favori-turuncu yıldız, (Öne Çıkan ?)
-	-Filter + filter toggle : Açık / Kapalı
-		Ev kriterleri
-		Kişilik kriterleri
-MyRentsPage
-	İlan Listesi : içeriği : küçük foto, başlık, 2+1, fiyat, sil, düzenle ( => EditRentPage)
-		[ ilanı birkaç günlüğüne pasif yap (günlük kira verenler için) ]
-	+ İlan Aktif Et(Süresi Biten) => PaymentPage
-MyFavoriesPage
-	İlan Listesi : içeriği : küçük foto, başlık, 2+1, fiyat, sil
+	+Map
+		-3 Tip Node : Normal-mavi, bakılmış-gri, Favori-turuncu yıldız, (Öne Çıkan ?)
+	+Filter + filter toggle : Açık / Kapalı
+		+Ev kriterleri
+		+Kişilik kriterleri
++MyRentsPage
+	+İlan Listesi : içeriği : küçük foto, başlık, 2+1, fiyat, sil, düzenle / aktif et
+		tıklayınca bakmak için => RentDetail
+		Düzenle tıklayınca => EditRentPage
+		aktif et => PaymentPage
+		? Ekstra seçenek : [ ilanı birkaç günlüğüne pasif yap (günlük kira verenler için) ]
++MyFavoriesPage
+	+İlan Listesi : içeriği : küçük foto, başlık, 2+1, fiyat, sil
+		tıklayınca bakmak için => RentDetail
 CreateRentPage
 	(Sırasıyla)
 	Konum Seç
