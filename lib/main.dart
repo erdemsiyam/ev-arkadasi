@@ -1,3 +1,4 @@
+import 'package:ev_arkadasi/create_rent/create_rent_page.dart';
 import 'package:ev_arkadasi/filter/filter_page.dart';
 import 'package:ev_arkadasi/home/home_page.dart';
 import 'package:ev_arkadasi/login/login_page.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyFavoriesPage(),
+      home: CreateRentPage(),
     );
   }
 }

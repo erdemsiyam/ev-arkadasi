@@ -57,28 +57,25 @@ Filtre özellikleri
 +oda sayısı 3+1
 +mobilyalı
 +Kalacak kişi için mobilyalı mı
-+sigara
-+çocuk
-+evcil hayvan
 +deposito
 +aidat
 ayrıntı özellikler
-bulunduğu kat
-internet
-buzdolabı
-çamaşır mak
-bulaşık mak
-tv
-kalorifer
-soba
-durak
-metro
-kapalı otoparkaçık otopark
-güvenlik
-site
-spor salonu
-asansör
-yüzme havuzu
+	bulunduğu kat
+	internet
+	buzdolabı
+	çamaşır mak
+	bulaşık mak
+	tv
+	kalorifer
+	soba
+	durak
+	metro
+	kapalı otoparkaçık otopark
+	güvenlik
+	site
+	spor salonu
+	asansör
+	yüzme havuzu
 
 
 
@@ -128,16 +125,16 @@ Kayıt olurken Yaş ve cinsiyet al
 		tıklayınca bakmak için => RentDetail
 CreateRentPage
 	(Sırasıyla)
-	Konum Seç
-	Günlük / Kalıcı seçim
-	Ev Kriterleri
-	Talep ettiği Kişilik kriterleri
-	Açıklama yaz
-	Foto : min 3 foto ve başlık foto seç
+	+Konum Seç
+	+Günlük / Kalıcı seçim
+	+Ev Kriterleri
+	+Talep ettiği Kişilik kriterleri
+	+Açıklama yaz
+	- <HATA> Foto : min 3 foto ve başlık foto seç
 	Ücret Ödeme (ücret ödeme veya hediye kuponu) => PaymentPage
 	Başarılıysa ilan eklenir
 EditRentPage
-	İlan Oluştur ile aynı
+	- (Create ile Sonra Düzenlenecek - hatta aynı olabilirse süper) İlan Oluştur ile aynı
 ProfilePage (Hem Kendi Profilimiz, hem karşının profili burada açılır)
 	Profil Fotolar + Değiştir
 	Ad Değiştir

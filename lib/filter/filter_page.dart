@@ -37,9 +37,9 @@ class _FilterPageState extends State<FilterPage> {
   // aidat
   RangeValues duesValues = RangeValues(0, 2000);
   // mobilyalı
-  int isFurnished = 0; // 1: Yes, 2: No
+  int isFurnished = 0; // 1:olmalı, 2:olmamalı, 3:farketmez
   // Kalacak kişi için mobilyalı mı
-  int isFurnishedToNewPerson = 0; // 1: Yes, 2: No
+  int isFurnishedToNewPerson = 0; // 1:olmalı, 2:olmamalı, 3:farketmez
   // Banyolar Ayrı mı
   int isBathSeperated = 0; // 1: olmalı, 2: farketmez
   // Odam Ayrı mı
@@ -653,53 +653,30 @@ Vegan: Olmalı, Farketmez
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Evet",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (isFurnished == 1) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Olmalı",
+            isActive: isFurnished == 1,
+            onSelected: () {
               setState(() {
-                if (isFurnished == 1) {
-                  isFurnished = 0;
-                  return;
-                }
                 isFurnished = 1;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Hayır",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  (isFurnished == 2) ? Colors.green : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Olmamalı",
+            isActive: isFurnished == 2,
+            onSelected: () {
               setState(() {
-                if (isFurnished == 2) {
-                  isFurnished = 0;
-                  return;
-                }
                 isFurnished = 2;
+              });
+            },
+          ),
+          myChip(
+            caption: "Farketmez",
+            isActive: isFurnished == 3,
+            onSelected: () {
+              setState(() {
+                isFurnished = 3;
               });
             },
           ),
@@ -714,55 +691,30 @@ Vegan: Olmalı, Farketmez
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Evet",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor: (isFurnishedToNewPerson == 1)
-                  ? Colors.green
-                  : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Olmalı",
+            isActive: isFurnishedToNewPerson == 1,
+            onSelected: () {
               setState(() {
-                if (isFurnishedToNewPerson == 1) {
-                  isFurnishedToNewPerson = 0;
-                  return;
-                }
                 isFurnishedToNewPerson = 1;
               });
             },
           ),
-          InkWell(
-            child: Chip(
-              label: const Text(
-                "Hayır",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor: (isFurnishedToNewPerson == 2)
-                  ? Colors.green
-                  : Colors.blueAccent,
-              elevation: 6.0,
-              shadowColor: Colors.grey[60],
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            ),
-            onTap: () {
+          myChip(
+            caption: "Olmamalı",
+            isActive: isFurnishedToNewPerson == 2,
+            onSelected: () {
               setState(() {
-                if (isFurnishedToNewPerson == 2) {
-                  isFurnishedToNewPerson = 0;
-                  return;
-                }
                 isFurnishedToNewPerson = 2;
+              });
+            },
+          ),
+          myChip(
+            caption: "Farketmez",
+            isActive: isFurnishedToNewPerson == 3,
+            onSelected: () {
+              setState(() {
+                isFurnishedToNewPerson = 3;
               });
             },
           ),

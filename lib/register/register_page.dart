@@ -9,13 +9,15 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   int _stepperIndex = 0;
+  int age = 0;
+  int gender = 0; // 1:erkek, 2:kadın
   int job =
       0; //  1 öğrenci, işçi, 2 serbest, 3 memur, 4 öğretmen, 5 özel sektör, 6 polis/asker
-  int smoke = 0; // 1 evet, 2 hayır
-  int alcohol = 0; // 1 evet, 2 hayır
-  int pet = 0; // 1 köpek, kedi, kuş, yok
-  int vegan = 0; // 1 evet, 2 hayır
-  int child = 0; // 1 evet, 2 hayır
+  // int smoke = 0; // 1 evet, 2 hayır
+  // int alcohol = 0; // 1 evet, 2 hayır
+  // int pet = 0; // 1 köpek, kedi, kuş, yok
+  // int vegan = 0; // 1 evet, 2 hayır
+  // int child = 0; // 1 evet, 2 hayır
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +60,14 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget personalityPart() {
     return Column(
       children: [
+        ageWidget(),
+        genderChips(),
         jobChips(),
-        smokeChips(),
-        alcoholChips(),
-        petChips(),
-        veganChips(),
-        childChips(),
+        // smokeChips(),
+        // alcoholChips(),
+        // petChips(),
+        // veganChips(),
+        // childChips(),
       ],
     );
   }
@@ -92,6 +96,39 @@ class _RegisterPageState extends State<RegisterPage> {
           onSelected.call();
         });
       },
+    );
+  }
+
+  Widget ageWidget() {
+    return const TextField(
+      decoration: InputDecoration(
+        labelText: "yaşınız",
+        hintText: "30",
+      ),
+    );
+  }
+
+  Widget genderChips() {
+    return ListTile(
+      title: const Text("Cinsiyetiniz"),
+      subtitle: Wrap(
+        children: [
+          myChip(
+            caption: "Erkek",
+            isActive: gender == 1,
+            onSelected: () {
+              gender = 1;
+            },
+          ),
+          myChip(
+            caption: "Kadın",
+            isActive: gender == 2,
+            onSelected: () {
+              gender = 2;
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -154,139 +191,139 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget smokeChips() {
-    return ListTile(
-      title: const Text("Sigara İçiyor musun?"),
-      subtitle: Wrap(
-        children: [
-          myChip(
-            caption: "Evet",
-            isActive: smoke == 1,
-            onSelected: () {
-              smoke = 1;
-            },
-          ),
-          myChip(
-            caption: "Hayır",
-            isActive: smoke == 2,
-            onSelected: () {
-              smoke = 2;
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget smokeChips() {
+  //   return ListTile(
+  //     title: const Text("Sigara İçiyor musun?"),
+  //     subtitle: Wrap(
+  //       children: [
+  //         myChip(
+  //           caption: "Evet",
+  //           isActive: smoke == 1,
+  //           onSelected: () {
+  //             smoke = 1;
+  //           },
+  //         ),
+  //         myChip(
+  //           caption: "Hayır",
+  //           isActive: smoke == 2,
+  //           onSelected: () {
+  //             smoke = 2;
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget alcoholChips() {
-    return ListTile(
-      title: const Text("Alkol İçiyor musun?"),
-      subtitle: Wrap(
-        children: [
-          myChip(
-            caption: "Evet",
-            isActive: alcohol == 1,
-            onSelected: () {
-              alcohol = 1;
-            },
-          ),
-          myChip(
-            caption: "Hayır",
-            isActive: alcohol == 2,
-            onSelected: () {
-              alcohol = 2;
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget alcoholChips() {
+  //   return ListTile(
+  //     title: const Text("Alkol İçiyor musun?"),
+  //     subtitle: Wrap(
+  //       children: [
+  //         myChip(
+  //           caption: "Evet",
+  //           isActive: alcohol == 1,
+  //           onSelected: () {
+  //             alcohol = 1;
+  //           },
+  //         ),
+  //         myChip(
+  //           caption: "Hayır",
+  //           isActive: alcohol == 2,
+  //           onSelected: () {
+  //             alcohol = 2;
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget petChips() {
-    return ListTile(
-      title: const Text("Evcil Hayvanın var mı?"),
-      subtitle: Wrap(
-        children: [
-          myChip(
-            caption: "Köpek",
-            isActive: pet == 1,
-            onSelected: () {
-              pet = 1;
-            },
-          ),
-          myChip(
-            caption: "Kedi",
-            isActive: pet == 2,
-            onSelected: () {
-              pet = 2;
-            },
-          ),
-          myChip(
-            caption: "Kuş",
-            isActive: pet == 3,
-            onSelected: () {
-              pet = 3;
-            },
-          ),
-          myChip(
-            caption: "Yok",
-            isActive: pet == 4,
-            onSelected: () {
-              pet = 4;
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget petChips() {
+  //   return ListTile(
+  //     title: const Text("Evcil Hayvanın var mı?"),
+  //     subtitle: Wrap(
+  //       children: [
+  //         myChip(
+  //           caption: "Köpek",
+  //           isActive: pet == 1,
+  //           onSelected: () {
+  //             pet = 1;
+  //           },
+  //         ),
+  //         myChip(
+  //           caption: "Kedi",
+  //           isActive: pet == 2,
+  //           onSelected: () {
+  //             pet = 2;
+  //           },
+  //         ),
+  //         myChip(
+  //           caption: "Kuş",
+  //           isActive: pet == 3,
+  //           onSelected: () {
+  //             pet = 3;
+  //           },
+  //         ),
+  //         myChip(
+  //           caption: "Yok",
+  //           isActive: pet == 4,
+  //           onSelected: () {
+  //             pet = 4;
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget veganChips() {
-    return ListTile(
-      title: const Text("Vegan mısın?"),
-      subtitle: Wrap(
-        children: [
-          myChip(
-            caption: "Evet",
-            isActive: vegan == 1,
-            onSelected: () {
-              vegan = 1;
-            },
-          ),
-          myChip(
-            caption: "Hayır",
-            isActive: vegan == 2,
-            onSelected: () {
-              vegan = 2;
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget veganChips() {
+  //   return ListTile(
+  //     title: const Text("Vegan mısın?"),
+  //     subtitle: Wrap(
+  //       children: [
+  //         myChip(
+  //           caption: "Evet",
+  //           isActive: vegan == 1,
+  //           onSelected: () {
+  //             vegan = 1;
+  //           },
+  //         ),
+  //         myChip(
+  //           caption: "Hayır",
+  //           isActive: vegan == 2,
+  //           onSelected: () {
+  //             vegan = 2;
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget childChips() {
-    return ListTile(
-      title: const Text("Çocuğun var mı?"),
-      subtitle: Wrap(
-        children: [
-          myChip(
-            caption: "Evet",
-            isActive: child == 1,
-            onSelected: () {
-              child = 1;
-            },
-          ),
-          myChip(
-            caption: "Hayır",
-            isActive: child == 2,
-            onSelected: () {
-              child = 2;
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget childChips() {
+  //   return ListTile(
+  //     title: const Text("Çocuğun var mı?"),
+  //     subtitle: Wrap(
+  //       children: [
+  //         myChip(
+  //           caption: "Evet",
+  //           isActive: child == 1,
+  //           onSelected: () {
+  //             child = 1;
+  //           },
+  //         ),
+  //         myChip(
+  //           caption: "Hayır",
+  //           isActive: child == 2,
+  //           onSelected: () {
+  //             child = 2;
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget profilePhotoPart() {
     return Column(
