@@ -136,13 +136,13 @@ CreateRentPage
 EditRentPage
 	- (Create ile Sonra Düzenlenecek - hatta aynı olabilirse süper) İlan Oluştur ile aynı
 ProfilePage (Hem Kendi Profilimiz, hem karşının profili burada açılır)
-	Profil Fotolar + Değiştir
-	Ad Değiştir
-	Tel Değiştir + Sms Onay
-	kişilik bilgileri + Değiştir
-	talep ettiği kişilik bilgileri + Değiştir
-	Kişinin açıklaması + Değiştir
-	Şikayet et
+	+ Profil Fotolar + Değiştir
+	+ Ad Değiştir
+	+ Insta / Facebook link
+	+ Tel Değiştir + Sms Onay
+	// kişilik bilgileri + Değiştir // bunu kaldırdık, ilanda oluştururken seçecek zaten
+	// Kişinin açıklaması + Değiştir
+	// Şikayet et
 RentDetail
 	Fotolar
 	Başlık
