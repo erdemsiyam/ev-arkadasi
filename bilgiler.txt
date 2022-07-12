@@ -21,13 +21,22 @@ Uzlaşma Bakış Açısı - Arz-Talep Bakış açısı : kiraya verenlerin oldu�
 
 
 // Yapılacaklar
-UI
-    Main
-        Map
-            Oluşturulması
-            pinler
-Servis
-
++Geçici UI'ların hazırlanması
+Backend
+	Tabloların hazırlanması
+	fake login
+	fake data dönen metodların hazırlanması
+	postman tamamlanması
+Mobile
+	fake register
+		fotoğraf yüklenmesi
+	fake login
+	rent oluşturma
+		fotoğraf yüklenmesi
+		diğer bilgiler
+	rent düzenle
+	rent detay
+	map'dan rentleri görüntüleme
 
 // Kişisel Kriterler (Kendisinin ve Karşı Taraftan istenen)
 yaş, cinsiyet, Meslek: öğrenci, işçi, serbest, memur, öğretmen, özel sektör, polis/asker
@@ -176,14 +185,12 @@ User
 	id
 	name
 	surname
+	country	// Ülke kodu
 	phone
 	sms_code
 	age
 	gender
 	job
-	profil_photo_small
-	profil_photo
-	profil_photo_date
 	register_date
 	last_login_date
 	instagram
@@ -192,8 +199,12 @@ User
 Rent
 	id
 	user_id
+	country	// Ülke kodu
 	latitude
 	longitude
+	created_date	// localdb'de 1 ay geçmesi sonrasında tüm rentler silinir
+	expiration_date	// RentPaymentDetail-expiration_date ile eşlenik gidecek
+	discount_coupon	// RentPaymentDetail-discount_coupon ile eşlenik gidecek
 	price
 	person_living_count	// Kaç kişi kalıyor
 	building_age
@@ -203,8 +214,11 @@ Rent
 	rooms_count
 	is_furnished
 	is_furnished_to_new_person
+	shared_bathroom
+	shared_room
 	deposit_price
 	dues_price
+	description
 	// Details :  0=noInfo 1=yes 2=no
 	internet
 	fridge
@@ -223,23 +237,53 @@ Rent
 	elevator
 	swimming_pool
 	// Required Personalities
-// EKLE
-// Kişisel Kriterler (Kendisinin ve Karşı Taraftan istenen)
-aradığı yaş, cinsiyet, Meslek: öğrenci, işçi, serbest, memur, öğretmen, özel sektör, polis/asker
-Sigara : Var, yok, nadir
-Alkol: Var, yok, nadir
-Evcil Hayvan: kedi, köpek, kuş, yok
-Vegan: hayır, evet
-çocuk: evet, hayır
-banyo ortak: evet, hayır
-kendi odam: evet, hayır
--kalacağım süre : gün
--dil: ing tur rus
-AÇIKLAMA
-
+	age_min
+	age_max
+	gender	// 0:either, 1:male, 2:famele
+	job_student	// 0:yes 1:no
+	job_worker
+	job_self_emp
+	job_officer
+	job_teacher
+	job_private_sector_emp
+	job_police_army
+	smoke	// 0:yes 1:no
+	alcohol
+	pet_cat	// 0:yes 1:no
+	pet_dog
+	pet_bird
+	pet_others
+	vegan
+	child
 RentPhoto
-	rent_id	// kullanıcı localinde aynısı olması durumunda serverden çekmesine gerek yok, localdakini kullanır
+	id		// kullanıcı localinde aynısı olması durumunda serverden çekmesine gerek yok, localdakini kullanır
+	rent_id	
 	index	// 0:  vitrin foto
 	big_url
 	small_url
-
+	created_date	// localdb'de 1 ay geçmesi sonrasında tüm fotoğraflar silinir
+UserPhoto
+	id			// kullanıcı localinde aynısı olması durumunda serverden çekmesine gerek yok, localdakini kullanır
+	user_id
+	index	// 0:  vitrin foto
+	big_url
+	small_url
+	created_date	// localdb'de 1 ay geçmesi sonrasında tüm fotoğraflar silinir
+RentPaymentDetail
+	rent_id
+	start_date
+	expiration_date
+	price			// 1 -USD- or 0 -USD-
+	currency		// USD TRY
+	country			// Ülke kodu
+	discount_coupon	// null or COUPONXX
+	discount_rate	// 0 or 0.5 or 1
+CountryPrice
+	country	// Ülke kodu
+	price	// ilan fiyatı
+Coupon
+	discount_coupon	// null or COUPONXX
+	discount_rate	// 0 or 0.5 or 1
+FavoriesRent
+	user_id
+	rent_id
