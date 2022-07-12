@@ -7,9 +7,9 @@ iş gücünün gerekli yerlerde konuşlanması için alternatif çözümlere ba�
 Yalnız yaşamanın açtığı ekonomik ve psikolojik problemleri ve sosyallik...
 
 
-
 // Pazar Stratejisi
 Çeşitli sosyal medya platformlarında  ev paylaşım gruplarında ücretsiz kodların dağıtılması (Dünya Genelinde)
+
 
 // Diğerlerinden Farkı - İleri Hedefler
 İşaretlenen konumlar için, yeni ilanın bildirim ile haber verilmesi
@@ -30,9 +30,7 @@ Servis
 
 
 // Kişisel Kriterler (Kendisinin ve Karşı Taraftan istenen)
-+ Cinsiyet
-+ Yaş
-Meslek: öğrenci, işçi, serbest, memur, öğretmen, özel sektör, polis/asker
+yaş, cinsiyet, Meslek: öğrenci, işçi, serbest, memur, öğretmen, özel sektör, polis/asker
 Sigara : Var, yok, nadir
 Alkol: Var, yok, nadir
 Evcil Hayvan: kedi, köpek, kuş, yok
@@ -45,7 +43,7 @@ kendi odam: evet, hayır
 AÇIKLAMA
 
 // Ev Kriterleri
-Filtre özellikleri
+// Filtre özellikleri
 +fiyat
 +ilan veren yaş
 +ilan veren cinsiyet
@@ -88,8 +86,12 @@ Standart ilan oluşturma bedava olabilir, boostlar falan paralı ?
 	Öne çıksın, farklı renkli olsun büyük yazılı olsun + 1 USD gibi
 Süresi Biten ilan için bilgilendirme notification
 
-// Unutulanlar
-Kayıt olurken Yaş ve cinsiyet al
+// Bu unutuldu ekle
+	Bulunduğu kat  : Create & filter pages & Backend models
+	doğalgaz
+	sauna
+	tenis
+	basketbol
 
 // Sayfalar ve Özellikleri
 +SlashPage
@@ -98,7 +100,8 @@ Kayıt olurken Yaş ve cinsiyet al
 	tel + sms kod ile giriş yap
 	kayıt ol => Register
 +Register Sayfa
-	Kişilik bilgileri (+ Opsiyonel Seçebilsin)
+	// Kişilik bilgileri (+ Opsiyonel Seçebilsin) // Bu sadece ilan oluştururken olsun (satıcı için), bir de filtre yaparken (alıcının araması için)
+	yaş-cinsiyet-meslek
 	Profil Fotolar Ekle
 	ad+soyad+tel+sms kod girere kayıt olur ardından => HomePage yönlendirilir (kişinin sadece tel ad bilgisini tut, kullanıcı adı yok, sms şifresiyle uygulama girsin, login olsun aylarca)
 +HomePage (Direkt Bu açılır)
@@ -144,16 +147,15 @@ ProfilePage (Hem Kendi Profilimiz, hem karşının profili burada açılır)
 	// Kişinin açıklaması + Değiştir
 	// Şikayet et
 RentDetail
-	Fotolar
-	Başlık
-	2+1
-	Geçici kiralama için, boş günlerin gösterildiği takvim?
-	Satıcının kişilik bilgileri
-	Satıcının talep ettiği kişilik bilgileri
-	Ev Kriterleri
-	Mesaj Gönder => MessagesPage(Yeni oluştur/varsa gir) => MessagePage
-	Şikayet et
-	[Başkalarından Yorumlar + Puanlama ? (Airbnb gibi)]
+	+ Fotolar
+	+ Başlık
+	+ 2+1
+	// Geçici kiralama için, boş günlerin gösterildiği takvim?
+	+ Talep edilen kişilik bilgileri
+	+ Ev Kriterleri
+	+ Mesaj Gönder => MessagesPage(Yeni oluştur/varsa gir) => MessagePage
+	+ Şikayet et
+	// [Başkalarından Yorumlar + Puanlama ? (Airbnb gibi)]
 MessagesPage
 	Mesaj lisesi => MessagePage
 PaymentPage
@@ -170,3 +172,74 @@ kayıtlı bu ilanlar min 1 ay localDB'de saklanır
 Aynı şekilde profil için de
 
 // Backend Models
+User
+	id
+	name
+	surname
+	phone
+	sms_code
+	age
+	gender
+	job
+	profil_photo_small
+	profil_photo
+	profil_photo_date
+	register_date
+	last_login_date
+	instagram
+	facebook
+	description
+Rent
+	id
+	user_id
+	latitude
+	longitude
+	price
+	person_living_count	// Kaç kişi kalıyor
+	building_age
+	building_type		// 1:daire 2:rezidans 3:müstakil
+	spot				// bulunduğu kat
+	meter_square
+	rooms_count
+	is_furnished
+	is_furnished_to_new_person
+	deposit_price
+	dues_price
+	// Details :  0=noInfo 1=yes 2=no
+	internet
+	fridge
+	washing_machine
+	dishwasher
+	tv
+	radiator
+	stove	// soba
+	bus_stop
+	subway
+	outdoor_parking
+	parking_garage
+	security
+	site
+	gym
+	elevator
+	swimming_pool
+	// Required Personalities
+// EKLE
+// Kişisel Kriterler (Kendisinin ve Karşı Taraftan istenen)
+aradığı yaş, cinsiyet, Meslek: öğrenci, işçi, serbest, memur, öğretmen, özel sektör, polis/asker
+Sigara : Var, yok, nadir
+Alkol: Var, yok, nadir
+Evcil Hayvan: kedi, köpek, kuş, yok
+Vegan: hayır, evet
+çocuk: evet, hayır
+banyo ortak: evet, hayır
+kendi odam: evet, hayır
+-kalacağım süre : gün
+-dil: ing tur rus
+AÇIKLAMA
+
+RentPhoto
+	rent_id	// kullanıcı localinde aynısı olması durumunda serverden çekmesine gerek yok, localdakini kullanır
+	index	// 0:  vitrin foto
+	big_url
+	small_url
+
