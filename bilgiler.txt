@@ -37,6 +37,14 @@ Mobile
 	rent düzenle
 	rent detay
 	map'dan rentleri görüntüleme
+Translate
+Gerçek UI
+SMS Entegrasyonu
+Ödeme Entegrasyonu
+
+// Sonradan Yapılacaklar
+Çoklu Dil
+Düzgün Repsonsive UI
 
 // Kişisel Kriterler (Kendisinin ve Karşı Taraftan istenen)
 yaş, cinsiyet, Meslek: öğrenci, işçi, serbest, memur, öğretmen, özel sektör, polis/asker
@@ -188,6 +196,7 @@ User
 	country	// Ülke kodu
 	phone
 	sms_code
+	sms_code_expiration_datetime
 	age
 	gender
 	job
@@ -284,6 +293,8 @@ CountryPrice
 Coupon
 	discount_coupon	// null or COUPONXX
 	discount_rate	// 0 or 0.5 or 1
+	user_id		// null(herkese), user_id tek kişiye
+	expiration_date
 FavoriesRent
 	user_id
 	rent_id
