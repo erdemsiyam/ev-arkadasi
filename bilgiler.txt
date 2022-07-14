@@ -23,9 +23,23 @@ Uzlaşma Bakış Açısı - Arz-Talep Bakış açısı : kiraya verenlerin oldu�
 // Yapılacaklar
 +Geçici UI'ların hazırlanması
 Backend
-	Tabloların hazırlanması
+	+ Tabloların hazırlanması
 	fake login
 	fake data dönen metodların hazırlanması
+		loginler: sign_up, token(login), refresh_login
+		user
+			user_info_update
+		rent
+			rent_create_update
+			rent_delete
+			rent_search
+		favories
+			favories_add
+			favories_delete
+		Photo
+			save // küçült
+			delete
+			
 	postman tamamlanması
 Mobile
 	fake register
@@ -39,12 +53,15 @@ Mobile
 	map'dan rentleri görüntüleme
 Translate
 Gerçek UI
-SMS Entegrasyonu
+SMS Login & Entegrasyonu
 Ödeme Entegrasyonu
 
 // Sonradan Yapılacaklar
 Çoklu Dil
 Düzgün Repsonsive UI
+Web Sitesi
+Şirket + Kredi Kart Ödemesi
+Mobil Kredi Kart Ödemesi Entegre
 
 // Kişisel Kriterler (Kendisinin ve Karşı Taraftan istenen)
 yaş, cinsiyet, Meslek: öğrenci, işçi, serbest, memur, öğretmen, özel sektör, polis/asker
@@ -175,6 +192,7 @@ RentDetail
 	// [Başkalarından Yorumlar + Puanlama ? (Airbnb gibi)]
 MessagesPage
 	Mesaj lisesi => MessagePage
+MessagePage
 PaymentPage
 	Kalem açıklaması
 	Ücreti + Vergisi
@@ -189,26 +207,27 @@ kayıtlı bu ilanlar min 1 ay localDB'de saklanır
 Aynı şekilde profil için de
 
 // Backend Models
-User
++User
 	id
 	name
 	surname
-	country	// Ülke kodu
+	country_code
 	phone
 	sms_code
 	sms_code_expiration_datetime
 	age
-	gender
-	job
-	register_date
-	last_login_date
+	gender  # 0:no_inf 1:male 2:famele
+	job # 0:no_inf 1:öğrenci, 2:işçi, 3:serbest, 4:memur, 5:öğretmen, 6:özel sektör, 7:polis/asker
+	register_datetime
+	last_login_datetime
 	instagram
 	facebook
 	description
-Rent
++Rent
 	id
-	user_id
-	country	// Ülke kodu
+	user_uuid
+	country_code
+	title
 	latitude
 	longitude
 	created_date	// localdb'de 1 ay geçmesi sonrasında tüm rentler silinir
@@ -266,35 +285,35 @@ Rent
 	child
 RentPhoto
 	id		// kullanıcı localinde aynısı olması durumunda serverden çekmesine gerek yok, localdakini kullanır
-	rent_id	
+	rent_uuid	
 	index	// 0:  vitrin foto
 	big_url
 	small_url
 	created_date	// localdb'de 1 ay geçmesi sonrasında tüm fotoğraflar silinir
 UserPhoto
 	id			// kullanıcı localinde aynısı olması durumunda serverden çekmesine gerek yok, localdakini kullanır
-	user_id
+	user_uuid
 	index	// 0:  vitrin foto
 	big_url
 	small_url
 	created_date	// localdb'de 1 ay geçmesi sonrasında tüm fotoğraflar silinir
 RentPaymentDetail
-	rent_id
-	start_date
-	expiration_date
+	rent_uuid
+	start_datetime
+	expiration_datetime
 	price			// 1 -USD- or 0 -USD-
 	currency		// USD TRY
-	country			// Ülke kodu
+	country_code
 	discount_coupon	// null or COUPONXX
 	discount_rate	// 0 or 0.5 or 1
 CountryPrice
-	country	// Ülke kodu
+	country_code
 	price	// ilan fiyatı
 Coupon
 	discount_coupon	// null or COUPONXX
 	discount_rate	// 0 or 0.5 or 1
-	user_id		// null(herkese), user_id tek kişiye
-	expiration_date
+	user_uuid		// null(herkese), user_uuid tek kişiye
+	expiration_datetime
 FavoriesRent
-	user_id
-	rent_id
+	user_uuid
+	rent_uuid
