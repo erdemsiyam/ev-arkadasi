@@ -8,7 +8,7 @@ from fastapi.exceptions import HTTPException
 from pydantic import BaseModel
 from fastapi_jwt_auth import AuthJWT
 import uuid
-from typing import Optional,Lis
+from typing import Optional,List
 import os
 from models import *
 from repositories import *
@@ -21,7 +21,7 @@ IMAGEDIR = os.path.abspath(os.getcwd()) + '/api/images/'
 app = FastAPI()
 
 # Static Config
-app.mount("/images/", StaticFiles(directory="api/images"), name="static")
+app.mount("/images/", StaticFiles(directory="../api/images"), name="static")
 #uvicorn main:app --reload
 
 # JWT Ayarı

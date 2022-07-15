@@ -5,7 +5,7 @@ from fastapi import Depends, FastAPI,HTTPException,status,File,UploadFile
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.exceptions import HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from fastapi_jwt_auth import AuthJWT
 import uuid
 from typing import Optional,List
@@ -13,35 +13,73 @@ import os
 from datetime import datetime
 
 
-class User(BaseModel):
+class CustomDatetime(datetime):
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+    @classmethod
+    def validate(cls, v):
+        return cls.strptime(str(v), '%Y-%m-%d %H:%M:%S')
+    @staticmethod
+    def to_str(dt:datetime) -> str:
+        return dt.strftime("%Y-%m-%d %H:%M:%S")
+
+class MyBaseModel(BaseModel):
+    class Config:
+        json_encoders = {
+            CustomDatetime: CustomDatetime.to_str
+        }
+
+
+class RentPhoto(MyBaseModel):
+    uuid:Optional[str]
+    rent_uuid:Optional[str]
+    index:Optional[int] #  0:  vitrin foto
+    big_url:Optional[str]
+    small_url:Optional[str]
+    created_date:Optional[CustomDatetime]
+
+
+class UserPhoto(MyBaseModel):
+    uuid:Optional[str]
+    user_uuid:Optional[str]
+    index:Optional[int] #  0:  vitrin foto
+    big_url:Optional[str]
+    small_url:Optional[str]
+    created_date:Optional[CustomDatetime]
+
+
+class User(MyBaseModel):
     uuid:Optional[str]
     name:Optional[str]
     surname:Optional[str]
     country_code:Optional[str]
     phone:Optional[str]
     sms_code:Optional[str]
-    sms_code_expiration_datetime:Optional[datetime]
+    sms_code_expiration_datetime:Optional[CustomDatetime]
     age:Optional[int]
     gender:Optional[int] # 0:no_inf 1:male 2:famele
     job:Optional[int] # 0:no_inf 1:öğrenci, 2:işçi, 3:serbest, 4:memur, 5:öğretmen, 6:özel sektör, 7:polis/asker
-    register_datetime:Optional[datetime]
-    last_login_datetime:Optional[datetime]
+    register_datetime:Optional[CustomDatetime]
+    last_login_datetime:Optional[CustomDatetime]
     instagram:Optional[str]
     facebook:Optional[str]
     description:Optional[str]
     access_token:Optional[str]
     refresh_token:Optional[str]
+    # Only For Json
+    photos: Optional[list[UserPhoto]]
 
 
-class Rent(BaseModel):
+class Rent(MyBaseModel):
     uuid:Optional[str]
     user_uuid:Optional[str]
     country_code:Optional[str]
     title:Optional[str]
     latitude:Optional[float]
     longitude:Optional[float]
-    created_date:Optional[datetime]
-    expiration_date:Optional[datetime]
+    created_date:Optional[CustomDatetime]
+    expiration_date:Optional[CustomDatetime]
     discount_coupon:Optional[str]
     price:Optional[float]
     person_living_count:Optional[int]
@@ -93,30 +131,16 @@ class Rent(BaseModel):
     pet_others:Optional[bool] # 0:yes 1:no
     vegan:Optional[bool] # 0:yes 1:no
     child:Optional[bool] # 0:yes 1:no
+    # Only For Json
+    small_photo: UserPhoto
+    photos: Optional[list[UserPhoto]]
 
 
-class RentPhoto(BaseModel):
-    uuid:Optional[str]
+
+class RentPaymentDetail(MyBaseModel):
     rent_uuid:Optional[str]
-    index:Optional[int] #  0:  vitrin foto
-    big_url:Optional[str]
-    small_url:Optional[str]
-    created_date:Optional[datetime]
-
-
-class UserPhoto(BaseModel):
-    uuid:Optional[str]
-    user_uuid:Optional[str]
-    index:Optional[int] #  0:  vitrin foto
-    big_url:Optional[str]
-    small_url:Optional[str]
-    created_date:Optional[datetime]
-
-
-class RentPaymentDetail(BaseModel):
-    rent_uuid:Optional[str]
-    start_datetime:Optional[datetime]
-    expiration_datetime:Optional[datetime]
+    start_datetime:Optional[CustomDatetime]
+    expiration_datetime:Optional[CustomDatetime]
     price:Optional[float]   # 1 -USD- or 0 -USD-
     currency:Optional[str]  # USD TRY
     country_code:Optional[str]
@@ -124,18 +148,18 @@ class RentPaymentDetail(BaseModel):
     discount_rate:Optional[float]   # 0 or 0.5 or 1
 
 
-class CountryPrice(BaseModel):
+class CountryPrice(MyBaseModel):
     country_code:Optional[str]
     price:Optional[float]   # 1 -USD- or 0 -USD-
 
 
-class Coupon(BaseModel):
+class Coupon(MyBaseModel):
     discount_coupon:Optional[str]
     discount_rate:Optional[float]   # 1 -USD- or 0 -USD-
     user_uuid:Optional[str] # null(herkese), user_id tek kişiye
-    expiration_datetime:Optional[datetime]
+    expiration_datetime:Optional[CustomDatetime]
 
 
-class FavoriesRent(BaseModel):
+class FavoriesRent(MyBaseModel):
     user_uuid:Optional[str]
     rent_uuid:Optional[str]

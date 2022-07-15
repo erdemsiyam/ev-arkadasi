@@ -24,9 +24,9 @@ Uzlaşma Bakış Açısı - Arz-Talep Bakış açısı : kiraya verenlerin oldu�
 +Geçici UI'ların hazırlanması
 Backend
 	+ Tabloların hazırlanması
-	fake login
+	+ fake login
 	fake data dönen metodların hazırlanması
-		loginler: sign_up, token(login), refresh_login
+		+ loginler: sign_up, token(login), refresh_login
 		user
 			user_info_update
 		rent
@@ -37,8 +37,9 @@ Backend
 			favories_add
 			favories_delete
 		Photo
-			save // küçült
+			add // küçült
 			delete
+			change_index
 			
 	postman tamamlanması
 Mobile
@@ -223,6 +224,8 @@ Aynı şekilde profil için de
 	instagram
 	facebook
 	description
+	// JSON'da
+	photos: [UserPhoto]
 +Rent
 	id
 	user_uuid
@@ -283,6 +286,9 @@ Aynı şekilde profil için de
 	pet_others
 	vegan
 	child
+	// JSON'da
+	small_photo : RentPhoto
+	photos: [RentPhoto]
 RentPhoto
 	id		// kullanıcı localinde aynısı olması durumunda serverden çekmesine gerek yok, localdakini kullanır
 	rent_uuid	
