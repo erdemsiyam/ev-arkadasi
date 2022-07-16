@@ -31,18 +31,10 @@ class MyBaseModel(BaseModel):
         }
 
 
-class RentPhoto(MyBaseModel):
-    uuid:Optional[str]
-    rent_uuid:Optional[str]
-    index:Optional[int] #  0:  vitrin foto
-    big_url:Optional[str]
-    small_url:Optional[str]
-    created_date:Optional[CustomDatetime]
-
-
-class UserPhoto(MyBaseModel):
+class MyImage(MyBaseModel):
     uuid:Optional[str]
     user_uuid:Optional[str]
+    rent_uuid:Optional[str]
     index:Optional[int] #  0:  vitrin foto
     big_url:Optional[str]
     small_url:Optional[str]
@@ -68,7 +60,8 @@ class User(MyBaseModel):
     access_token:Optional[str]
     refresh_token:Optional[str]
     # Only For Json
-    photos: Optional[list[UserPhoto]]
+    small_image: Optional[MyImage]
+    images: Optional[list[MyImage]]
 
 
 class Rent(MyBaseModel):
@@ -132,9 +125,8 @@ class Rent(MyBaseModel):
     vegan:Optional[bool] # 0:yes 1:no
     child:Optional[bool] # 0:yes 1:no
     # Only For Json
-    small_photo: UserPhoto
-    photos: Optional[list[UserPhoto]]
-
+    small_image: Optional[MyImage]
+    images: Optional[list[MyImage]]
 
 
 class RentPaymentDetail(MyBaseModel):

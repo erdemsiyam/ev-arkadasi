@@ -1,7 +1,7 @@
 from distutils import core
 from re import U
 from urllib import response
-from fastapi import Depends, FastAPI,HTTPException,status,File,UploadFile
+from fastapi import Depends, FastAPI, HTTPException, status, File, UploadFile, BackgroundTasks
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.exceptions import HTTPException
@@ -13,10 +13,12 @@ import os
 from models import *
 from repositories import *
 import uvicorn
+from PIL import Image
+import io
 
 
 
-IMAGEDIR = os.path.abspath(os.getcwd()) + '/api/images/'
+IMAGEDIR = os.path.abspath(os.getcwd()) + '/images/'
 
 app = FastAPI()
 
@@ -79,7 +81,97 @@ def signup(user:User,authorize:AuthJWT=Depends()):
     users.append(user)
     return token(user=user,authorize=authorize)
 
+# User
+@app.post('/user_update')
+def user_update(user:User,authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+    for u in users:
+        if u.uuid == current_user_uuid:
+            u.name = user.name
+            u.surname = user.surname
+            u.country_code = user.country_code
+            u.age = user.age
+            u.gender = user.gender
+            u.job = user.job
+            u.instagram = user.instagram
+            u.facebook = user.facebook
+            u.description = user.description
+            return {"error":False,"message":"Successfully Updated."}
+    return {"error":True,"message":"User Not Founded."}
+# user_image_add
+@app.post("/user_image_add")
+def user_image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...),authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+    myImage = image_add(background_tasks=background_tasks,file=file)
+    myImage.user_uuid = current_user_uuid
+    myImage.rent_uuid = None
+    users_images_count = 0
+    for u in users:
+        if u.uuid == current_user_uuid:
+            for i in images:
+                if i.user_uuid == current_user_uuid:
+                    users_images_count += 1
+            break
+    myImage.index = users_images_count + 1
+    images.append(myImage)
+    print(images)
+    return {"error":False,"message":"Successfully Added."}
 
+# user_image_delete
+# user_image_reorder
+
+# # Rent
+# rent_create
+# rent_update
+# rent_delete
+# rent_image_add
+# rent_image_delete
+# rent_image_reorder
+# rent_search
+
+# # Favorite
+# get_favories
+# favorite_add
+# favorite_delete
+
+# # Image (Common)
+async def resize_image(name: str, file: UploadFile):
+    sizes = [{
+        "name":"big",
+        "width": 1280,
+        "height": 720
+    }, {
+        "name":"small",
+        "width": 640,
+        "height": 480
+    }]
+
+    request_object_content = await file.read()
+    for size in sizes:
+        image = Image.open(io.BytesIO(request_object_content))
+        image.thumbnail((size['width'], size['height']))
+        image.save(IMAGEDIR + name + "_" + size['name'] + ".jpg",quality=60)
+# image_add
+def image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...)) -> MyImage:
+
+    # SAVE FILE ORIGINAL
+    # with open(IMAGEDIR + file.filename, "wb") as myfile:
+    #     content = await file.read()
+    #     myfile.write(content)
+    #     myfile.close()
+    myImage = MyImage()
+    myImage.uuid= str(uuid.uuid4())
+    myImage.big_url = myImage.uuid + '_big.jpg'
+    myImage.small_url = myImage.uuid + '_small.jpg'
+    myImage.created_date = datetime.datetime.now()
+    # RESIZE IMAGES
+    background_tasks.add_task(resize_image, name=myImage.uuid, file=file)
+    return myImage
+# image_delete
+
+            
 # Methods
 # @app.get('/items')
 # def get_items(category_id:Optional[int] = None,search:Optional[str] = None):

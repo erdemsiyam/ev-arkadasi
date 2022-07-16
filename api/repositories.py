@@ -11,31 +11,48 @@ import uuid
 from typing import Optional,List
 import os
 from models import *
+import datetime
+
+users : List[User] = []
+images : List[MyImage] = []
+# categories : List[Category] = []
+# items = ""List[Item] = []
+# favorites = ""List[Favorite] = []
+# cart_items = ""List[CartItem] = []
+# carts = ""List[Cart] = []
+
+# URL = "http = ""//127.0.0.1 = ""8000/images/"
 
 
-users:List[User] = []
-# categories:List[Category] = []
-# items:List[Item] = []
-# favorites:List[Favorite] = []
-# cart_items:List[CartItem] = []
-# carts:List[Cart] = []
+# User
+user1 = User()
+user1.uuid = "b99cc2d9-88bf-4a69-a878-0c1f9eff7b5b"
+user1.name = "Ahmet"
+user1.surname = "Yılmaz"
+user1.country_code = "TR"
+user1.phone = "+905511231234"
+user1.sms_code = "1234"
+user1.sms_code_expiration_datetime = datetime.datetime(2020, 5, 17,0,0,0)
+user1.age = 34
+user1.gender = "1"
+user1.job = "4"
+user1.register_datetime = datetime.datetime(2020, 5, 17,0,0,0)
+user1.last_login_datetime = datetime.datetime(2020, 5, 17,0,0,0)
+user1.instagram = "insta"
+user1.facebook = "face"
+user1.description = "desc"
+users.append(user1)
 
-# URL = "http://127.0.0.1:8000/images/"
+# Image
 
-
-# # USERS
-# user1 = User()
-# user1.uuid="b0e27d14-f6c3-45e3-b9dc-da4c106cba75"
-# user1.username="erdem"
-# user1.email = "erdem@erdem.com"
-# user1.password = "123"
-# users.append(user1)
-# user2 = User()
-# user2.uuid="c0e27d14-f6c3-45e3-b9dc-da4c106cba75"
-# user2.username="siyam"
-# user2.email = "siyam@erdem.com"
-# user2.password = "123"
-# users.append(user2)
+image1 = MyImage()
+# uuid:Optional[str]
+# user_uuid:Optional[str]
+# rent_uuid:Optional[str]
+# index:Optional[int] #  0:  vitrin foto
+# big_url:Optional[str]
+# small_url:Optional[str]
+# created_date:Optional[CustomDatetime]
 
 
 # # CATEGORIES
