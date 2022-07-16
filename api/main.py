@@ -1,4 +1,5 @@
 from distutils import core
+from hashlib import new
 from re import U
 from urllib import response
 from fastapi import Depends, FastAPI, HTTPException, status, File, UploadFile, BackgroundTasks
@@ -99,7 +100,6 @@ def user_update(user:User,authorize:AuthJWT=Depends()):
             u.description = user.description
             return {"error":False,"message":"Successfully Updated."}
     return {"error":True,"message":"User Not Founded."}
-# user_image_add
 @app.post("/user_image_add")
 def user_image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...),authorize:AuthJWT=Depends()):
     check_auth(authorize)
@@ -116,11 +116,53 @@ def user_image_add(background_tasks: BackgroundTasks, file: UploadFile = File(..
             break
     myImage.index = users_images_count + 1
     images.append(myImage)
-    print(images)
     return {"error":False,"message":"Successfully Added."}
+@app.get("/user_image_delete")
+def user_image_delete(image_uuid:str,authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
 
-# user_image_delete
-# user_image_reorder
+    for i in images:
+        if i.user_uuid == current_user_uuid and i.uuid == image_uuid:
+            image_delete(i)
+            images.remove(i)
+            break
+        
+    # reorder
+    user_images:List[MyImage] = []
+    for i in images:
+        if i.user_uuid == current_user_uuid:
+            user_images.append(i)
+    user_images.sort(key=lambda x: x.index, reverse=False)
+    index = 1
+    for u in user_images:
+        u.index = index
+        index += 1
+
+@app.get("/user_image_reorder")
+def user_image_reorder(image_uuid:str,new_index:int,authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+
+    user_images:List[MyImage] = []
+    for i in images:
+        if i.user_uuid == current_user_uuid:
+            user_images.append(i)
+    user_images.sort(key=lambda x: x.index, reverse=False)
+
+    for i in user_images:
+        if i.uuid == image_uuid:
+            selected_image = i
+            break
+    
+    user_images.remove(selected_image)
+    user_images.insert(new_index-1,selected_image)
+
+    index = 1
+    for i in user_images:
+        i.index = index
+        index += 1
+    
 
 # # Rent
 # rent_create
@@ -153,9 +195,7 @@ async def resize_image(name: str, file: UploadFile):
         image = Image.open(io.BytesIO(request_object_content))
         image.thumbnail((size['width'], size['height']))
         image.save(IMAGEDIR + name + "_" + size['name'] + ".jpg",quality=60)
-# image_add
 def image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...)) -> MyImage:
-
     # SAVE FILE ORIGINAL
     # with open(IMAGEDIR + file.filename, "wb") as myfile:
     #     content = await file.read()
@@ -169,7 +209,9 @@ def image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...)) -
     # RESIZE IMAGES
     background_tasks.add_task(resize_image, name=myImage.uuid, file=file)
     return myImage
-# image_delete
+def image_delete(image: MyImage):
+    os.remove(IMAGEDIR + image.big_url)
+    os.remove(IMAGEDIR + image.small_url)
 
             
 # Methods
