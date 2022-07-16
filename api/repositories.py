@@ -16,6 +16,7 @@ import datetime
 users : List[User] = []
 images : List[MyImage] = []
 rents : List[Rent] = []
+favories : List[Favorite] = []
 # categories : List[Category] = []
 # items = ""List[Item] = []
 # favorites = ""List[Favorite] = []

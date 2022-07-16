@@ -1,7 +1,9 @@
 from distutils import core
 from hashlib import new
 from re import U
+from select import select
 from urllib import response
+import uu
 from fastapi import Depends, FastAPI, HTTPException, status, File, UploadFile, BackgroundTasks
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -197,6 +199,17 @@ def rent(rent_uuid:str,authorize:AuthJWT=Depends()):
             return i
     return {"error":True,"message":"Rent Not Founded."}
         
+@app.get("/rent_search")
+def rent_search(latitude:float,longitude:float,latitude_delta:float,longitude_delta:float,authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+
+    rent_list: List[Rent] = []
+    for r in rents:
+        if (r.latitude <= latitude + latitude_delta and r.latitude >= latitude - latitude_delta) and (r.longitude <= longitude + longitude_delta and r.longitude >= longitude - longitude_delta):
+            rent_list.append(r)
+    
+    return rent_list
+
 @app.post("/rent_create")
 def rent_create(rent:Rent,authorize:AuthJWT=Depends()):
     check_auth(authorize)
@@ -378,12 +391,62 @@ def rent_image_reorder(rent_uuid:str, image_uuid:str, new_index:int, authorize:A
     return {"error":False,"message":"Rent Images Successfully Reordered."}
 
 
-# # Favorite
-# get_favories
-# favorite_add
-# favorite_delete
+# Favorite
+@app.get("/favorite")
+def favorite(authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+    
+    favories_list: List[Favorite] = []
+    for i in favories:
+        if i.user_uuid == current_user_uuid:
+            favories_list.append(i)
+    return favories_list
 
-# # Image (Common)
+@app.post("/favorite_add")
+def favorite_add(rent_uuid:str, authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+    
+    for i in rents:
+        if i.uuid == rent_uuid:
+
+            # varsa ekleme
+            for x in favories:
+                if x.user_uuid == current_user_uuid and x.rent_uuid == i.uuid:
+                    return {"error":False,"message":"Rent Already In Favories."}
+
+            favorite = Favorite()
+            favorite.user_uuid = current_user_uuid
+            favorite.rent_uuid = i.uuid
+            favories.append(favorite)
+            return {"error":False,"message":"Favorite Successfully Added."}
+    return {"error":True,"message":"Rent Not Founded."}
+
+@app.delete("/favorite_delete")
+def favorite_delete(rent_uuid:str, authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+
+    selected_rent = None
+    for i in rents:
+        if i.uuid == rent_uuid:
+            selected_rent = i
+            break
+    
+    if selected_rent is None:
+        return {"error":True,"message":"Rent Not Founded."}
+    
+    for i in favories:
+        if i.user_uuid == current_user_uuid and i.rent_uuid == selected_rent.uuid:
+            favories.remove(i)
+            return {"error":False,"message":"Favorite Successfully Deleted."}
+
+    return {"error":True,"message":"Rent Not Founded."}
+
+
+
+# Image (Common)
 async def resize_image(name: str, file: UploadFile):
     sizes = [{
         "name":"big",
@@ -400,6 +463,7 @@ async def resize_image(name: str, file: UploadFile):
         image = Image.open(io.BytesIO(request_object_content))
         image.thumbnail((size['width'], size['height']))
         image.save(IMAGEDIR + name + "_" + size['name'] + ".jpg",quality=60)
+
 def image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...)) -> MyImage:
     myImage = MyImage()
     myImage.uuid = str(uuid.uuid4())
@@ -409,151 +473,8 @@ def image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...)) -
     # RESIZE IMAGES
     background_tasks.add_task(resize_image, name=myImage.uuid, file=file)
     return myImage
+
 def image_delete(image: MyImage):
     os.remove(IMAGEDIR + image.big_url)
     os.remove(IMAGEDIR + image.small_url)
 
-            
-# Methods
-# @app.get('/items')
-# def get_items(category_id:Optional[int] = None,search:Optional[str] = None):
-#     response_items:list[Item] = []
-    
-#     # Category Query
-#     if category_id is None:
-#         response_items = items
-#     else:
-#         for i in items:
-#             if i.category_uuid == category_id:
-#                 response_items.append(i)
-    
-#     # Search Query
-#     if search is not None:
-#         for i in response_items.copy():
-#             if search not in i.title and search not in i.description:
-#                 response_items.remove(i)
-
-#     return response_items
-
-# @app.get('/categories')
-# def get_categories():
-#     return categories
-
-# @app.get('/item/{item_uuid}')
-# def get_item_by_id(item_uuid:str):
-#     for i in items:
-#         if i.uuid == item_uuid:
-#             return i
-#     return {}
-
-# @app.get('/favorites')
-# def get_favories_by_user(authorize:AuthJWT=Depends()):
-#     check_auth(authorize)
-#     current_user_uuid = authorize.get_jwt_subject()
-#     response_list:list[Item] = []
-#     for i in favorites:
-#         if i.user_uuid == current_user_uuid:
-#             for x in items:
-#                 if x.uuid == i.item_uuid:
-#                     response_list.append(x)
-#     return response_list
-
-# @app.get('/cart')
-# def get_cart_by_user(authorize:AuthJWT=Depends()):
-#     check_auth(authorize)
-#     current_user_uuid = authorize.get_jwt_subject()
-#     response_list:list[Item] = []
-#     for i in carts:
-#         if i.user_uuid == current_user_uuid:
-#             for x in i.cart_item_uuids:
-#                 for y in cart_items:
-#                     if x == y.uuid:
-#                         for z in items:
-#                             if z.uuid == y.item_uuid:
-#                                 item = z.copy()
-#                                 item.cart_item_uuid = y.uuid
-#                                 # item.selected_option = y.selected_option
-#                                 item.selected_size_option = y.selected_size_option
-#                                 item.selected_color_option = y.selected_color_option
-#                                 response_list.append(item)
-#     return response_list
-
-# @app.post('/favorite/{item_uuid}')
-# def add_fovorite(item_uuid:str,authorize:AuthJWT=Depends()):
-#     check_auth(authorize)
-#     current_user_uuid = authorize.get_jwt_subject()
-#     for i in items:
-#         if i.uuid == item_uuid:
-#             favorite:Favorite = Favorite()
-#             favorite.user_uuid = current_user_uuid
-#             favorite.item_uuid = i.uuid
-#             favorites.append(favorite)
-#             return True
-#     return False
-
-# @app.post('/cart')
-# def add_cart(item:Item,authorize:AuthJWT=Depends()):
-#     check_auth(authorize)
-#     current_user_uuid = authorize.get_jwt_subject()
-#     for i in items:
-#         if i.uuid == item.uuid:
-#             for x in carts:
-#                 if x.user_uuid == current_user_uuid:
-#                     cart_item = CartItem()
-#                     cart_item.uuid = str(uuid.uuid4())
-#                     item.cart_item_uuid = cart_item.uuid
-#                     item.price = i.price
-#                     cart_item.item_uuid = item.uuid
-#                     # cart_item.selected_option = item.selected_option
-#                     cart_item.selected_size_option = item.selected_size_option
-#                     cart_item.selected_color_option = item.selected_color_option
-#                     cart_items.append(cart_item)
-#                     x.cart_item_uuids.append(cart_item.uuid)
-#                     return item
-                    
-#             cart_item = CartItem()
-#             cart_item.uuid = str(uuid.uuid4())
-#             item.cart_item_uuid = cart_item.uuid
-#             item.price = i.price
-#             cart_item.item_uuid = item.uuid
-#             # cart_item.selected_option = item.selected_option
-#             cart_item.selected_size_option = item.selected_size_option
-#             cart_item.selected_color_option = item.selected_color_option
-#             cart_items.append(cart_item)
-#             cart = Cart()
-#             cart.user_uuid = current_user_uuid
-#             cart.cart_item_uuids = [cart_item.uuid]
-#             carts.append(cart)
-#             return item
-#     # return False
-#     return item
-
-# @app.delete('/favorite/{item_uuid}')
-# def delete_favorite(item_uuid:str,authorize:AuthJWT=Depends()):
-#     check_auth(authorize)
-#     current_user_uuid = authorize.get_jwt_subject()
-#     for i in favorites:
-#         if i.user_uuid == current_user_uuid and i.item_uuid == item_uuid:
-#             favorites.remove(i)
-#             return True
-#     return False
-
-
-# @app.delete('/cart/{cart_item_uuid}')
-# def delete_cart(cart_item_uuid:str,authorize:AuthJWT=Depends()):
-#     check_auth(authorize)
-#     current_user_uuid = authorize.get_jwt_subject()
-#     for i in carts:
-#         if i.user_uuid == current_user_uuid:
-#             for x in i.cart_item_uuids:
-#                 if x == cart_item_uuid:
-#                     for y in cart_items:
-#                         if y.uuid == cart_item_uuid:
-#                             cart_items.remove(y)
-#                             i.cart_item_uuids.remove(cart_item_uuid)
-#                             return True
-#     return False
-
-# if __name__ == "__main__":
-#     # Debug için
-#     uvicorn.run(app, host="127.0.0.1", port=8000)

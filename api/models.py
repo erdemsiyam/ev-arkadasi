@@ -153,7 +153,7 @@ class Coupon(MyBaseModel):
     expiration_datetime:Optional[CustomDatetime]
 
 
-class FavoriesRent(MyBaseModel):
+class Favorite(MyBaseModel):
     user_uuid:Optional[str]
     rent_uuid:Optional[str]
 
