@@ -83,7 +83,24 @@ def signup(user:User,authorize:AuthJWT=Depends()):
     return token(user=user,authorize=authorize)
 
 # User
-@app.post('/user_update')
+@app.get("/user")
+def user(user_uuid:str,authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    for i in users:
+        if i.uuid == user_uuid:
+            user_images : List[MyImage] = []
+            for x in images:
+                if x.user_uuid == user_uuid:
+                    user_images.append(x)
+            user_images.sort(key=lambda x: x.index, reverse=False)
+            i.images = user_images
+            i2 = i.copy()
+            i2.access_token = None
+            i2.refresh_token = None
+            return i2
+    return {"error":True,"message":"User Not Founded."}
+
+@app.put('/user_update')
 def user_update(user:User,authorize:AuthJWT=Depends()):
     check_auth(authorize)
     current_user_uuid = authorize.get_jwt_subject()
@@ -107,17 +124,15 @@ def user_image_add(background_tasks: BackgroundTasks, file: UploadFile = File(..
     myImage = image_add(background_tasks=background_tasks,file=file)
     myImage.user_uuid = current_user_uuid
     myImage.rent_uuid = None
+
     users_images_count = 0
-    for u in users:
-        if u.uuid == current_user_uuid:
-            for i in images:
-                if i.user_uuid == current_user_uuid:
-                    users_images_count += 1
-            break
+    for i in images:
+        if i.user_uuid == current_user_uuid:
+            users_images_count += 1
     myImage.index = users_images_count + 1
     images.append(myImage)
-    return {"error":False,"message":"Successfully Added."}
-@app.get("/user_image_delete")
+    return myImage # {"error":False,"message":"Successfully Added."}
+@app.delete("/user_image_delete")
 def user_image_delete(image_uuid:str,authorize:AuthJWT=Depends()):
     check_auth(authorize)
     current_user_uuid = authorize.get_jwt_subject()
@@ -138,8 +153,9 @@ def user_image_delete(image_uuid:str,authorize:AuthJWT=Depends()):
     for u in user_images:
         u.index = index
         index += 1
+    return {"error":False,"message":"Image Successfully Deleted."}
 
-@app.get("/user_image_reorder")
+@app.put("/user_image_reorder")
 def user_image_reorder(image_uuid:str,new_index:int,authorize:AuthJWT=Depends()):
     check_auth(authorize)
     current_user_uuid = authorize.get_jwt_subject()
@@ -162,16 +178,205 @@ def user_image_reorder(image_uuid:str,new_index:int,authorize:AuthJWT=Depends())
     for i in user_images:
         i.index = index
         index += 1
+    return {"error":False,"message":"User Images Successfully Reordered."}
     
 
-# # Rent
-# rent_create
-# rent_update
-# rent_delete
-# rent_image_add
-# rent_image_delete
-# rent_image_reorder
-# rent_search
+# Rent
+# TODO:rent_search
+@app.get("/rent")
+def rent(rent_uuid:str,authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    for i in rents:
+        if i.uuid == rent_uuid:
+            rent_images : List[MyImage] = []
+            for x in images:
+                if x.rent_uuid == rent_uuid:
+                    rent_images.append(x)
+            rent_images.sort(key=lambda x: x.index, reverse=False)
+            i.images = rent_images
+            return i
+    return {"error":True,"message":"Rent Not Founded."}
+        
+@app.post("/rent_create")
+def rent_create(rent:Rent,authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+    rent.uuid = str(uuid.uuid4())
+    rent.user_uuid = current_user_uuid
+    rents.append(rent)
+    return rent # {"error":False,"message":"Successfully Created."}
+
+@app.put("/rent_update")
+def rent_update(rent:Rent,authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+
+    for i in rents:
+        if i.uuid == rent.uuid and i.user_uuid == current_user_uuid:
+            i.country_code = rent.country_code
+            i.title = rent.title
+            i.latitude = rent.latitude
+            i.longitude = rent.longitude
+            i.created_date = rent.created_date
+            i.price = rent.price
+            i.person_living_count = rent.person_living_count
+            i.building_age = rent.building_age
+            i.building_type = rent.building_type
+            i.spot = rent.spot
+            i.meter_square = rent.meter_square
+            i.rooms_count = rent.rooms_count
+            i.halls_count = rent.halls_count
+            i.is_furnished = rent.is_furnished
+            i.is_furnished_to_new_person = rent.is_furnished_to_new_person
+            i.shared_bathroom = rent.shared_bathroom
+            i.shared_room = rent.shared_room
+            i.deposit_price = rent.deposit_price
+            i.dues_price = rent.dues_price
+            i.description = rent.description
+            i.internet = rent.internet
+            i.fridge = rent.fridge
+            i.washing_machine = rent.washing_machine
+            i.dishwasher = rent.dishwasher
+            i.tv = rent.tv
+            i.radiator = rent.radiator
+            i.stove = rent.stove
+            i.bus_stop = rent.bus_stop
+            i.subway = rent.subway
+            i.outdoor_parking = rent.outdoor_parking
+            i.parking_garage = rent.parking_garage
+            i.security = rent.security
+            i.site = rent.site
+            i.gym = rent.gym
+            i.elevator = rent.elevator
+            i.swimming_pool = rent.swimming_pool
+            i.age_min = rent.age_min
+            i.age_max = rent.age_max
+            i.gender = rent.gender
+            i.job_student = rent.job_student
+            i.job_worker = rent.job_worker
+            i.job_self_emp = rent.job_self_emp
+            i.job_officer = rent.job_officer
+            i.job_teacher = rent.job_teacher
+            i.job_private_sector_emp = rent.job_private_sector_emp
+            i.job_police_army = rent.job_police_army
+            i.smoke = rent.smoke
+            i.alcohol = rent.alcohol
+            i.pet_cat = rent.pet_cat
+            i.pet_dog = rent.pet_dog
+            i.pet_bird = rent.pet_bird
+            i.pet_others = rent.pet_others
+            i.vegan = rent.vegan
+            i.child = rent.child
+            return i # {"error":False,"message":"Successfully Updated."}
+    return {"error":True,"message":"Rent Not Founded."}
+
+@app.delete("/rent_delete")
+def rent_delete(rent_uuid:str,authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+
+    for i in rents:
+        if i.uuid == rent_uuid and i.user_uuid == current_user_uuid:
+            rents.remove(i)
+            print(rents)
+            return {"error":False,"message":"Successfully Deleted."}
+    return {"error":True,"message":"Rent Not Founded."}
+
+@app.post("/rent_image_add")
+def rent_image_add(rent_uuid:str,background_tasks: BackgroundTasks, file: UploadFile = File(...),authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+
+    # rent var mı user a mı ait kontrol
+    selectedRent = None
+    for i in rents:
+        if i.uuid == rent_uuid and i.user_uuid == current_user_uuid:
+            selectedRent = i
+            break
+    if selectedRent is None:
+        return {"error":True,"message":"Rent Not Founded."}
+    
+    myImage = image_add(background_tasks=background_tasks,file=file)
+    myImage.user_uuid = None
+    myImage.rent_uuid = rent_uuid
+
+    rent_images_count = 0
+    for i in images:
+        if i.rent_uuid == selectedRent.uuid:
+            rent_images_count += 1
+    myImage.index = rent_images_count + 1
+    images.append(myImage)
+    return myImage # {"error":False,"message":"Successfully Added."}
+
+@app.delete("/rent_image_delete")
+def rent_image_delete(rent_uuid:str,image_uuid:str,authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+
+    # rent user a mı ait kontrol
+    selectedRent = None
+    for i in rents:
+        if i.uuid == rent_uuid and i.user_uuid == current_user_uuid:
+            selectedRent = i
+            break
+    if selectedRent is None:
+        return {"error":True,"message":"Rent Not Founded."}
+    
+    for i in images:
+        if i.rent_uuid == rent_uuid and i.uuid == image_uuid:
+            image_delete(i)
+            images.remove(i)
+            break
+        
+    # reorder
+    rent_images:List[MyImage] = []
+    for i in images:
+        if i.rent_uuid == selectedRent.uuid:
+            rent_images.append(i)
+    rent_images.sort(key=lambda x: x.index, reverse=False)
+    index = 1
+    for u in rent_images:
+        u.index = index
+        index += 1
+    return {"error":False,"message":"Image Successfully Deleted."}
+
+@app.put("/rent_image_reorder")
+def rent_image_reorder(rent_uuid:str, image_uuid:str, new_index:int, authorize:AuthJWT=Depends()):
+    check_auth(authorize)
+    current_user_uuid = authorize.get_jwt_subject()
+
+    # rent user a mı ait kontrol
+    selected_rent = None
+    for i in rents:
+        if i.uuid == rent_uuid and i.user_uuid == current_user_uuid:
+            selected_rent = i
+            break
+    if selected_rent is None:
+        return {"error":True,"message":"Rent Not Founded."}
+
+    rent_images:List[MyImage] = []
+    for i in images:
+        if i.rent_uuid == selected_rent.uuid:
+            rent_images.append(i)
+    rent_images.sort(key=lambda x: x.index, reverse=False)
+
+    selected_image = None
+    for i in rent_images:
+        if i.uuid == image_uuid:
+            selected_image = i
+            break
+    if selected_rent is None:
+        return {"error":True,"message":"Rent Image Not Founded."}
+    
+    rent_images.remove(selected_image)
+    rent_images.insert(new_index-1,selected_image)
+
+    index = 1
+    for i in rent_images:
+        i.index = index
+        index += 1
+    return {"error":False,"message":"Rent Images Successfully Reordered."}
+
 
 # # Favorite
 # get_favories
@@ -196,13 +401,8 @@ async def resize_image(name: str, file: UploadFile):
         image.thumbnail((size['width'], size['height']))
         image.save(IMAGEDIR + name + "_" + size['name'] + ".jpg",quality=60)
 def image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...)) -> MyImage:
-    # SAVE FILE ORIGINAL
-    # with open(IMAGEDIR + file.filename, "wb") as myfile:
-    #     content = await file.read()
-    #     myfile.write(content)
-    #     myfile.close()
     myImage = MyImage()
-    myImage.uuid= str(uuid.uuid4())
+    myImage.uuid = str(uuid.uuid4())
     myImage.big_url = myImage.uuid + '_big.jpg'
     myImage.small_url = myImage.uuid + '_small.jpg'
     myImage.created_date = datetime.datetime.now()

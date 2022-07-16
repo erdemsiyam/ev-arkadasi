@@ -19,6 +19,8 @@ class CustomDatetime(datetime):
         yield cls.validate
     @classmethod
     def validate(cls, v):
+        if len(v) == 0:
+            return None
         return cls.strptime(str(v), '%Y-%m-%d %H:%M:%S')
     @staticmethod
     def to_str(dt:datetime) -> str:
@@ -60,7 +62,6 @@ class User(MyBaseModel):
     access_token:Optional[str]
     refresh_token:Optional[str]
     # Only For Json
-    small_image: Optional[MyImage]
     images: Optional[list[MyImage]]
 
 
@@ -81,6 +82,7 @@ class Rent(MyBaseModel):
     spot:Optional[int] # bulunduğu kat
     meter_square:Optional[int]
     rooms_count:Optional[int]
+    halls_count:Optional[int]
     is_furnished:Optional[bool]
     is_furnished_to_new_person:Optional[bool]
     shared_bathroom:Optional[bool]
@@ -125,7 +127,6 @@ class Rent(MyBaseModel):
     vegan:Optional[bool] # 0:yes 1:no
     child:Optional[bool] # 0:yes 1:no
     # Only For Json
-    small_image: Optional[MyImage]
     images: Optional[list[MyImage]]
 
 
@@ -155,3 +156,65 @@ class Coupon(MyBaseModel):
 class FavoriesRent(MyBaseModel):
     user_uuid:Optional[str]
     rent_uuid:Optional[str]
+
+"""
+{
+    "uuid" : "",
+    "user_uuid" : "",
+    "country_code" : "",
+    "title" : "",
+    "latitude" : "",
+    "longitude" : "",
+    "created_date" : "",
+    "expiration_date" : "",
+    "discount_coupon" : "",
+    "price" : "",
+    "person_living_count" : "",
+    "building_age" : "",
+    "building_type" : "",
+    "spot" : "",
+    "meter_square" : "",
+    "rooms_count" : "",
+    "is_furnished" : "",
+    "is_furnished_to_new_person" : "",
+    "shared_bathroom" : "",
+    "shared_room" : "",
+    "deposit_price" : "",
+    "dues_price" : "",
+    "description" : "",
+    "internet" : "",
+    "fridge" : "",
+    "washing_machine" : "",
+    "dishwasher" : "",
+    "tv" : "",
+    "radiator" : "",
+    "stove" : "",
+    "bus_stop" : "",
+    "subway" : "",
+    "outdoor_parking" : "",
+    "parking_garage" : "",
+    "security" : "",
+    "site" : "",
+    "gym" : "",
+    "elevator" : "",
+    "swimming_pool" : "",
+    "age_min" : "",
+    "age_max" : "",
+    "gender" : "",
+    "job_student" : "",
+    "job_worker" : "",
+    "job_self_emp" : "",
+    "job_officer" : "",
+    "job_teacher" : "",
+    "job_private_sector_emp" : "",
+    "job_police_army" : "",
+    "smoke" : "",
+    "alcohol" : "",
+    "pet_cat" : "",
+    "pet_dog" : "",
+    "pet_bird" : "",
+    "pet_others" : "",
+    "vegan" : "",
+    "child" : ""
+}
+"""
