@@ -5,28 +5,65 @@ import 'package:ev_arkadasi/util/base/base_model.dart';
 class User extends BaseModel {
   User({
     this.uuid,
-    this.username,
-    this.email,
-    this.password,
+    this.name,
+    this.surname,
+    this.countryCode,
+    this.phone,
+    this.smsCode,
+    this.smsCodeExpirationDatetime,
+    this.age,
+    this.gender,
+    this.job,
+    this.registerDatetime,
+    this.lastLoginDatetime,
+    this.instagram,
+    this.facebook,
+    this.description,
     this.accessToken,
     this.refreshToken,
+    this.images,
   });
 
   String? uuid;
-  String? username;
-  String? email;
-  String? password;
+  String? name;
+  String? surname;
+  String? countryCode;
+  String? phone;
+  String? smsCode;
+  DateTime? smsCodeExpirationDatetime;
+  int? age;
+  int? gender;
+  int? job;
+  DateTime? registerDatetime;
+  DateTime? lastLoginDatetime;
+  String? instagram;
+  String? facebook;
+  String? description;
   String? accessToken;
   String? refreshToken;
+  List<dynamic>? images;
 
   @override
   String toJson() => json.encode({
         "uuid": uuid,
-        "username": username,
-        "email": email,
-        "password": password,
+        "name": name,
+        "surname": surname,
+        "country_code": countryCode,
+        "phone": phone,
+        "sms_code": smsCode,
+        "sms_code_expiration_datetime":
+            smsCodeExpirationDatetime?.toIso8601String() ?? "",
+        "age": age,
+        "gender": gender,
+        "job": job,
+        "register_datetime": registerDatetime?.toIso8601String() ?? "",
+        "last_login_datetime": lastLoginDatetime?.toIso8601String() ?? "",
+        "instagram": instagram,
+        "facebook": facebook,
+        "description": description,
         "access_token": accessToken,
         "refresh_token": refreshToken,
+        // "images": List<dynamic>.from(images.map((x) => x)),
       });
 
   @override
@@ -36,11 +73,11 @@ class User extends BaseModel {
 
   bool isEmpty() {
     if (uuid == null ||
-        username == null ||
+        phone == null ||
         refreshToken == null ||
         accessToken == null) return true;
     if (uuid!.isEmpty ||
-        username!.isEmpty ||
+        phone!.isEmpty ||
         refreshToken!.isEmpty ||
         accessToken!.isEmpty) return true;
     return false;
@@ -49,10 +86,23 @@ class User extends BaseModel {
   @override
   fromMap(Map<String, dynamic> map) {
     uuid = map["uuid"];
-    username = map["username"];
-    email = map["email"];
-    password = map["password"];
+    name = map["name"];
+    surname = map["surname"];
+    countryCode = map["country_code"];
+    phone = map["phone"];
+    smsCode = map["sms_code"];
+    smsCodeExpirationDatetime =
+        DateTime.parse(map["sms_code_expiration_datetime"]);
+    age = map["age"];
+    gender = map["gender"];
+    job = map["job"];
+    registerDatetime = DateTime.parse(map["register_datetime"]);
+    lastLoginDatetime = DateTime.parse(map["last_login_datetime"]);
+    instagram = map["instagram"];
+    facebook = map["facebook"];
+    description = map["description"];
     accessToken = map["access_token"];
     refreshToken = map["refresh_token"];
+    images = List<dynamic>.from(map["images"].map((x) => x));
   }
 }
