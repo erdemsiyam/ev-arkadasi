@@ -25,23 +25,9 @@ Uzlaşma Bakış Açısı - Arz-Talep Bakış açısı : kiraya verenlerin oldu�
 Backend
 	+ Tabloların hazırlanması
 	+ fake login
-	fake data dönen metodların hazırlanması
-		+ loginler: sign_up, token(login), refresh_login
-		user
-			user_info_update
-		rent
-			rent_create_update
-			rent_delete
-			rent_search
-		favories
-			favories_add
-			favories_delete
-		Photo
-			add // küçült
-			delete
-			change_index
-			
-	postman tamamlanması
+	+ fake data dönen metodların hazırlanması
+	+ postman tamamlanması
+	+ Fake Data Hazırlanması
 Mobile
 	fake register
 		fotoğraf yüklenmesi
@@ -52,8 +38,11 @@ Mobile
 	rent düzenle
 	rent detay
 	map'dan rentleri görüntüleme
-Translate
-Gerçek UI
+PostgreSQL Bağlanması + Fake Datalar
+Location Search Entegre
+Backend metodların ayrıntılı kontrolü
+Mobil Translate
+Mobil Gerçek UI
 SMS Login & Entegrasyonu
 Ödeme Entegrasyonu
 
