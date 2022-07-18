@@ -16,7 +16,7 @@ class UserManagement {
   static final UserManagement _userManagement = UserManagement._singleton();
   static SharedPreferences? _sharedPreferences;
   static const String _uuidKey = "UUID";
-  static const String _usernameKey = "USERNAME";
+  static const String _phoneKey = "PHONE";
   static const String _accessTokenKey = "ACCESS_TOKEN";
   static const String _refreshTokenKey = "REFRESH_TOKEN";
   User? user;
@@ -33,7 +33,7 @@ class UserManagement {
     if (_sharedPreferences == null) return null;
     user = User();
     user?.uuid = _sharedPreferences?.getString(_uuidKey);
-    user?.username = _sharedPreferences?.getString(_usernameKey);
+    user?.phone = _sharedPreferences?.getString(_phoneKey);
     user?.accessToken = _sharedPreferences?.getString(_accessTokenKey);
     user?.refreshToken = _sharedPreferences?.getString(_refreshTokenKey);
     return user;
@@ -44,8 +44,8 @@ class UserManagement {
     user = newUser;
     if (user?.uuid != null)
       _sharedPreferences?.setString(_uuidKey, user!.uuid!);
-    if (user?.username != null)
-      _sharedPreferences?.setString(_usernameKey, user!.username!);
+    if (user?.phone != null)
+      _sharedPreferences?.setString(_phoneKey, user!.phone!);
     if (user?.accessToken != null)
       _sharedPreferences?.setString(_accessTokenKey, user!.accessToken!);
     if (user?.refreshToken != null)
@@ -55,7 +55,7 @@ class UserManagement {
   deleteUserFromCache() {
     if (_sharedPreferences == null) return;
     _sharedPreferences?.remove(_uuidKey);
-    _sharedPreferences?.remove(_usernameKey);
+    _sharedPreferences?.remove(_phoneKey);
     _sharedPreferences?.remove(_accessTokenKey);
     _sharedPreferences?.remove(_refreshTokenKey);
   }
