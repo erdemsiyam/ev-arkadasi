@@ -29,18 +29,23 @@ Uzlaşma Bakış Açısı - Arz-Talep Bakış açısı : kiraya verenlerin oldu�
 	+ postman tamamlanması
 	+ Fake Data Hazırlanması
 Mobile
+	map'dan rentleri görüntüleme
+	rent detay
+		favori / telefon gör => Login yönlendir
+	fake login
 	fake register
 		fotoğraf yüklenmesi
-	fake login
 	rent oluşturma
 		fotoğraf yüklenmesi
 		diğer bilgiler
 	rent düzenle
 	rent detay
-	map'dan rentleri görüntüleme
+	kullanıcı sayfaları
 PostgreSQL Bağlanması + Fake Datalar
 Location Search Entegre
-Backend metodların ayrıntılı kontrolü
+Backend metodların şart kontrolü
+mobil metodların şart kontrolü
+Mobil optimizasyon (resim-user bilgi)
 Mobil Translate
 Mobil Gerçek UI
 SMS Login & Entegrasyonu
