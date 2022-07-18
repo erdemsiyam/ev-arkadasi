@@ -13,7 +13,7 @@ class UserRepository {
   // Static Fields
   SharedPreferences? _sharedPreferences;
   static const String _uuidKey = "UUID";
-  static const String _usernameKey = "USERNAME";
+  static const String _phoneKey = "PHONE";
   static const String _accessTokenKey = "ACCESS_TOKEN";
   static const String _refreshTokenKey = "REFRESH_TOKEN";
   User? user;
@@ -56,7 +56,7 @@ class UserRepository {
     _sharedPreferences ??= await SharedPreferences.getInstance();
     User cacheUser = User();
     cacheUser.uuid = _sharedPreferences?.getString(_uuidKey);
-    cacheUser.username = _sharedPreferences?.getString(_usernameKey);
+    cacheUser.phone = _sharedPreferences?.getString(_phoneKey);
     cacheUser.accessToken = _sharedPreferences?.getString(_accessTokenKey);
     cacheUser.refreshToken = _sharedPreferences?.getString(_refreshTokenKey);
 
@@ -74,8 +74,8 @@ class UserRepository {
     if (user?.uuid != null) {
       _sharedPreferences?.setString(_uuidKey, user!.uuid!);
     }
-    if (user?.username != null) {
-      _sharedPreferences?.setString(_usernameKey, user!.username!);
+    if (user?.phone != null) {
+      _sharedPreferences?.setString(_phoneKey, user!.phone!);
     }
     if (user?.accessToken != null) {
       _sharedPreferences?.setString(_accessTokenKey, user!.accessToken!);
@@ -88,7 +88,7 @@ class UserRepository {
   _deleteUserFromCache() async {
     _sharedPreferences ??= await SharedPreferences.getInstance();
     _sharedPreferences?.remove(_uuidKey);
-    _sharedPreferences?.remove(_usernameKey);
+    _sharedPreferences?.remove(_phoneKey);
     _sharedPreferences?.remove(_accessTokenKey);
     _sharedPreferences?.remove(_refreshTokenKey);
   }
