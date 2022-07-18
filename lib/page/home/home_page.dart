@@ -1,5 +1,5 @@
-import 'package:ev_arkadasi/filter/filter_page.dart';
-import 'package:ev_arkadasi/my_rents/my_rents_page.dart';
+import 'package:ev_arkadasi/page/filter/filter_page.dart';
+import 'package:ev_arkadasi/page/my_rents/my_rents_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

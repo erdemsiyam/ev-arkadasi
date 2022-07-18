@@ -22,7 +22,7 @@ Uzlaşma Bakış Açısı - Arz-Talep Bakış açısı : kiraya verenlerin oldu�
 
 // Yapılacaklar
 +Geçici UI'ların hazırlanması
-Backend
++Backend
 	+ Tabloların hazırlanması
 	+ fake login
 	+ fake data dönen metodların hazırlanması
