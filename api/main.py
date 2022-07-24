@@ -184,7 +184,6 @@ def user_image_reorder(image_uuid:str,new_index:int,authorize:AuthJWT=Depends())
     
 
 # Rent
-# TODO:rent_search
 @app.get("/rent")
 def rent(rent_uuid:str):
     for i in rents:

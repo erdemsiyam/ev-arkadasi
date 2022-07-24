@@ -1,6 +1,6 @@
 // ignore_for_file: unused_element
 
-import 'package:ev_arkadasi/service/user_service.dart';
+import 'package:ev_arkadasi/service/user/user_service.dart';
 import 'package:ev_arkadasi/util/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

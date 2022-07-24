@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ev_arkadasi/model/image_model.dart';
 import 'package:ev_arkadasi/util/base/base_model.dart';
 
 class User extends BaseModel {
@@ -41,7 +42,7 @@ class User extends BaseModel {
   String? description;
   String? accessToken;
   String? refreshToken;
-  List<dynamic>? images;
+  List<Image>? images;
 
   @override
   String toJson() => json.encode({
@@ -103,6 +104,6 @@ class User extends BaseModel {
     description = map["description"];
     accessToken = map["access_token"];
     refreshToken = map["refresh_token"];
-    images = List<dynamic>.from(map["images"].map((x) => x));
+    images = List<Image>.from(map["images"].map((x) => Image()..fromMap(x)));
   }
 }
