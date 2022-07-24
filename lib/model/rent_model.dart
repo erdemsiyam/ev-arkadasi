@@ -253,6 +253,8 @@ class Rent extends BaseModel {
     petOthers = map["pet_others"];
     vegan = map["vegan"];
     child = map["child"];
-    images = List<Image>.from(map["images"].map((x) => Image()..fromMap(x)));
+    images = (map["images"] == null)
+        ? null
+        : List<Image>.from(map["images"].map((x) => Image()..fromMap(x)));
   }
 }
