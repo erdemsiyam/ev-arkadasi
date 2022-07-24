@@ -186,8 +186,7 @@ def user_image_reorder(image_uuid:str,new_index:int,authorize:AuthJWT=Depends())
 # Rent
 # TODO:rent_search
 @app.get("/rent")
-def rent(rent_uuid:str,authorize:AuthJWT=Depends()):
-    check_auth(authorize)
+def rent(rent_uuid:str):
     for i in rents:
         if i.uuid == rent_uuid:
             rent_images : List[MyImage] = []
@@ -200,14 +199,11 @@ def rent(rent_uuid:str,authorize:AuthJWT=Depends()):
     return {"error":True,"message":"Rent Not Founded."}
         
 @app.get("/rent_search")
-def rent_search(latitude:float,longitude:float,latitude_delta:float,longitude_delta:float,authorize:AuthJWT=Depends()):
-    check_auth(authorize)
-
+def rent_search(latitude:float=41.015137,longitude:float=28.979530,latitude_delta:float=0.03,longitude_delta:float=0.03):
     rent_list: List[Rent] = []
     for r in rents:
         if (r.latitude <= latitude + latitude_delta and r.latitude >= latitude - latitude_delta) and (r.longitude <= longitude + longitude_delta and r.longitude >= longitude - longitude_delta):
             rent_list.append(r)
-    
     return rent_list
 
 @app.post("/rent_create")
