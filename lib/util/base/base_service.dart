@@ -1,4 +1,5 @@
 // ignore_for_file: constant_identifier_names
+import 'dart:convert';
 import 'dart:io';
 import 'package:ev_arkadasi/repository/user_repository.dart';
 import 'package:ev_arkadasi/util/constant/http_option.dart';
@@ -21,7 +22,7 @@ class BaseService {
     bool isRefreshToken = false,
   }) async {
     if (query != null) {
-      query = "/" + query;
+      query = "?" + query;
     }
     Response? response;
     Uri requestUri =
@@ -50,7 +51,10 @@ class BaseService {
         );
       }
     }
-    header.addAll({HttpHeaders.contentTypeHeader: 'application/json'});
+    header.addAll({
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.acceptCharsetHeader: 'charset=UTF-8',
+    });
 
     // Body Adding
     String? requestBody;
@@ -91,7 +95,9 @@ class BaseService {
     switch (response.statusCode) {
       case 200:
         if (responseModel != null) {
-          responseModel.fromJson(response.body);
+          // responseModel.fromJson(response.body);
+          responseModel
+              .fromJson(const Utf8Decoder().convert(response.bodyBytes));
           return responseModel;
         }
         return null;

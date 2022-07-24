@@ -32,4 +32,6 @@ class UserService extends BaseService {
       return null;
     }
   }
+
+  // TODO: signIn
 }

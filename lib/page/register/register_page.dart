@@ -1,3 +1,4 @@
+import 'package:ev_arkadasi/service/rent/rent_service.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {

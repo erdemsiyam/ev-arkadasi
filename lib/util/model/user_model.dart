@@ -64,7 +64,7 @@ class User extends BaseModel {
         "description": description,
         "access_token": accessToken,
         "refresh_token": refreshToken,
-        // "images": List<dynamic>.from(images.map((x) => x)),
+        // "images": List<Image>.from((images == null)? [] : images!.map((x) => json.decode(x.toJson()))),
       });
 
   @override
