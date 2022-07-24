@@ -16,12 +16,17 @@ void main() async {
   // TODO: USER_IMAGE_REORDER
   // Rent
   test('GET_RENT', () async {
-    expect(
-        await RentService.instance
-            .getRent(rentUuid: "5a05a91a-0688-11ed-b939-0242ac120002"),
-        isNot(null));
+    var result = await RentService.instance
+        .getRent(rentUuid: "5a05a91a-0688-11ed-b939-0242ac120002");
+    expect(result, isNot(null));
   });
-  // TODO: RENT_SEARCH
+  test('RENT_SEARCH', () async {
+    var result = await RentService.instance.searchRent(
+      latitude: 41.040137,
+      longitude: 28.879530,
+    );
+    expect(result, isNot(null));
+  });
   // TODO: RENT_CREATE
   // TODO: RENT_UPDATE
   // TODO: RENT_DELETE
