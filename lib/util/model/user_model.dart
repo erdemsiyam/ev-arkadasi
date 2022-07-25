@@ -92,18 +92,25 @@ class User extends BaseModel {
     countryCode = map["country_code"];
     phone = map["phone"];
     smsCode = map["sms_code"];
-    smsCodeExpirationDatetime =
-        DateTime.parse(map["sms_code_expiration_datetime"]);
+    smsCodeExpirationDatetime = (map["sms_code_expiration_datetime"] == null)
+        ? null
+        : DateTime.parse(map["sms_code_expiration_datetime"]);
     age = map["age"];
     gender = map["gender"];
     job = map["job"];
-    registerDatetime = DateTime.parse(map["register_datetime"]);
-    lastLoginDatetime = DateTime.parse(map["last_login_datetime"]);
+    registerDatetime = (map["register_datetime"] == null)
+        ? null
+        : DateTime.parse(map["register_datetime"]);
+    lastLoginDatetime = (map["last_login_datetime"] == null)
+        ? null
+        : DateTime.parse(map["last_login_datetime"]);
     instagram = map["instagram"];
     facebook = map["facebook"];
     description = map["description"];
     accessToken = map["access_token"];
     refreshToken = map["refresh_token"];
-    images = List<Image>.from(map["images"].map((x) => Image()..fromMap(x)));
+    images = (map["images"] == null)
+        ? null
+        : List<Image>.from(map["images"].map((x) => Image()..fromMap(x)));
   }
 }
