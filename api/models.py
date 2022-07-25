@@ -21,10 +21,10 @@ class CustomDatetime(datetime):
     def validate(cls, v):
         if len(v) == 0:
             return None
-        return cls.strptime(str(v), '%Y-%m-%d %H:%M:%S')
+        return cls.strptime(str(v), '%Y-%m-%dT%H:%M:%S.%f')
     @staticmethod
     def to_str(dt:datetime) -> str:
-        return dt.strftime("%Y-%m-%d %H:%M:%S")
+        return dt.strftime("%Y-%m-%dT%H:%M:%S.%f")
 
 class MyBaseModel(BaseModel):
     class Config:
