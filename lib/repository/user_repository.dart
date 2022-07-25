@@ -27,8 +27,8 @@ class UserRepository {
       if (cacheUser.refreshToken == null) {
         return null;
       } else {
-        User? responseUser =
-            await UserService.instance.refreshToken(cacheUser.refreshToken!);
+        User? responseUser = await UserService.instance
+            .refreshToken(refreshToken: cacheUser.refreshToken!);
         if (responseUser == null) {
           return null;
         } else {
@@ -41,7 +41,7 @@ class UserRepository {
   }
 
   Future<User?> login(User loginUser) async {
-    User? responseUser = await UserService.instance.login(loginUser);
+    User? responseUser = await UserService.instance.login(user: loginUser);
     if (responseUser == null || responseUser.isEmpty()) {
       return null;
     } else {
