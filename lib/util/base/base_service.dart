@@ -94,6 +94,7 @@ class BaseService {
 
     switch (response.statusCode) {
       case 200:
+      case 201:
         if (responseModel != null) {
           // responseModel.fromJson(response.body);
           responseModel
