@@ -9,7 +9,7 @@ class UserService extends BaseService {
   static UserService get instance => _instance;
 
   // Methods
-  Future<User?> refreshToken(String refreshToken) async {
+  Future<User?> refreshToken({required String refreshToken}) async {
     try {
       return await request<User, User>(
         responseModel: User(),
@@ -21,7 +21,7 @@ class UserService extends BaseService {
     }
   }
 
-  Future<User?> login(User user) async {
+  Future<User?> login({required User user}) async {
     try {
       return await request<User, User>(
         requestModel: user,
@@ -33,5 +33,15 @@ class UserService extends BaseService {
     }
   }
 
-  // TODO: signIn
+  Future<User?> signUp({required User user}) async {
+    try {
+      return await request<User, User>(
+        requestModel: user,
+        responseModel: User(),
+        serviceMethod: ServiceMethod.SIGNUP,
+      );
+    } catch (e) {
+      return null;
+    }
+  }
 }
