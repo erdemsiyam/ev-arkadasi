@@ -42,11 +42,13 @@ void main() async {
     expect(response, isNot(null));
   });
   test('REFRESH_TOKEN', () async {
+    // User Manuel Login START
     // User? user = User();
     // user.phone = "+905511231234";
     // user.smsCode = "1234";
     // user = await UserService.instance.login(user: user);
     // UserRepository.instance.user = user;
+    // User Login END
     User? response = await UserService.instance.refreshToken(
         refreshToken: UserRepository.instance.user!.refreshToken!);
     UserRepository.instance.user = response;
@@ -55,10 +57,38 @@ void main() async {
 
   // User
   // TODO: GET_USER
+  test('GET_USER', () async {
+    // User Manuel Login START
+    // User? user = User();
+    // user.phone = "+905511231234";
+    // user.smsCode = "1234";
+    // user = await UserService.instance.login(user: user);
+    // UserRepository.instance.user = user;
+    // User Login END
+    var result = await UserService.instance
+        .getUser(userUuid: "b99cc2d9-88bf-4a69-a878-0c1f9eff7b5b");
+    expect(result, isNot(null));
+  });
+
   // TODO: USER_UPDATE
+  test('USER_UPDATE', () async {
+    // User Manuel Login START
+    User? user = User();
+    user.phone = "+905511231234";
+    user.smsCode = "1234";
+    user = await UserService.instance.login(user: user);
+    UserRepository.instance.user = user;
+    // User Login END
+    User? myUser = UserRepository.instance.user;
+    myUser!.name = "Ahmet Updated4";
+    var result = await UserService.instance.userUpdate(user: myUser);
+    expect(result, isNot(null));
+    expect(result?.name, "Ahmet Updated4");
+  });
   // TODO: USER_IMAGE_ADD
   // TODO: USER_IMAGE_DELETE
   // TODO: USER_IMAGE_REORDER
+
   // Rent
   test('GET_RENT', () async {
     var result = await RentService.instance
