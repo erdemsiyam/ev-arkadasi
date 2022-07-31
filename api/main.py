@@ -117,7 +117,18 @@ def user_update(user:User,authorize:AuthJWT=Depends()):
             u.instagram = user.instagram
             u.facebook = user.facebook
             u.description = user.description
-            return {"error":False,"message":"Successfully Updated."}
+            # User Geri Dönüş
+            user_images : List[MyImage] = []
+            for x in images:
+                if x.user_uuid == u.uuid:
+                    user_images.append(x)
+            user_images.sort(key=lambda x: x.index, reverse=False)
+            u.images = user_images
+            i2 = u.copy()
+            i2.access_token = None
+            i2.refresh_token = None
+            return i2
+            # return {"error":False,"message":"Successfully Updated."}
     return {"error":True,"message":"User Not Founded."}
 @app.post("/user_image_add")
 def user_image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...),authorize:AuthJWT=Depends()):
