@@ -468,13 +468,13 @@ async def resize_image(name: str, file: UploadFile):
     for size in sizes:
         image = Image.open(io.BytesIO(request_object_content))
         image.thumbnail((size['width'], size['height']))
-        image.save(IMAGEDIR + name + "_" + size['name'] + ".jpg",quality=60)
+        image.save(IMAGEDIR + name + "_" + size['name'] + ".png",quality=60)
 
 def image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...)) -> MyImage:
     myImage = MyImage()
     myImage.uuid = str(uuid.uuid4())
-    myImage.big_url = myImage.uuid + '_big.jpg'
-    myImage.small_url = myImage.uuid + '_small.jpg'
+    myImage.big_url = myImage.uuid + '_big.png'
+    myImage.small_url = myImage.uuid + '_small.png'
     myImage.created_date = datetime.datetime.now()
     # RESIZE IMAGES
     background_tasks.add_task(resize_image, name=myImage.uuid, file=file)

@@ -330,8 +330,8 @@ image1.uuid = "275edb07-c5cc-4a76-b769-4cae66ab0be9"
 image1.user_uuid = "b99cc2d9-88bf-4a69-a878-0c1f9eff7b5b"
 image1.rent_uuid = None
 image1.index = 1
-image1.big_url = "275edb07-c5cc-4a76-b769-4cae66ab0be9_big.jpg"
-image1.small_url = "275edb07-c5cc-4a76-b769-4cae66ab0be9_small.jpg"
+image1.big_url = "275edb07-c5cc-4a76-b769-4cae66ab0be9_big.png"
+image1.small_url = "275edb07-c5cc-4a76-b769-4cae66ab0be9_small.png"
 image1.created_date = datetime.datetime(2022, 7, 18,13,7,7)
 images.append(image1)
 image2 = MyImage()
@@ -339,8 +339,8 @@ image2.uuid = "a8082160-300c-4795-aed4-efce9e3c313f"
 image2.user_uuid = "156aeb0c-067f-11ed-b939-0242ac120002"
 image2.rent_uuid = None
 image2.index = 1
-image2.big_url = "a8082160-300c-4795-aed4-efce9e3c313f_big.jpg"
-image2.small_url = "a8082160-300c-4795-aed4-efce9e3c313f_small.jpg"
+image2.big_url = "a8082160-300c-4795-aed4-efce9e3c313f_big.png"
+image2.small_url = "a8082160-300c-4795-aed4-efce9e3c313f_small.png"
 image2.created_date = datetime.datetime(2022, 7, 18,13,11,47)
 images.append(image2)
 image3 = MyImage()
@@ -348,8 +348,8 @@ image3.uuid = "78faac69-b768-4d12-9a40-3b9fd71d7eee"
 image3.user_uuid = "820143ec-067f-11ed-b939-0242ac120002"
 image3.rent_uuid = None
 image3.index = 1
-image3.big_url = "78faac69-b768-4d12-9a40-3b9fd71d7eee_big.jpg"
-image3.small_url = "78faac69-b768-4d12-9a40-3b9fd71d7eee_small.jpg"
+image3.big_url = "78faac69-b768-4d12-9a40-3b9fd71d7eee_big.png"
+image3.small_url = "78faac69-b768-4d12-9a40-3b9fd71d7eee_small.png"
 image3.created_date = datetime.datetime(2022, 7, 18,13,13,55)
 images.append(image3)
 image4 = MyImage()
@@ -357,8 +357,8 @@ image4.uuid = "c9fce3eb-801f-41d4-a114-fb84e2f1fba4"
 image4.user_uuid = "820143ec-067f-11ed-b939-0242ac120002"
 image4.rent_uuid = None
 image4.index = 2
-image4.big_url = "c9fce3eb-801f-41d4-a114-fb84e2f1fba4_big.jpg"
-image4.small_url = "c9fce3eb-801f-41d4-a114-fb84e2f1fba4_small.jpg"
+image4.big_url = "c9fce3eb-801f-41d4-a114-fb84e2f1fba4_big.png"
+image4.small_url = "c9fce3eb-801f-41d4-a114-fb84e2f1fba4_small.png"
 image4.created_date = datetime.datetime(2022, 7, 18,13,15,27)
 images.append(image4)
 # Image Rent
@@ -368,8 +368,8 @@ image5.uuid = "18fa832e-ca3d-476c-80a6-722246fff5c7"
 image5.user_uuid = None
 image5.rent_uuid = "055dc3fc-0683-11ed-b939-0242ac120002"
 image5.index = 1
-image5.big_url = "18fa832e-ca3d-476c-80a6-722246fff5c7_big.jpg"
-image5.small_url = "18fa832e-ca3d-476c-80a6-722246fff5c7_small.jpg"
+image5.big_url = "18fa832e-ca3d-476c-80a6-722246fff5c7_big.png"
+image5.small_url = "18fa832e-ca3d-476c-80a6-722246fff5c7_small.png"
 image5.created_date = datetime.datetime(2022, 7, 18,13,28,38)
 images.append(image5)
 image5 = MyImage()
@@ -377,8 +377,8 @@ image5.uuid = "c6f5f3fc-ae9c-4660-9c78-87be28db4392"
 image5.user_uuid = None
 image5.rent_uuid = "055dc3fc-0683-11ed-b939-0242ac120002"
 image5.index = 2
-image5.big_url = "c6f5f3fc-ae9c-4660-9c78-87be28db4392_big.jpg"
-image5.small_url = "c6f5f3fc-ae9c-4660-9c78-87be28db4392_small.jpg"
+image5.big_url = "c6f5f3fc-ae9c-4660-9c78-87be28db4392_big.png"
+image5.small_url = "c6f5f3fc-ae9c-4660-9c78-87be28db4392_small.png"
 image5.created_date = datetime.datetime(2022, 7, 18,13,30,9)
 images.append(image5)
 image6 = MyImage()
@@ -386,8 +386,8 @@ image6.uuid = "63eeadc0-d6a6-45b0-b5c6-9968a21d4aea"
 image6.user_uuid = None
 image6.rent_uuid = "055dc3fc-0683-11ed-b939-0242ac120002"
 image6.index = 3
-image6.big_url = "63eeadc0-d6a6-45b0-b5c6-9968a21d4aea_big.jpg"
-image6.small_url = "63eeadc0-d6a6-45b0-b5c6-9968a21d4aea_small.jpg"
+image6.big_url = "63eeadc0-d6a6-45b0-b5c6-9968a21d4aea_big.png"
+image6.small_url = "63eeadc0-d6a6-45b0-b5c6-9968a21d4aea_small.png"
 image6.created_date = datetime.datetime(2022, 7, 18,13,31,44)
 images.append(image6)
 #rent2
@@ -396,8 +396,8 @@ image7.uuid = "13e64ea1-2029-441f-8345-b6184c980f04"
 image7.user_uuid = None
 image7.rent_uuid = "4b162450-0685-11ed-b939-0242ac120002"
 image7.index = 1
-image7.big_url = "13e64ea1-2029-441f-8345-b6184c980f04_big.jpg"
-image7.small_url = "13e64ea1-2029-441f-8345-b6184c980f04_small.jpg"
+image7.big_url = "13e64ea1-2029-441f-8345-b6184c980f04_big.png"
+image7.small_url = "13e64ea1-2029-441f-8345-b6184c980f04_small.png"
 image7.created_date = datetime.datetime(2022, 7, 18,13,40,18)
 images.append(image7)
 image8 = MyImage()
@@ -405,8 +405,8 @@ image8.uuid = "c1dd5e23-7e85-4746-aacb-e0fde6c2aca0"
 image8.user_uuid = None
 image8.rent_uuid = "4b162450-0685-11ed-b939-0242ac120002"
 image8.index = 2
-image8.big_url = "c1dd5e23-7e85-4746-aacb-e0fde6c2aca0_big.jpg"
-image8.small_url = "c1dd5e23-7e85-4746-aacb-e0fde6c2aca0_small.jpg"
+image8.big_url = "c1dd5e23-7e85-4746-aacb-e0fde6c2aca0_big.png"
+image8.small_url = "c1dd5e23-7e85-4746-aacb-e0fde6c2aca0_small.png"
 image8.created_date = datetime.datetime(2022, 7, 18,13,42,44)
 images.append(image8)
 image9 = MyImage()
@@ -414,8 +414,8 @@ image9.uuid = "dc04fb6f-e9c7-4f3b-8441-4b760563f76d"
 image9.user_uuid = None
 image9.rent_uuid = "4b162450-0685-11ed-b939-0242ac120002"
 image9.index = 3
-image9.big_url = "dc04fb6f-e9c7-4f3b-8441-4b760563f76d_big.jpg"
-image9.small_url = "dc04fb6f-e9c7-4f3b-8441-4b760563f76d_small.jpg"
+image9.big_url = "dc04fb6f-e9c7-4f3b-8441-4b760563f76d_big.png"
+image9.small_url = "dc04fb6f-e9c7-4f3b-8441-4b760563f76d_small.png"
 image9.created_date = datetime.datetime(2022, 7, 18,13,43,55)
 images.append(image9)
 #rent3
@@ -424,8 +424,8 @@ image10.uuid = "661797b4-e283-43c9-a60f-eaa882329ec1"
 image10.user_uuid = None
 image10.rent_uuid = "1dde1694-0687-11ed-b939-0242ac120002"
 image10.index = 1
-image10.big_url = "661797b4-e283-43c9-a60f-eaa882329ec1_big.jpg"
-image10.small_url = "661797b4-e283-43c9-a60f-eaa882329ec1_small.jpg"
+image10.big_url = "661797b4-e283-43c9-a60f-eaa882329ec1_big.png"
+image10.small_url = "661797b4-e283-43c9-a60f-eaa882329ec1_small.png"
 image10.created_date = datetime.datetime(2022, 7, 18,13,52,24)
 images.append(image10)
 image11 = MyImage()
@@ -433,8 +433,8 @@ image11.uuid = "45ecd623-ead0-4d60-8877-682daaa88b60"
 image11.user_uuid = None
 image11.rent_uuid = "1dde1694-0687-11ed-b939-0242ac120002"
 image11.index = 2
-image11.big_url = "45ecd623-ead0-4d60-8877-682daaa88b60_big.jpg"
-image11.small_url = "45ecd623-ead0-4d60-8877-682daaa88b60_small.jpg"
+image11.big_url = "45ecd623-ead0-4d60-8877-682daaa88b60_big.png"
+image11.small_url = "45ecd623-ead0-4d60-8877-682daaa88b60_small.png"
 image11.created_date = datetime.datetime(2022, 7, 18,13,53,58)
 images.append(image11)
 image12 = MyImage()
@@ -442,8 +442,8 @@ image12.uuid = "350a7d90-0a8e-4bc9-adfd-ebe1a79e162c"
 image12.user_uuid = None
 image12.rent_uuid = "1dde1694-0687-11ed-b939-0242ac120002"
 image12.index = 3
-image12.big_url = "350a7d90-0a8e-4bc9-adfd-ebe1a79e162c_big.jpg"
-image12.small_url = "350a7d90-0a8e-4bc9-adfd-ebe1a79e162c_small.jpg"
+image12.big_url = "350a7d90-0a8e-4bc9-adfd-ebe1a79e162c_big.png"
+image12.small_url = "350a7d90-0a8e-4bc9-adfd-ebe1a79e162c_small.png"
 image12.created_date = datetime.datetime(2022, 7, 18,13,54,55)
 images.append(image12)
 image13 = MyImage()
@@ -451,8 +451,8 @@ image13.uuid = "1fcb57de-7702-4c09-b1a7-6ac6a4b6218f"
 image13.user_uuid = None
 image13.rent_uuid = "1dde1694-0687-11ed-b939-0242ac120002"
 image13.index = 4
-image13.big_url = "1fcb57de-7702-4c09-b1a7-6ac6a4b6218f_big.jpg"
-image13.small_url = "1fcb57de-7702-4c09-b1a7-6ac6a4b6218f_small.jpg"
+image13.big_url = "1fcb57de-7702-4c09-b1a7-6ac6a4b6218f_big.png"
+image13.small_url = "1fcb57de-7702-4c09-b1a7-6ac6a4b6218f_small.png"
 image13.created_date = datetime.datetime(2022, 7, 18,13,55,29)
 images.append(image13)
 #rent4
@@ -461,8 +461,8 @@ image14.uuid = "3c687b67-db33-466e-81d0-4310a21704bc"
 image14.user_uuid = None
 image14.rent_uuid = "5a05a91a-0688-11ed-b939-0242ac120002"
 image14.index = 1
-image14.big_url = "3c687b67-db33-466e-81d0-4310a21704bc_big.jpg"
-image14.small_url = "3c687b67-db33-466e-81d0-4310a21704bc_small.jpg"
+image14.big_url = "3c687b67-db33-466e-81d0-4310a21704bc_big.png"
+image14.small_url = "3c687b67-db33-466e-81d0-4310a21704bc_small.png"
 image14.created_date = datetime.datetime(2022, 7, 18,14,3,25)
 images.append(image14)
 image15 = MyImage()
@@ -470,8 +470,8 @@ image15.uuid = "3a6bd83b-369d-49e5-8809-d2c03e1c7de3"
 image15.user_uuid = None
 image15.rent_uuid = "5a05a91a-0688-11ed-b939-0242ac120002"
 image15.index = 2
-image15.big_url = "3a6bd83b-369d-49e5-8809-d2c03e1c7de3_big.jpg"
-image15.small_url = "3a6bd83b-369d-49e5-8809-d2c03e1c7de3_small.jpg"
+image15.big_url = "3a6bd83b-369d-49e5-8809-d2c03e1c7de3_big.png"
+image15.small_url = "3a6bd83b-369d-49e5-8809-d2c03e1c7de3_small.png"
 image15.created_date = datetime.datetime(2022, 7, 18,14,4,46)
 images.append(image15)
 image16 = MyImage()
@@ -479,8 +479,8 @@ image16.uuid = "58f67a6c-a3cd-44bb-9149-304ad0234979"
 image16.user_uuid = None
 image16.rent_uuid = "5a05a91a-0688-11ed-b939-0242ac120002"
 image16.index = 3
-image16.big_url = "58f67a6c-a3cd-44bb-9149-304ad0234979_big.jpg"
-image16.small_url = "58f67a6c-a3cd-44bb-9149-304ad0234979_small.jpg"
+image16.big_url = "58f67a6c-a3cd-44bb-9149-304ad0234979_big.png"
+image16.small_url = "58f67a6c-a3cd-44bb-9149-304ad0234979_small.png"
 image16.created_date = datetime.datetime(2022, 7, 18,14,5,55)
 images.append(image16)
 image17 = MyImage()
@@ -488,8 +488,8 @@ image17.uuid = "19381c4e-4cb9-4b7e-b820-67145911c244"
 image17.user_uuid = None
 image17.rent_uuid = "5a05a91a-0688-11ed-b939-0242ac120002"
 image17.index = 4
-image17.big_url = "19381c4e-4cb9-4b7e-b820-67145911c244_big.jpg"
-image17.small_url = "19381c4e-4cb9-4b7e-b820-67145911c244_small.jpg"
+image17.big_url = "19381c4e-4cb9-4b7e-b820-67145911c244_big.png"
+image17.small_url = "19381c4e-4cb9-4b7e-b820-67145911c244_small.png"
 image17.created_date = datetime.datetime(2022, 7, 18,14,6,45)
 images.append(image17)
 image18 = MyImage()
@@ -497,8 +497,8 @@ image18.uuid = "dfbfde6b-de3d-4632-b5e4-fc92000a05b0"
 image18.user_uuid = None
 image18.rent_uuid = "5a05a91a-0688-11ed-b939-0242ac120002"
 image18.index = 5
-image18.big_url = "dfbfde6b-de3d-4632-b5e4-fc92000a05b0_big.jpg"
-image18.small_url = "dfbfde6b-de3d-4632-b5e4-fc92000a05b0_small.jpg"
+image18.big_url = "dfbfde6b-de3d-4632-b5e4-fc92000a05b0_big.png"
+image18.small_url = "dfbfde6b-de3d-4632-b5e4-fc92000a05b0_small.png"
 image18.created_date = datetime.datetime(2022, 7, 18,14,10,0)
 images.append(image18)
 image19 = MyImage()
@@ -506,8 +506,8 @@ image19.uuid = "1a014dcf-5348-43cc-990a-0ac600072b5c"
 image19.user_uuid = None
 image19.rent_uuid = "5a05a91a-0688-11ed-b939-0242ac120002"
 image19.index = 6
-image19.big_url = "1a014dcf-5348-43cc-990a-0ac600072b5c_big.jpg"
-image19.small_url = "1a014dcf-5348-43cc-990a-0ac600072b5c_small.jpg"
+image19.big_url = "1a014dcf-5348-43cc-990a-0ac600072b5c_big.png"
+image19.small_url = "1a014dcf-5348-43cc-990a-0ac600072b5c_small.png"
 image19.created_date = datetime.datetime(2022, 7, 18,14,11,13)
 images.append(image19)
 
@@ -533,17 +533,17 @@ favories.append(favorite2)
 # # CATEGORIES
 # cat1 = Category()
 # cat1.uuid = "1"
-# cat1.image = URL + "1.jpg"
+# cat1.image = URL + "1.png"
 # cat1.title = "Sneakers"
 # categories.append(cat1)
 # cat2 = Category()
 # cat2.uuid = "2"
-# cat2.image = URL + "2.jpg"
+# cat2.image = URL + "2.png"
 # cat2.title = "Jacket"
 # categories.append(cat2)
 # cat3 = Category()
 # cat3.uuid = "3"
-# cat3.image = URL + "3.jpg"
+# cat3.image = URL + "3.png"
 # cat3.title = "Watch"
 # categories.append(cat3)
 
@@ -552,8 +552,8 @@ favories.append(favorite2)
 # item1 = Item()
 # item1.uuid = "4"
 # item1.category_uuid = "1"
-# item1.small_image = URL + "4.jpg"
-# item1.images = [URL + "5.jpg",URL + "6.jpg"]
+# item1.small_image = URL + "4.png"
+# item1.images = [URL + "5.png",URL + "6.png"]
 # item1.title = "Shoes 1"
 # item1.description = "Shoes 1 Description"
 # item1.price = 100
@@ -580,8 +580,8 @@ favories.append(favorite2)
 # item2 = Item()
 # item2.uuid = "5"
 # item2.category_uuid = "1"
-# item2.small_image = URL + "7.jpg"
-# item2.images = [URL + "8.jpg",URL + "9.jpg"]
+# item2.small_image = URL + "7.png"
+# item2.images = [URL + "8.png",URL + "9.png"]
 # item2.title = "Shoes 2"
 # item2.description = "Shoes 2 Description"
 # item2.price = 200
@@ -608,8 +608,8 @@ favories.append(favorite2)
 # item3 = Item()
 # item3.uuid = "6"
 # item3.category_uuid = "1"
-# item3.small_image = URL + "10.jpg"
-# item3.images = [URL + "11.jpg",URL + "12.jpg"]
+# item3.small_image = URL + "10.png"
+# item3.images = [URL + "11.png",URL + "12.png"]
 # item3.title = "Shoes 3"
 # item3.description = "Shoes 3 Description"
 # item3.price = 250
@@ -641,8 +641,8 @@ favories.append(favorite2)
 # item4 = Item()
 # item4.uuid = "7"
 # item4.category_uuid = "2"
-# item4.small_image = URL + "13.jpg"
-# item4.images = [URL + "14.jpg",URL + "15.jpg"]
+# item4.small_image = URL + "13.png"
+# item4.images = [URL + "14.png",URL + "15.png"]
 # item4.title = "Jacket 1"
 # item4.description = "Jacket 1 Description"
 # item4.price = 300
@@ -674,8 +674,8 @@ favories.append(favorite2)
 # item5 = Item()
 # item5.uuid = "8"
 # item5.category_uuid = "2"
-# item5.small_image = URL + "16.jpg"
-# item5.images = [URL + "17.jpg",URL + "18.jpg"]
+# item5.small_image = URL + "16.png"
+# item5.images = [URL + "17.png",URL + "18.png"]
 # item5.title = "Jacket 2"
 # item5.description = "Jacket 2 Description"
 # item5.price = 350
@@ -707,8 +707,8 @@ favories.append(favorite2)
 # item6 = Item()
 # item6.uuid = "9"
 # item6.category_uuid = "2"
-# item6.small_image = URL + "19.jpg"
-# item6.images = [URL + "20.jpg",URL + "21.jpg"]
+# item6.small_image = URL + "19.png"
+# item6.images = [URL + "20.png",URL + "21.png"]
 # item6.title = "Jacket 3"
 # item6.description = "Jacket 3 Description"
 # item6.price = 400
@@ -740,8 +740,8 @@ favories.append(favorite2)
 # item7 = Item()
 # item7.uuid = "10"
 # item7.category_uuid = "3"
-# item7.small_image = URL + "22.jpg"
-# item7.images = [URL + "23.jpg",URL + "24.jpg"]
+# item7.small_image = URL + "22.png"
+# item7.images = [URL + "23.png",URL + "24.png"]
 # item7.title = "Watch 1"
 # item7.description = "Watch 1 Description"
 # item7.price = 120
@@ -773,8 +773,8 @@ favories.append(favorite2)
 # item8 = Item()
 # item8.uuid = "11"
 # item8.category_uuid = "3"
-# item8.small_image = URL + "25.jpg"
-# item8.images = [URL + "26.jpg",URL + "27.jpg"]
+# item8.small_image = URL + "25.png"
+# item8.images = [URL + "26.png",URL + "27.png"]
 # item8.title = "Watch 2"
 # item8.description = "Watch 2 Description"
 # item8.price = 160
@@ -806,8 +806,8 @@ favories.append(favorite2)
 # item9 = Item()
 # item9.uuid = "12"
 # item9.category_uuid = "3"
-# item9.small_image = URL + "28.jpg"
-# item9.images = [URL + "29.jpg",URL + "30.jpg"]
+# item9.small_image = URL + "28.png"
+# item9.images = [URL + "29.png",URL + "30.png"]
 # item9.title = "Watch 3"
 # item9.description = "Watch 3 Description"
 # item9.price = 180
