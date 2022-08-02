@@ -1,6 +1,7 @@
 import 'package:ev_arkadasi/model/rent_model.dart';
 import 'package:ev_arkadasi/repository/user_repository.dart';
 import 'package:ev_arkadasi/service/image/image_service.dart';
+import 'package:ev_arkadasi/service/image/model/image_response_model.dart';
 import 'package:ev_arkadasi/service/rent/rent_service.dart';
 import 'package:ev_arkadasi/service/user/user_service.dart';
 import 'package:ev_arkadasi/util/model/user_model.dart';
@@ -65,17 +66,25 @@ void main() async {
     expect(result, isNot(null));
     expect(result?.name, "Ahmet Updated4");
   });
-  // TODO: USER_IMAGE_ADD
-  test('USER_IMAGE_ADD', () async {
+  test('USER_IMAGE ADD / REORDER / DELETE', () async {
     User? myUser = await loginManuel();
-    var result = await ImageService.instance.userImageAdd(
+    // ADD
+    ImageResponseModel? result = await ImageService.instance.userImageAdd(
       filePath:
           "/Users/erdem/Desktop/Projects/Ev Arkadasi/ev_arkadasi/test/test_picture.jpg",
     );
     expect(result!.uuid, isNot(null));
+    // REORDER
+    result = await ImageService.instance.userImageReorder(
+      imageUuid: result.uuid!,
+      newIndex: 2,
+    );
+    expect(result!.index, 2);
+    // DELETE
+    await ImageService.instance.userImageDelete(
+      imageUuid: result.uuid!,
+    );
   });
-  // TODO: USER_IMAGE_DELETE
-  // TODO: USER_IMAGE_REORDER
 
   // Rent
   test('GET_RENT', () async {
@@ -90,12 +99,108 @@ void main() async {
     );
     expect(result, isNot(null));
   });
-  // TODO: RENT_CREATE
-  // TODO: RENT_UPDATE
-  // TODO: RENT_DELETE
-  // TODO: RENT_IMAGE_ADD
-  // TODO: RENT_IMAGE_DELETE
-  // TODO: RENT_IMAGE_REORDER
+  test('RENT_CREATE', () async {
+    await loginManuel();
+    Rent newRent = Rent()
+      ..fromMap({
+        "country_code": "TR",
+        "title": "TEST 1",
+        "latitude": 10.5,
+        "longitude": 10.6,
+        "price": 3000,
+        "person_living_count": 1,
+        "building_age": 7,
+        "building_type": 1,
+        "spot": 3,
+        "meter_square": 120,
+        "rooms_count": 2,
+        "halls_count": 1,
+        "is_furnished": true,
+        "is_furnished_to_new_person": true,
+        "shared_bathroom": true,
+        "shared_room": false,
+        "deposit_price": 6000,
+        "dues_price": 300,
+        "description": "Açıklama test",
+        "internet": true,
+        "fridge": true,
+        "washing_machine": true,
+        "dishwasher": true,
+        "tv": true,
+        "radiator": true,
+        "stove": false,
+        "bus_stop": true,
+        "subway": false,
+        "outdoor_parking": true,
+        "parking_garage": true,
+        "security": true,
+        "site": true,
+        "gym": true,
+        "elevator": true,
+        "swimming_pool": true,
+        "age_min": 18,
+        "age_max": 34,
+        "gender": 0,
+        "job_student": true,
+        "job_worker": true,
+        "job_self_emp": true,
+        "job_officer": true,
+        "job_teacher": true,
+        "job_private_sector_emp": true,
+        "job_police_army": true,
+        "smoke": true,
+        "alcohol": true,
+        "pet_cat": true,
+        "pet_dog": true,
+        "pet_bird": true,
+        "pet_others": true,
+        "vegan": false,
+        "child": false,
+        // "images": List<Image>.from((images == null)? [] : images!.map((x) => json.decode(x.toJson()))),
+      });
+    Rent? rentResult = await RentService.instance.rentCreate(rent: newRent);
+    expect(rentResult, isNot(null));
+    expect(rentResult!.uuid, isNot(null));
+  });
+  test('RENT_UPDATE', () async {
+    await loginManuel();
+    Rent? rentSelected = await RentService.instance
+        .getRent(rentUuid: "055dc3fc-0683-11ed-b939-0242ac120002");
+    rentSelected!.description = "test updated";
+    Rent? rentResult =
+        await RentService.instance.rentUpdate(rent: rentSelected);
+    expect(rentResult!.description, "test updated");
+  });
+  test('RENT_IMAGE ADD / REORDER / DELETE', () async {
+    await loginManuel();
+    // ADD
+    ImageResponseModel? rentImageResult =
+        await ImageService.instance.rentImageAdd(
+      rentUuid: "055dc3fc-0683-11ed-b939-0242ac120002",
+      filePath:
+          "/Users/erdem/Desktop/Projects/Ev Arkadasi/ev_arkadasi/test/test_picture.jpg",
+    );
+    expect(rentImageResult!.uuid, isNot(null));
+    // REORDER
+    rentImageResult = await ImageService.instance.rentImageReorder(
+      rentUuid: "055dc3fc-0683-11ed-b939-0242ac120002",
+      imageUuid: rentImageResult.uuid!,
+      newIndex: 1,
+    );
+    expect(rentImageResult!.index, 1);
+    // DELETE
+    rentImageResult = await ImageService.instance.rentImageDelete(
+      rentUuid: "055dc3fc-0683-11ed-b939-0242ac120002",
+      imageUuid: rentImageResult.uuid!,
+    );
+    expect(rentImageResult!.isError, false);
+  });
+  test('RENT_DELETE', () async {
+    await loginManuel();
+    Rent? rentResult = await RentService.instance
+        .rentDelete(rentUuid: "055dc3fc-0683-11ed-b939-0242ac120002");
+    expect(rentResult!.isError, false);
+  });
 
   // Favorite
   // TODO: FAVORITE

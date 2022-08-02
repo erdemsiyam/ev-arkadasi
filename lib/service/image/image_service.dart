@@ -20,4 +20,79 @@ class ImageService extends BaseService {
       return null;
     }
   }
+
+  Future<ImageResponseModel?> userImageReorder({
+    required String imageUuid,
+    required int newIndex,
+  }) async {
+    try {
+      return await request<ImageResponseModel, ImageResponseModel>(
+        responseModel: ImageResponseModel(),
+        serviceMethod: ServiceMethod.USER_IMAGE_REORDER,
+        query: "image_uuid=$imageUuid&new_index=$newIndex",
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<ImageResponseModel?> userImageDelete({
+    required String imageUuid,
+  }) async {
+    try {
+      return await request<ImageResponseModel, ImageResponseModel>(
+        responseModel: ImageResponseModel(),
+        serviceMethod: ServiceMethod.USER_IMAGE_DELETE,
+        query: "image_uuid=$imageUuid",
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<ImageResponseModel?> rentImageAdd({
+    required String rentUuid,
+    required String filePath,
+  }) async {
+    try {
+      return await request<ImageResponseModel, ImageResponseModel>(
+          responseModel: ImageResponseModel(),
+          serviceMethod: ServiceMethod.RENT_IMAGE_ADD,
+          filePath: filePath,
+          query: "rent_uuid=$rentUuid");
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<ImageResponseModel?> rentImageReorder({
+    required String rentUuid,
+    required String imageUuid,
+    required int newIndex,
+  }) async {
+    try {
+      return await request<ImageResponseModel, ImageResponseModel>(
+        responseModel: ImageResponseModel(),
+        serviceMethod: ServiceMethod.RENT_IMAGE_REORDER,
+        query: "rent_uuid=$rentUuid&image_uuid=$imageUuid&new_index=$newIndex",
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<ImageResponseModel?> rentImageDelete({
+    required String rentUuid,
+    required String imageUuid,
+  }) async {
+    try {
+      return await request<ImageResponseModel, ImageResponseModel>(
+        responseModel: ImageResponseModel(),
+        serviceMethod: ServiceMethod.RENT_IMAGE_DELETE,
+        query: "rent_uuid=$rentUuid&image_uuid=$imageUuid",
+      );
+    } catch (e) {
+      return null;
+    }
+  }
 }

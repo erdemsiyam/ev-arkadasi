@@ -47,4 +47,46 @@ class RentService extends BaseService {
       return null;
     }
   }
+
+  Future<Rent?> rentCreate({
+    required Rent rent,
+  }) async {
+    try {
+      return await request<Rent, Rent>(
+        requestModel: rent,
+        responseModel: Rent(),
+        serviceMethod: ServiceMethod.RENT_CREATE,
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<Rent?> rentUpdate({
+    required Rent rent,
+  }) async {
+    try {
+      return await request<Rent, Rent>(
+        requestModel: rent,
+        responseModel: Rent(),
+        serviceMethod: ServiceMethod.RENT_UPDATE,
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<Rent?> rentDelete({
+    required String rentUuid,
+  }) async {
+    try {
+      return await request<Rent, Rent>(
+        responseModel: Rent(),
+        serviceMethod: ServiceMethod.RENT_DELETE,
+        query: "rent_uuid=$rentUuid",
+      );
+    } catch (e) {
+      return null;
+    }
+  }
 }
