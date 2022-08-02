@@ -100,7 +100,7 @@ def user(user_uuid:str,authorize:AuthJWT=Depends()):
             i2.access_token = None
             i2.refresh_token = None
             return i2
-    return {"error":True,"message":"User Not Founded."}
+    return {"is_error":True,"error_message":"User Not Founded."}
 
 @app.put('/user_update')
 def user_update(user:User,authorize:AuthJWT=Depends()):
@@ -128,8 +128,8 @@ def user_update(user:User,authorize:AuthJWT=Depends()):
             i2.access_token = None
             i2.refresh_token = None
             return i2
-            # return {"error":False,"message":"Successfully Updated."}
-    return {"error":True,"message":"User Not Founded."}
+            # return {"is_error":False,"error_message":"Successfully Updated."}
+    return {"is_error":True,"error_message":"User Not Founded."}
 @app.post("/user_image_add")
 def user_image_add(background_tasks: BackgroundTasks, file: UploadFile = File(...),authorize:AuthJWT=Depends()):
     check_auth(authorize)
@@ -144,7 +144,7 @@ def user_image_add(background_tasks: BackgroundTasks, file: UploadFile = File(..
             users_images_count += 1
     myImage.index = users_images_count + 1
     images.append(myImage)
-    return myImage # {"error":False,"message":"Successfully Added."}
+    return myImage # {"is_error":False,"error_message":"Successfully Added."}
 @app.delete("/user_image_delete")
 def user_image_delete(image_uuid:str,authorize:AuthJWT=Depends()):
     check_auth(authorize)
@@ -166,7 +166,7 @@ def user_image_delete(image_uuid:str,authorize:AuthJWT=Depends()):
     for u in user_images:
         u.index = index
         index += 1
-    return {"error":False,"message":"Image Successfully Deleted."}
+    return {"is_error":False,"error_message":"Image Successfully Deleted."}
 
 @app.put("/user_image_reorder")
 def user_image_reorder(image_uuid:str,new_index:int,authorize:AuthJWT=Depends()):
@@ -191,7 +191,12 @@ def user_image_reorder(image_uuid:str,new_index:int,authorize:AuthJWT=Depends())
     for i in user_images:
         i.index = index
         index += 1
-    return {"error":False,"message":"User Images Successfully Reordered."}
+    
+    for i in user_images:
+        if i.uuid == image_uuid:
+            return i
+        
+    return {"is_error":True,"error_message":"User Images Can Not Reordered."}
     
 
 # Rent
@@ -206,7 +211,7 @@ def rent(rent_uuid:str):
             rent_images.sort(key=lambda x: x.index, reverse=False)
             i.images = rent_images
             return i
-    return {"error":True,"message":"Rent Not Founded."}
+    return {"is_error":True,"error_message":"Rent Not Founded."}
         
 @app.get("/rent_search")
 def rent_search(latitude:float=41.015137,longitude:float=28.979530,latitude_delta:float=0.03,longitude_delta:float=0.03):
@@ -223,7 +228,7 @@ def rent_create(rent:Rent,authorize:AuthJWT=Depends()):
     rent.uuid = str(uuid.uuid4())
     rent.user_uuid = current_user_uuid
     rents.append(rent)
-    return rent # {"error":False,"message":"Successfully Created."}
+    return rent # {"is_error":False,"error_message":"Successfully Created."}
 
 @app.put("/rent_update")
 def rent_update(rent:Rent,authorize:AuthJWT=Depends()):
@@ -286,8 +291,8 @@ def rent_update(rent:Rent,authorize:AuthJWT=Depends()):
             i.pet_others = rent.pet_others
             i.vegan = rent.vegan
             i.child = rent.child
-            return i # {"error":False,"message":"Successfully Updated."}
-    return {"error":True,"message":"Rent Not Founded."}
+            return i # {"is_error":False,"error_message":"Successfully Updated."}
+    return {"is_error":True,"error_message":"Rent Not Founded."}
 
 @app.delete("/rent_delete")
 def rent_delete(rent_uuid:str,authorize:AuthJWT=Depends()):
@@ -298,8 +303,8 @@ def rent_delete(rent_uuid:str,authorize:AuthJWT=Depends()):
         if i.uuid == rent_uuid and i.user_uuid == current_user_uuid:
             rents.remove(i)
             print(rents)
-            return {"error":False,"message":"Successfully Deleted."}
-    return {"error":True,"message":"Rent Not Founded."}
+            return {"is_error":False,"error_message":"Successfully Deleted."}
+    return {"is_error":True,"error_message":"Rent Not Founded."}
 
 @app.post("/rent_image_add")
 def rent_image_add(rent_uuid:str,background_tasks: BackgroundTasks, file: UploadFile = File(...),authorize:AuthJWT=Depends()):
@@ -313,7 +318,7 @@ def rent_image_add(rent_uuid:str,background_tasks: BackgroundTasks, file: Upload
             selectedRent = i
             break
     if selectedRent is None:
-        return {"error":True,"message":"Rent Not Founded."}
+        return {"is_error":True,"error_message":"Rent Not Founded."}
     
     myImage = image_add(background_tasks=background_tasks,file=file)
     myImage.user_uuid = None
@@ -325,7 +330,7 @@ def rent_image_add(rent_uuid:str,background_tasks: BackgroundTasks, file: Upload
             rent_images_count += 1
     myImage.index = rent_images_count + 1
     images.append(myImage)
-    return myImage # {"error":False,"message":"Successfully Added."}
+    return myImage # {"is_error":False,"error_message":"Successfully Added."}
 
 @app.delete("/rent_image_delete")
 def rent_image_delete(rent_uuid:str,image_uuid:str,authorize:AuthJWT=Depends()):
@@ -339,7 +344,7 @@ def rent_image_delete(rent_uuid:str,image_uuid:str,authorize:AuthJWT=Depends()):
             selectedRent = i
             break
     if selectedRent is None:
-        return {"error":True,"message":"Rent Not Founded."}
+        return {"is_error":True,"error_message":"Rent Not Founded."}
     
     for i in images:
         if i.rent_uuid == rent_uuid and i.uuid == image_uuid:
@@ -357,7 +362,7 @@ def rent_image_delete(rent_uuid:str,image_uuid:str,authorize:AuthJWT=Depends()):
     for u in rent_images:
         u.index = index
         index += 1
-    return {"error":False,"message":"Image Successfully Deleted."}
+    return {"is_error":False,"error_message":"Image Successfully Deleted."}
 
 @app.put("/rent_image_reorder")
 def rent_image_reorder(rent_uuid:str, image_uuid:str, new_index:int, authorize:AuthJWT=Depends()):
@@ -371,7 +376,7 @@ def rent_image_reorder(rent_uuid:str, image_uuid:str, new_index:int, authorize:A
             selected_rent = i
             break
     if selected_rent is None:
-        return {"error":True,"message":"Rent Not Founded."}
+        return {"is_error":True,"error_message":"Rent Not Founded."}
 
     rent_images:List[MyImage] = []
     for i in images:
@@ -385,7 +390,7 @@ def rent_image_reorder(rent_uuid:str, image_uuid:str, new_index:int, authorize:A
             selected_image = i
             break
     if selected_rent is None:
-        return {"error":True,"message":"Rent Image Not Founded."}
+        return {"is_error":True,"error_message":"Rent Image Not Founded."}
     
     rent_images.remove(selected_image)
     rent_images.insert(new_index-1,selected_image)
@@ -394,7 +399,12 @@ def rent_image_reorder(rent_uuid:str, image_uuid:str, new_index:int, authorize:A
     for i in rent_images:
         i.index = index
         index += 1
-    return {"error":False,"message":"Rent Images Successfully Reordered."}
+
+    for i in rent_images:
+        if i.uuid == image_uuid:
+            return i
+        
+    return {"is_error":True,"error_message":"Rent Images Can Not Reordered."}
 
 
 # Favorite
@@ -420,14 +430,14 @@ def favorite_add(rent_uuid:str, authorize:AuthJWT=Depends()):
             # varsa ekleme
             for x in favories:
                 if x.user_uuid == current_user_uuid and x.rent_uuid == i.uuid:
-                    return {"error":False,"message":"Rent Already In Favories."}
+                    return {"is_error":False,"error_message":"Rent Already In Favories."}
 
             favorite = Favorite()
             favorite.user_uuid = current_user_uuid
             favorite.rent_uuid = i.uuid
             favories.append(favorite)
-            return {"error":False,"message":"Favorite Successfully Added."}
-    return {"error":True,"message":"Rent Not Founded."}
+            return {"is_error":False,"error_message":"Favorite Successfully Added."}
+    return {"is_error":True,"error_message":"Rent Not Founded."}
 
 @app.delete("/favorite_delete")
 def favorite_delete(rent_uuid:str, authorize:AuthJWT=Depends()):
@@ -441,14 +451,14 @@ def favorite_delete(rent_uuid:str, authorize:AuthJWT=Depends()):
             break
     
     if selected_rent is None:
-        return {"error":True,"message":"Rent Not Founded."}
+        return {"is_error":True,"error_message":"Rent Not Founded."}
     
     for i in favories:
         if i.user_uuid == current_user_uuid and i.rent_uuid == selected_rent.uuid:
             favories.remove(i)
-            return {"error":False,"message":"Favorite Successfully Deleted."}
+            return {"is_error":False,"error_message":"Favorite Successfully Deleted."}
 
-    return {"error":True,"message":"Rent Not Founded."}
+    return {"is_error":True,"error_message":"Rent Not Founded."}
 
 
 

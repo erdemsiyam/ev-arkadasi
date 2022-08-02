@@ -4,6 +4,8 @@ import 'package:ev_arkadasi/util/base/base_model.dart';
 
 class ImageResponseModel extends BaseModel {
   ImageResponseModel({
+    this.isError,
+    this.errorMessage,
     this.uuid,
     this.userUuid,
     this.rentUuid,
@@ -13,6 +15,8 @@ class ImageResponseModel extends BaseModel {
     this.createdDate,
   });
 
+  bool? isError;
+  String? errorMessage;
   String? uuid;
   String? userUuid;
   String? rentUuid;
@@ -23,6 +27,8 @@ class ImageResponseModel extends BaseModel {
 
   @override
   String toJson() => json.encode({
+        "is_error": isError,
+        "error_message": errorMessage,
         "uuid": uuid,
         "user_uuid": userUuid,
         "rent_uuid": rentUuid,
@@ -41,12 +47,16 @@ class ImageResponseModel extends BaseModel {
 
   @override
   fromMap(Map<String, dynamic> map) {
+    isError = map["is_error"];
+    errorMessage = map["error_message"];
     uuid = map["uuid"];
     userUuid = map["user_uuid"];
     rentUuid = map["rent_uuid"];
     index = map["index"];
     bigUrl = map["big_url"];
     smallUrl = map["small_url"];
-    createdDate = DateTime.parse(map["created_date"]);
+    createdDate = (map["created_date"] == null)
+        ? null
+        : DateTime.parse(map["created_date"]);
   }
 }

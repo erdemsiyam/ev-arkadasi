@@ -27,6 +27,8 @@ class CustomDatetime(datetime):
         return dt.strftime("%Y-%m-%dT%H:%M:%S.%f")
 
 class MyBaseModel(BaseModel):
+    is_error:Optional[bool]
+    error_message:Optional[str]
     class Config:
         json_encoders = {
             CustomDatetime: CustomDatetime.to_str

@@ -4,6 +4,8 @@ import 'package:ev_arkadasi/util/base/base_model.dart';
 
 class Rent extends BaseModel {
   Rent({
+    this.isError,
+    this.errorMessage,
     this.uuid,
     this.userUuid,
     this.countryCode,
@@ -65,6 +67,8 @@ class Rent extends BaseModel {
     this.images,
   });
 
+  bool? isError;
+  String? errorMessage;
   String? uuid;
   String? userUuid;
   String? countryCode;
@@ -74,7 +78,7 @@ class Rent extends BaseModel {
   DateTime? createdDate;
   DateTime? expirationDate;
   String? discountCoupon;
-  int? price;
+  double? price;
   int? personLivingCount;
   int? buildingAge;
   int? buildingType;
@@ -86,8 +90,8 @@ class Rent extends BaseModel {
   bool? isFurnishedToNewPerson;
   bool? sharedBathroom;
   bool? sharedRoom;
-  int? depositPrice;
-  int? duesPrice;
+  double? depositPrice;
+  double? duesPrice;
   String? description;
   bool? internet;
   bool? fridge;
@@ -127,6 +131,8 @@ class Rent extends BaseModel {
 
   @override
   String toJson() => json.encode({
+        "is_error": isError,
+        "error_message": errorMessage,
         "uuid": uuid,
         "user_uuid": userUuid,
         "country_code": countryCode,
@@ -195,16 +201,22 @@ class Rent extends BaseModel {
 
   @override
   fromMap(Map<String, dynamic> map) {
+    isError = map["is_error"];
+    errorMessage = map["error_message"];
     uuid = map["uuid"];
     userUuid = map["user_uuid"];
     countryCode = map["country_code"];
     title = map["title"];
-    latitude = map["latitude"].toDouble();
-    longitude = map["longitude"].toDouble();
-    createdDate = DateTime.parse(map["created_date"]);
-    expirationDate = DateTime.parse(map["expiration_date"]);
+    latitude = map["latitude"]?.toDouble();
+    longitude = map["longitude"]?.toDouble();
+    createdDate = (map["created_date"] == null)
+        ? null
+        : DateTime.parse(map["created_date"]);
+    expirationDate = (map["expiration_date"] == null)
+        ? null
+        : DateTime.parse(map["expiration_date"]);
     discountCoupon = map["discount_coupon"];
-    price = map["price"];
+    price = map["price"]?.toDouble();
     personLivingCount = map["person_living_count"];
     buildingAge = map["building_age"];
     buildingType = map["building_type"];
@@ -216,8 +228,8 @@ class Rent extends BaseModel {
     isFurnishedToNewPerson = map["is_furnished_to_new_person"];
     sharedBathroom = map["shared_bathroom"];
     sharedRoom = map["shared_room"];
-    depositPrice = map["deposit_price"];
-    duesPrice = map["dues_price"];
+    depositPrice = map["deposit_price"]?.toDouble();
+    duesPrice = map["dues_price"]?.toDouble();
     description = map["description"];
     internet = map["internet"];
     fridge = map["fridge"];
