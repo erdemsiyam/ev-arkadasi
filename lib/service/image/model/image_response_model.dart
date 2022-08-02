@@ -38,8 +38,6 @@ class ImageResponseModel extends BaseModel {
         "created_date": createdDate?.toIso8601String() ?? "",
       });
 
-  factory ImageResponseModel.fromJson(Map<String, dynamic> json) =>
-      ImageResponseModel();
   @override
   fromJson(String jsonStr) {
     fromMap(json.decode(jsonStr));
