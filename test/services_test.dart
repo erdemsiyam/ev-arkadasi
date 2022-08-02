@@ -1,5 +1,8 @@
+import 'package:ev_arkadasi/model/favorite_model.dart';
 import 'package:ev_arkadasi/model/rent_model.dart';
 import 'package:ev_arkadasi/repository/user_repository.dart';
+import 'package:ev_arkadasi/service/favorite/favorite_service.dart';
+import 'package:ev_arkadasi/service/favorite/model/favorites_response_model.dart';
 import 'package:ev_arkadasi/service/image/image_service.dart';
 import 'package:ev_arkadasi/service/image/model/image_response_model.dart';
 import 'package:ev_arkadasi/service/rent/rent_service.dart';
@@ -67,7 +70,7 @@ void main() async {
     expect(result?.name, "Ahmet Updated4");
   });
   test('USER_IMAGE ADD / REORDER / DELETE', () async {
-    User? myUser = await loginManuel();
+    // await loginManuel();
     // ADD
     ImageResponseModel? result = await ImageService.instance.userImageAdd(
       filePath:
@@ -100,7 +103,7 @@ void main() async {
     expect(result, isNot(null));
   });
   test('RENT_CREATE', () async {
-    await loginManuel();
+    // await loginManuel();
     Rent newRent = Rent()
       ..fromMap({
         "country_code": "TR",
@@ -163,7 +166,7 @@ void main() async {
     expect(rentResult!.uuid, isNot(null));
   });
   test('RENT_UPDATE', () async {
-    await loginManuel();
+    // await loginManuel();
     Rent? rentSelected = await RentService.instance
         .getRent(rentUuid: "055dc3fc-0683-11ed-b939-0242ac120002");
     rentSelected!.description = "test updated";
@@ -172,7 +175,7 @@ void main() async {
     expect(rentResult!.description, "test updated");
   });
   test('RENT_IMAGE ADD / REORDER / DELETE', () async {
-    await loginManuel();
+    // await loginManuel();
     // ADD
     ImageResponseModel? rentImageResult =
         await ImageService.instance.rentImageAdd(
@@ -196,19 +199,31 @@ void main() async {
     expect(rentImageResult!.isError, false);
   });
   test('RENT_DELETE', () async {
-    await loginManuel();
+    // await loginManuel();
     Rent? rentResult = await RentService.instance
         .rentDelete(rentUuid: "055dc3fc-0683-11ed-b939-0242ac120002");
     expect(rentResult!.isError, false);
   });
 
   // Favorite
-  // TODO: FAVORITE
-  // TODO: FAVORITE_ADD
-  // TODO: FAVORITE_DELETE
-
-  // Image
-  // TODO: IMAGES
+  test('GET_FAVORITE', () async {
+    // await loginManuel();
+    FavoritesResponseModel? frmResult =
+        await FavoriteService.instance.getFavorites();
+    expect(frmResult!.favorites!.length, 2);
+  });
+  // 1dde1694-0687-11ed-b939-0242ac120002
+  test('FAVORITE_ADD / DELETE', () async {
+    // await loginManuel();
+    Favorite? favoriteResult = await FavoriteService.instance.addFavorite(
+      rentUuid: "1dde1694-0687-11ed-b939-0242ac120002",
+    );
+    expect(favoriteResult!.isError, false);
+    favoriteResult = await FavoriteService.instance.deleteFavorite(
+      rentUuid: "1dde1694-0687-11ed-b939-0242ac120002",
+    );
+    expect(favoriteResult!.isError, false);
+  });
 }
 
 Future<User?> loginManuel() async {
