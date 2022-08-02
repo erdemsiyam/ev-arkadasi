@@ -21,12 +21,12 @@ import io
 
 
 
-IMAGEDIR = os.path.abspath(os.getcwd()) + '/images/'
+IMAGEDIR = os.path.abspath(os.getcwd()) + '/api/images/'
 
 app = FastAPI()
 
 # Static Config
-app.mount("/images/", StaticFiles(directory="../api/images"), name="static")
+app.mount("/images/", StaticFiles(directory="./api/images/"), name="static")
 #uvicorn main:app --reload
 
 # JWT Ayarı
@@ -484,3 +484,7 @@ def image_delete(image: MyImage):
     os.remove(IMAGEDIR + image.big_url)
     os.remove(IMAGEDIR + image.small_url)
 
+
+if __name__ == "__main__":
+    # Debug için
+    uvicorn.run(app, host="127.0.0.1", port=8000)
