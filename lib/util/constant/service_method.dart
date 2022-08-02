@@ -44,7 +44,7 @@ class ServiceMethod {
   static ServiceMethod RENT_IMAGE_REORDER =
       ServiceMethod._private(ServicePath.RENT_IMAGE_REORDER, HttpOption.PUT);
   // Favorite
-  static ServiceMethod FAVORITE =
+  static ServiceMethod GET_FAVORITE =
       ServiceMethod._private(ServicePath.FAVORITE, HttpOption.GET);
   static ServiceMethod FAVORITE_ADD =
       ServiceMethod._private(ServicePath.FAVORITE_ADD, HttpOption.POST);
