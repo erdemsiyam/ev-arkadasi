@@ -20,11 +20,13 @@ class BaseService {
     Map<String, String>? extraHeader,
     String? query,
     bool isRefreshToken = false,
+    String? filePath,
   }) async {
     if (query != null) {
       query = "?" + query;
     }
     Response? response;
+    StreamedResponse? streamedResponse;
     Uri requestUri =
         Uri.parse(ServicePath.URL + serviceMethod.servicePath + (query ?? ""));
 
@@ -67,6 +69,15 @@ class BaseService {
         response = await get(requestUri, headers: header);
         break;
       case HttpOption.POST:
+        if (filePath != null) {
+          MultipartRequest request = MultipartRequest("POST", requestUri);
+          // request.headers["Authorization"] = header["authorization"]!;
+          // request.headers["accept-charset"] = "charset=UTF-8";
+          request.headers.addAll(header);
+          request.files.add(await MultipartFile.fromPath("file", filePath));
+          streamedResponse = await request.send();
+          break;
+        }
         response = await post(
           requestUri,
           headers: header,
@@ -90,8 +101,27 @@ class BaseService {
       default:
     }
 
-    if (response == null) throw Exception('No Response');
+    if (filePath != null) {
+      if (streamedResponse == null) throw Exception('No Response');
+      switch (streamedResponse.statusCode) {
+        case 200:
+        case 201:
+          if (responseModel != null) {
+            // responseModel.fromJson(response.body);
+            responseModel.fromJson(const Utf8Decoder()
+                .convert(await streamedResponse.stream.toBytes()));
+            return responseModel;
+          }
+          return null;
+        case 401:
+          throw Exception('Auth Error ');
 
+        default:
+          throw Exception('Response Error');
+      }
+    }
+
+    if (response == null) throw Exception('No Response');
     switch (response.statusCode) {
       case 200:
       case 201:
