@@ -1,5 +1,6 @@
 import 'package:ev_arkadasi/model/rent_model.dart';
 import 'package:ev_arkadasi/repository/user_repository.dart';
+import 'package:ev_arkadasi/service/image/image_service.dart';
 import 'package:ev_arkadasi/service/rent/rent_service.dart';
 import 'package:ev_arkadasi/service/user/user_service.dart';
 import 'package:ev_arkadasi/util/model/user_model.dart';
@@ -56,7 +57,6 @@ void main() async {
         .getUser(userUuid: "b99cc2d9-88bf-4a69-a878-0c1f9eff7b5b");
     expect(result, isNot(null));
   });
-
   test('USER_UPDATE', () async {
     // await loginManuel();
     User? myUser = UserRepository.instance.user;
@@ -66,6 +66,14 @@ void main() async {
     expect(result?.name, "Ahmet Updated4");
   });
   // TODO: USER_IMAGE_ADD
+  test('USER_IMAGE_ADD', () async {
+    User? myUser = await loginManuel();
+    var result = await ImageService.instance.userImageAdd(
+      filePath:
+          "/Users/erdem/Desktop/Projects/Ev Arkadasi/ev_arkadasi/test/test_picture.jpg",
+    );
+    expect(result!.uuid, isNot(null));
+  });
   // TODO: USER_IMAGE_DELETE
   // TODO: USER_IMAGE_REORDER
 
