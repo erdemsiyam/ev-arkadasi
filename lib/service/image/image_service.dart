@@ -9,13 +9,12 @@ class ImageService extends BaseService {
   static ImageService get instance => _instance;
 
   // Methods
-  Future<ImageResponseModel?> userImageAdd(
-      {required String refreshToken}) async {
+  Future<ImageResponseModel?> userImageAdd({required String filePath}) async {
     try {
       return await request<ImageResponseModel, ImageResponseModel>(
         responseModel: ImageResponseModel(),
         serviceMethod: ServiceMethod.USER_IMAGE_ADD,
-        isRefreshToken: true,
+        filePath: filePath,
       );
     } catch (e) {
       return null;
