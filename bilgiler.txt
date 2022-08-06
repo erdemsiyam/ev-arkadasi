@@ -29,6 +29,7 @@ Uzlaşma Bakış Açısı - Arz-Talep Bakış açısı : kiraya verenlerin oldu�
 	+ postman tamamlanması
 	+ Fake Data Hazırlanması
 Mobile
+	+ Servis testleri
 	map'dan rentleri görüntüleme
 	rent detay
 		favori / telefon gör => Login yönlendir
