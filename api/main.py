@@ -302,7 +302,6 @@ def rent_delete(rent_uuid:str,authorize:AuthJWT=Depends()):
     for i in rents:
         if i.uuid == rent_uuid and i.user_uuid == current_user_uuid:
             rents.remove(i)
-            print(rents)
             return {"is_error":False,"error_message":"Successfully Deleted."}
     return {"is_error":True,"error_message":"Rent Not Founded."}
 

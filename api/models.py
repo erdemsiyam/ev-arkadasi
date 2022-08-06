@@ -71,6 +71,7 @@ class Rent(MyBaseModel):
     uuid:Optional[str]
     user_uuid:Optional[str]
     country_code:Optional[str]
+    active:Optional[bool]
     title:Optional[str]
     latitude:Optional[float]
     longitude:Optional[float]

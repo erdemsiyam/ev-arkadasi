@@ -9,6 +9,7 @@ class Rent extends BaseModel {
     this.uuid,
     this.userUuid,
     this.countryCode,
+    this.active,
     this.title,
     this.latitude,
     this.longitude,
@@ -72,6 +73,7 @@ class Rent extends BaseModel {
   String? uuid;
   String? userUuid;
   String? countryCode;
+  bool? active;
   String? title;
   double? latitude;
   double? longitude;
@@ -136,6 +138,7 @@ class Rent extends BaseModel {
         "uuid": uuid,
         "user_uuid": userUuid,
         "country_code": countryCode,
+        "active": active,
         "title": title,
         "latitude": latitude,
         "longitude": longitude,
@@ -206,6 +209,7 @@ class Rent extends BaseModel {
     uuid = map["uuid"];
     userUuid = map["user_uuid"];
     countryCode = map["country_code"];
+    active = map["active"];
     title = map["title"];
     latitude = map["latitude"]?.toDouble();
     longitude = map["longitude"]?.toDouble();
