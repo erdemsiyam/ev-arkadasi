@@ -147,6 +147,11 @@ Süresi Biten ilan için bilgilendirme notification
 	+Filter + filter toggle : Açık / Kapalı
 		+Ev kriterleri
 		+Kişilik kriterleri
+	// Aksiyonlar
+		Location izin Talep
+		Map konum değişikliğinde yeni rent search istekleri, ve ekrana yansıtılması
+		pin tıklamayla altta ayrıntı açıklamalı pop-up
+		pop-up'da "aç" tıklanmasıyla RentDetail git
 +MyRentsPage
 	+İlan Listesi : içeriği : küçük foto, başlık, 2+1, fiyat, sil, düzenle / aktif et
 		tıklayınca bakmak için => RentDetail
