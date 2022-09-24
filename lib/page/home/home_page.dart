@@ -12,44 +12,42 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Completer<GoogleMapController> _controller = Completer();
-  static final CameraPosition _kGooglePlex = CameraPosition(
+  // MAP
+  GoogleMapController? _googleMapController;
+  static final CameraPosition _initialCameraPosition = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
-
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-  List<bool> dailyOrConstant = List.generate(2, (index) => false);
   List<Marker> _markers = <Marker>[];
+
+  // Customize
+  List<bool> dailyOrConstant = List.generate(2, (index) => false);
   bool isFilterOn = false;
+
+  @override
+  void dispose() {
+    _googleMapController?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // Haritaya Pin ekleme
-    _markers.add(
+    // _markers.add();
+    _markers = [
       Marker(
-        markerId: MarkerId('SomeId'),
+        markerId: MarkerId('1'),
         position: LatLng(37.43238, -122.08790),
-        infoWindow: InfoWindow(title: 'The title of the marker'),
+        infoWindow: InfoWindow(title: 'Ev 1A', snippet: "a1 a"),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+        onTap: () {},
       ),
-    );
-    _markers.add(
       Marker(
-        markerId: MarkerId('SomeId'),
-        position: LatLng(37.43538, -122.08790),
-        infoWindow: InfoWindow(title: 'The title of the marker'),
+        markerId: MarkerId('2'),
+        position: LatLng(37.43338, -122.08890),
+        infoWindow: InfoWindow(title: 'Ev 2B'),
       ),
-    );
-    _markers.add(
-      Marker(
-        markerId: MarkerId('SomeId'),
-        position: LatLng(37.43738, -122.08790),
-        infoWindow: InfoWindow(title: 'The title of the marker'),
-      ),
-    );
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -71,11 +69,16 @@ class _HomePageState extends State<HomePage> {
       drawer: myDrawer(),
       body: SafeArea(
         child: GoogleMap(
-          mapType: MapType.normal,
-          initialCameraPosition: _kGooglePlex,
+          myLocationButtonEnabled: false,
+          // zoomGesturesEnabled: false,
+          // mapType: MapType.normal,
+          initialCameraPosition: _initialCameraPosition,
           markers: Set<Marker>.of(_markers),
           onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
+            _googleMapController = controller;
+
+            _googleMapController?.showMarkerInfoWindow(const MarkerId("1"));
+            _googleMapController?.showMarkerInfoWindow(const MarkerId("2"));
           },
         ),
         // Center(
@@ -120,8 +123,8 @@ class _HomePageState extends State<HomePage> {
           FloatingActionButton(
             heroTag: "2",
             onPressed: () async {
-              final GoogleMapController controller = await _controller.future;
-              controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+              _googleMapController?.animateCamera(
+                  CameraUpdate.newCameraPosition(_initialCameraPosition));
             },
             tooltip: 'Increment',
             child: const Icon(Icons.add),

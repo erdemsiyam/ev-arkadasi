@@ -1,3 +1,4 @@
+import 'package:ev_arkadasi/page/home/home_page.dart';
 import 'package:ev_arkadasi/page/register/register_page.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const RegisterPage(),
+      home: HomePage(),
     );
   }
 }
